@@ -1,0 +1,1905 @@
+{
+  "scan_date": "2025-10-15T11:07:40.391808",
+  "statistics": {
+    "total": 1317,
+    "dangerous": 148,
+    "deleted": 148,
+    "moved": 0,
+    "moved_to_bin": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cached": 400
+  },
+  "dangerous_emails": [
+    {
+      "subject": "Don't Miss Out on Spooky Halloween Festivities!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-10-16 21:04:52",
+      "threat_score": 75,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 5"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896B90000"
+    },
+    {
+      "subject": "RSI Zeus Mk II: A Legend Reborn",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-10-18 03:49:06",
+      "threat_score": 70,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896B50000"
+    },
+    {
+      "subject": "Pirates on the prowl in Sea of Thieves Season 14!",
+      "sender": "seaofthieves@microsoft.com",
+      "received": "2024-10-18 14:55:32",
+      "threat_score": 60,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "suspicious keywords: 1",
+        "urgency: 14"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896B30000"
+    },
+    {
+      "subject": "Weekly Update: CitizenCon Weekend & the RSI Zeus M",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-10-19 00:21:41",
+      "threat_score": 115,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 17",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896B00000"
+    },
+    {
+      "subject": "CitizenCon is LIVE! Tune in now for the Galactic C",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-10-19 11:18:56",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 8"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896AF0000"
+    },
+    {
+      "subject": "Voici les titres qui quittent bientôt Netflix",
+      "sender": "info@members.netflix.com",
+      "received": "2024-10-19 14:51:39",
+      "threat_score": 95,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "url shortener: https://assets.nflxext.com/us/email/gem/icons/icon",
+        "url shortener: https://assets.nflxext.com/us/email/spacer.gif",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896AE0000"
+    },
+    {
+      "subject": "Amazon Echo",
+      "sender": "promotion5@amazon.de",
+      "received": "2024-10-19 16:33:56",
+      "threat_score": 65,
+      "threats": [
+        "lookalike domain: amazon.de",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896AD0000"
+    },
+    {
+      "subject": "Go the Distance with the MISC Starlancer Series!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-10-20 12:37:34",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896AB0000"
+    },
+    {
+      "subject": "Introducing the Argo CSV-SM: Your New Workhorse",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-10-20 12:42:25",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896AA0000"
+    },
+    {
+      "subject": "N'oubliez pas de terminer Better Than Us",
+      "sender": "info@members.netflix.com",
+      "received": "2024-10-20 18:54:20",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896A70000"
+    },
+    {
+      "subject": "MudRunner VR On Steam, Out Now!",
+      "sender": "community@saber.games",
+      "received": "2024-10-25 00:44:26",
+      "threat_score": 65,
+      "threats": [
+        "dmarc failed",
+        "suspicious keywords: 1",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896980000"
+    },
+    {
+      "subject": "Watch the CitizenCon 2954 Highlights Now!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-10-25 22:33:00",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896920000"
+    },
+    {
+      "subject": "Weekly Update: CitizenCon Highlights and Last Chan",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-10-26 00:55:33",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 18"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896910000"
+    },
+    {
+      "subject": "Qu'avez-vous pensé de Spider-Man: Across the Spide",
+      "sender": "info@members.netflix.com",
+      "received": "2024-10-30 17:42:25",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "lookalike domain: members.netflix.com",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896800000"
+    },
+    {
+      "subject": "Last Chance: Halloween in the 'Verse Ends Soon!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-10-30 20:08:35",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 4"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8967D0000"
+    },
+    {
+      "subject": "Weekly Update: Relive the excitement of CitizenCon",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-01 22:52:50",
+      "threat_score": 135,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 9"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896710000"
+    },
+    {
+      "subject": "Ne ratez pas le top 10 des séries de la semaine : ",
+      "sender": "info@members.netflix.com",
+      "received": "2024-11-02 15:23:40",
+      "threat_score": 75,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "url shortener: https://assets.nflxext.com/us/email/spacer.gif",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8966F0000"
+    },
+    {
+      "subject": "Qu'avez-vous pensé de Don't Move ?",
+      "sender": "info@members.netflix.com",
+      "received": "2024-11-03 18:52:12",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8966B0000"
+    },
+    {
+      "subject": "Amazon.de empfiehlt \"YdseozOA Vertikaler...\"",
+      "sender": "store-news@amazon.de",
+      "received": "2024-11-06 10:27:02",
+      "threat_score": 65,
+      "threats": [
+        "lookalike domain: amazon.de",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896640000"
+    },
+    {
+      "subject": "Your Google Play Order Receipt from Nov 7, 2024",
+      "sender": "googleplay-noreply@google.com",
+      "received": "2024-11-07 14:55:45",
+      "threat_score": 55,
+      "threats": [
+        "lookalike domain: google.com",
+        "multiple hops: 7",
+        "suspicious keywords: 1"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896600000"
+    },
+    {
+      "subject": "Nicolas, here's the latest from Meta Quest: Meta Q",
+      "sender": "do_not_reply@email.meta.com",
+      "received": "2024-11-07 17:28:28",
+      "threat_score": 55,
+      "threats": [
+        "suspicious keywords: 1",
+        "urgency: 7",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8965F0000"
+    },
+    {
+      "subject": "Your Google Play Order Receipt from Nov 8, 2024",
+      "sender": "googleplay-noreply@google.com",
+      "received": "2024-11-08 02:18:54",
+      "threat_score": 55,
+      "threats": [
+        "lookalike domain: google.com",
+        "multiple hops: 7",
+        "suspicious keywords: 1"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8965D0000"
+    },
+    {
+      "subject": "This Month in Sea of Thieves: November 2024",
+      "sender": "seaofthieves@microsoft.com",
+      "received": "2024-11-08 12:39:16",
+      "threat_score": 60,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "suspicious keywords: 1",
+        "urgency: 19"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8965A0000"
+    },
+    {
+      "subject": "Weekly Update: Countdown to IAE 2954 and October's",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-08 23:58:19",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 11"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896560000"
+    },
+    {
+      "subject": "Weekly Update: Countdown to IAE 2954 and October's",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-09 00:21:47",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 11"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896550000"
+    },
+    {
+      "subject": "Une escapade jusqu’à -20% ? On dit oui !",
+      "sender": "noreply@news.sandaya.fr",
+      "received": "2024-11-09 10:24:26",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 18",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896510000"
+    },
+    {
+      "subject": "Découvrez le top 10 des films de la semaine : Luxe",
+      "sender": "info@members.netflix.com",
+      "received": "2024-11-09 12:05:31",
+      "threat_score": 75,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "url shortener: https://assets.nflxext.com/us/email/spacer.gif",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896500000"
+    },
+    {
+      "subject": "Qu'avez-vous pensé de The Watcher ?",
+      "sender": "info@members.netflix.com",
+      "received": "2024-11-12 15:29:26",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "lookalike domain: members.netflix.com",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896420000"
+    },
+    {
+      "subject": "Nyko, Arcane Saison 2 est disponible sur Netflix",
+      "sender": "info@members.netflix.com",
+      "received": "2024-11-14 14:43:36",
+      "threat_score": 75,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "url shortener: https://assets.nflxext.com/us/email/spacer.gif",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896300000"
+    },
+    {
+      "subject": "-21% sur Dragon Quest III HD-2D Remake ! Redécouvr",
+      "sender": "newsletter@n.instant-gaming.com",
+      "received": "2024-11-14 18:30:52",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 9",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8962C0000"
+    },
+    {
+      "subject": "Un jeu de votre liste de souhaits est en promotion",
+      "sender": "xbox-noreply@microsoft.com",
+      "received": "2024-11-15 18:26:34",
+      "threat_score": 90,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "multiple hops: 6",
+        "urgency: 5",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896250000"
+    },
+    {
+      "subject": "Weekly Update: Save Stanton & Alpha 4.0 Patch Watc",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-15 23:47:29",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 10"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896230000"
+    },
+    {
+      "subject": "Secure the New Ships from CitizenCon 2954",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-16 21:11:05",
+      "threat_score": 90,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896210000"
+    },
+    {
+      "subject": "You're Invited to Intergalactic Aerospace Expo 295",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-18 19:12:08",
+      "threat_score": 70,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8961C0000"
+    },
+    {
+      "subject": "Sortez cet entraîneur de votre poche 💪",
+      "sender": "noreply@communication.basic-fit.com",
+      "received": "2024-11-21 11:39:14",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://click.communication.basic-fit.com/open.asp",
+        "url shortener: https://image.s6.sfmc-content.com/lib/fe9c12747766",
+        "multiple hops: 6",
+        "urgency: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896120000"
+    },
+    {
+      "subject": "Women’s Night ✨",
+      "sender": "info@mail.kinepolis.com",
+      "received": "2024-11-22 17:07:46",
+      "threat_score": 65,
+      "threats": [
+        "suspicious keywords: 2",
+        "urgency: 4",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896080000"
+    },
+    {
+      "subject": "🚀 Explore the Intergalactic Aerospace Expo 2954 NO",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-22 17:43:27",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 5"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896060000"
+    },
+    {
+      "subject": "Dream Big with the Crusader Intrepid!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-22 17:50:57",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896050000"
+    },
+    {
+      "subject": "Weekly Update: IAE 2954 & Save Stanton Mission 3 a",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-22 23:44:32",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 13"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF896020000"
+    },
+    {
+      "subject": "[Les Crous] Les news de novembre",
+      "sender": "newsletter@national.lescrous.fr",
+      "received": "2024-11-24 22:01:30",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 4",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895FD0000"
+    },
+    {
+      "subject": "Nicolas, Voulez-vous atteindre votre objectif plus",
+      "sender": "noreply@communication.basic-fit.com",
+      "received": "2024-11-25 11:40:18",
+      "threat_score": 100,
+      "threats": [
+        "url shortener: https://click.communication.basic-fit.com/open.asp",
+        "url shortener: https://image.s6.sfmc-content.com/lib/fe9c12747766",
+        "url shortener: https://image.s6.sfmc-content.com/lib/fe9c12747766",
+        "multiple hops: 6",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895FB0000"
+    },
+    {
+      "subject": "Jump into the Fight with the New RSI Polaris!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-26 17:42:40",
+      "threat_score": 70,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895F10000"
+    },
+    {
+      "subject": "Ne manquez pas cette promotion... 🏆",
+      "sender": "noreply@communication.basic-fit.com",
+      "received": "2024-11-26 19:00:13",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://click.communication.basic-fit.com/open.asp",
+        "url shortener: https://image.s6.sfmc-content.com/lib/fe9c12747766",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895EF0000"
+    },
+    {
+      "subject": "🚀 Black Friday Deal: FREE Nocturne Livery for Intr",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-28 17:43:14",
+      "threat_score": 60,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895E70000"
+    },
+    {
+      "subject": "Weekly Update: Exciting News from IAE 2954 & Save ",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-29 23:53:52",
+      "threat_score": 125,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 13",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895DD0000"
+    },
+    {
+      "subject": "Terrapin Medic, Paladin, F7C-S Ghost, & F7C-R Trac",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-11-30 17:25:10",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895D70000"
+    },
+    {
+      "subject": "Ho ho ho, le Calendrier de l’Avent Sandaya est là ",
+      "sender": "noreply@news.sandaya.fr",
+      "received": "2024-12-01 11:12:32",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 12",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895D20000"
+    },
+    {
+      "subject": "Best in Show Ships, New Weapons, & Armor!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-12-01 17:20:34",
+      "threat_score": 70,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895CF0000"
+    },
+    {
+      "subject": "Do You Black Friday : DERNIER JOUR !",
+      "sender": "noreply@news.sandaya.fr",
+      "received": "2024-12-02 10:06:43",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 13",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895CB0000"
+    },
+    {
+      "subject": "ECOVACS Saugroboter mit...",
+      "sender": "promotion5@amazon.de",
+      "received": "2024-12-02 10:40:53",
+      "threat_score": 65,
+      "threats": [
+        "lookalike domain: amazon.de",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895CA0000"
+    },
+    {
+      "subject": "⏳ Last Chance: Intergalactic Aerospace Expo 2954",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-12-02 17:33:51",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 8"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895C50000"
+    },
+    {
+      "subject": "This Month in Sea of Thieves: December 2024",
+      "sender": "seaofthieves@microsoft.com",
+      "received": "2024-12-03 09:11:51",
+      "threat_score": 60,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "suspicious keywords: 1",
+        "urgency: 28"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895C40000"
+    },
+    {
+      "subject": "Last Chance: CitizenCon 2954 Ships",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-12-03 21:10:17",
+      "threat_score": 90,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895BE0000"
+    },
+    {
+      "subject": "Alerte de sécurité",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2024-12-05 13:56:05",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895BB0000"
+    },
+    {
+      "subject": "-20% sur Indiana Jones et le Cercle Ancien Premium",
+      "sender": "newsletter@n.instant-gaming.com",
+      "received": "2024-12-06 10:01:09",
+      "threat_score": 70,
+      "threats": [
+        "spf softfail",
+        "multiple hops: 6",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895B70000"
+    },
+    {
+      "subject": "Weekly Update: A Farewell to IAE 2954",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-12-06 23:51:18",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 13"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895B30000"
+    },
+    {
+      "subject": "Alerte de sécurité",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2024-12-10 10:50:04",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895A70000"
+    },
+    {
+      "subject": "🎄 Gifts, Missions, and More – Celebrate Luminalia ",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-12-10 17:24:57",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895A30000"
+    },
+    {
+      "subject": "Alerte de sécurité",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2024-12-10 17:51:06",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895A20000"
+    },
+    {
+      "subject": "Amazon.de empfiehlt \"Corsair VENGEANCE RGB DDR5...",
+      "sender": "store-news@amazon.de",
+      "received": "2024-12-11 09:05:34",
+      "threat_score": 65,
+      "threats": [
+        "lookalike domain: amazon.de",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895A00000"
+    },
+    {
+      "subject": "Thank you for your Steam purchase!",
+      "sender": "noreply@steampowered.com",
+      "received": "2024-12-11 21:10:27",
+      "threat_score": 50,
+      "threats": [
+        "multiple hops: 6",
+        "suspicious keywords: 2",
+        "financial terms: 3"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895980000"
+    },
+    {
+      "subject": "Alerte de sécurité",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2024-12-12 10:10:50",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895930000"
+    },
+    {
+      "subject": "-17% de réduction sur Total War: Warhammer III - O",
+      "sender": "newsletter@n.instant-gaming.com",
+      "received": "2024-12-13 11:39:49",
+      "threat_score": 55,
+      "threats": [
+        "spf softfail",
+        "multiple hops: 6",
+        "urgency: 4"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8958E0000"
+    },
+    {
+      "subject": "Thank you for your Steam purchase!",
+      "sender": "noreply@steampowered.com",
+      "received": "2024-12-13 13:29:25",
+      "threat_score": 50,
+      "threats": [
+        "multiple hops: 6",
+        "suspicious keywords: 2",
+        "financial terms: 4"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8958C0000"
+    },
+    {
+      "subject": "Un jeu de votre liste de souhaits est en promotion",
+      "sender": "xbox-noreply@microsoft.com",
+      "received": "2024-12-13 18:31:20",
+      "threat_score": 50,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "urgency: 5"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895890000"
+    },
+    {
+      "subject": "Weekly Update: 'Tis the season once again, Luminal",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-12-13 23:51:50",
+      "threat_score": 95,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 10"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895870000"
+    },
+    {
+      "subject": "Mufasa: The Lion King’ matinee at Ciné Utopia! 🦁",
+      "sender": "info@mail.kinepolis.com",
+      "received": "2024-12-15 12:02:25",
+      "threat_score": 55,
+      "threats": [
+        "suspicious keywords: 1",
+        "urgency: 4",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895840000"
+    },
+    {
+      "subject": "Your opinion counts! 📩",
+      "sender": "info@mail.kinepolis.com",
+      "received": "2024-12-18 17:13:03",
+      "threat_score": 55,
+      "threats": [
+        "suspicious keywords: 1",
+        "urgency: 5",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895770000"
+    },
+    {
+      "subject": "Celebrate the Festival of Giving in Sea of Thieves",
+      "sender": "seaofthieves@microsoft.com",
+      "received": "2024-12-19 12:04:12",
+      "threat_score": 60,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "suspicious keywords: 1",
+        "urgency: 27"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895710000"
+    },
+    {
+      "subject": "Dominate the Fight with the Mirai Guardian & QI Mo",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-12-20 06:39:14",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8956A0000"
+    },
+    {
+      "subject": "Demande de création d'archive des données Google",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2024-12-20 22:28:20",
+      "threat_score": 80,
+      "threats": [
+        "suspicious path: https://www.gstatic.com/accountalerts/email/Icon_r",
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895670000"
+    },
+    {
+      "subject": "Alerte de sécurité",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2024-12-20 22:28:21",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895660000"
+    },
+    {
+      "subject": "Weekly Update: Alpha 4.0 and Mirai Guardian",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2024-12-21 00:07:57",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 11"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895650000"
+    },
+    {
+      "subject": "🎄 Bonnes fêtes de fin d'année, Nicolas",
+      "sender": "noreply@communication.basic-fit.com",
+      "received": "2024-12-24 10:42:21",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://click.communication.basic-fit.com/open.asp",
+        "url shortener: https://image.s6.sfmc-content.com/lib/fe9c12747766",
+        "multiple hops: 6",
+        "urgency: 4"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF895570000"
+    },
+    {
+      "subject": "Qu'avez-vous pensé de Un jour, peut-être ?",
+      "sender": "info@members.netflix.com",
+      "received": "2024-12-26 16:39:53",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8954E0000"
+    },
+    {
+      "subject": "Thank you for your Steam purchase!",
+      "sender": "noreply@steampowered.com",
+      "received": "2024-12-31 04:17:35",
+      "threat_score": 50,
+      "threats": [
+        "multiple hops: 6",
+        "suspicious keywords: 2",
+        "financial terms: 3"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8953F0000"
+    },
+    {
+      "subject": "Dernière chance pour bénéficier de prix jusqu'à -2",
+      "sender": "noreply@news.sandaya.fr",
+      "received": "2024-12-31 08:22:44",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 9",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8953E0000"
+    },
+    {
+      "subject": "Qu'allez-vous regarder ensuite, Nyko ?",
+      "sender": "info@members.netflix.com",
+      "received": "2024-12-31 12:15:18",
+      "threat_score": 105,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "url shortener: https://assets.nflxext.com/us/email/spacer.gif",
+        "lookalike domain: members.netflix.com",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8953C0000"
+    },
+    {
+      "subject": "🔔 Rappel : Love Is Blind : Allemagne est sur Netfl",
+      "sender": "info@members.netflix.com",
+      "received": "2025-01-03 17:16:25",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/engagement/rev",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8952B0000"
+    },
+    {
+      "subject": "Last Chance: Celebrate Luminalia Before It Ends!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-01-04 21:10:37",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF893250000"
+    },
+    {
+      "subject": "Qu'avez-vous pensé de Wallace et Gromit : La palme",
+      "sender": "info@members.netflix.com",
+      "received": "2025-01-08 17:14:39",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF893180000"
+    },
+    {
+      "subject": "Vous aimez Fullmetal Alchemist ?",
+      "sender": "info@members.netflix.com",
+      "received": "2025-01-09 15:42:44",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF893160000"
+    },
+    {
+      "subject": "Alerte de sécurité",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2025-01-10 15:39:15",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF893110000"
+    },
+    {
+      "subject": "Weekly Update: Happy New Year & Alpha 4.0 Preview",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-01-11 00:41:25",
+      "threat_score": 95,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 9"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8930F0000"
+    },
+    {
+      "subject": "This Month in Sea of Thieves: January 2025",
+      "sender": "seaofthieves@microsoft.com",
+      "received": "2025-01-11 12:12:59",
+      "threat_score": 60,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "suspicious keywords: 1",
+        "urgency: 18"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8930B0000"
+    },
+    {
+      "subject": "⏳ Last Chance: IAE 2954 Ship Offers Departing Soon",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-01-12 21:04:45",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF893080000"
+    },
+    {
+      "subject": "[Ticket ID: 131384] Connection",
+      "sender": "support@globe.lu",
+      "received": "2025-01-16 15:50:44",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 8",
+        "urgency: 5",
+        "credential request: password"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892F60000"
+    },
+    {
+      "subject": "Ces titres quitteront bientôt Netflix",
+      "sender": "info@members.netflix.com",
+      "received": "2025-01-17 12:30:31",
+      "threat_score": 125,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "url shortener: https://assets.nflxext.com/us/email/gem/icons/icon",
+        "url shortener: https://assets.nflxext.com/us/email/spacer.gif",
+        "lookalike domain: members.netflix.com",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892EE0000"
+    },
+    {
+      "subject": "Weekly Update: Experience Alpha 4.0.1 on the PTU!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-01-17 23:55:35",
+      "threat_score": 115,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 11"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892EC0000"
+    },
+    {
+      "subject": "⏳ Last Chance: Mirai Guardian & QI Offers Depart S",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-01-19 21:04:16",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892E60000"
+    },
+    {
+      "subject": "Blue Monday : non à la déprime, oui aux vacances",
+      "sender": "noreply@news.sandaya.fr",
+      "received": "2025-01-20 14:34:11",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 10",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892E50000"
+    },
+    {
+      "subject": "Squadron 42 January Spotlight - Echoes of the 'ver",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-01-23 12:55:50",
+      "threat_score": 130,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892D80000"
+    },
+    {
+      "subject": "Un jeu de votre liste de souhaits est en promotion",
+      "sender": "xbox-noreply@microsoft.com",
+      "received": "2025-01-24 13:44:29",
+      "threat_score": 50,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "urgency: 5"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892D30000"
+    },
+    {
+      "subject": "Weekly Update: In Case You Missed It - 2024's Ship",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-01-24 23:55:20",
+      "threat_score": 95,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 9"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892D20000"
+    },
+    {
+      "subject": "🐀⚔️ -27% sur Tails of Iron 2: Whiskers of Winter !",
+      "sender": "newsletter@n.instant-gaming.com",
+      "received": "2025-01-28 16:30:27",
+      "threat_score": 55,
+      "threats": [
+        "spf softfail",
+        "multiple hops: 6",
+        "urgency: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892C80000"
+    },
+    {
+      "subject": "Join the Battle: The Fight for Pyro Begins",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-01-29 02:50:46",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892C60000"
+    },
+    {
+      "subject": "Red Festival 2955: Fortune Awaits You in the 'Vers",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-01-29 03:00:43",
+      "threat_score": 60,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892C50000"
+    },
+    {
+      "subject": "Captain America: Brave New World - 12 February at ",
+      "sender": "info@mail.kinepolis.com",
+      "received": "2025-01-30 12:08:39",
+      "threat_score": 65,
+      "threats": [
+        "suspicious keywords: 2",
+        "urgency: 5",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892C10000"
+    },
+    {
+      "subject": "Découvrez le top 10 des films de la semaine : Luxe",
+      "sender": "info@members.netflix.com",
+      "received": "2025-02-02 15:13:16",
+      "threat_score": 75,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "url shortener: https://assets.nflxext.com/us/email/spacer.gif",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892B30000"
+    },
+    {
+      "subject": "N'oubliez pas de terminer Love Is Blind : Allemagn",
+      "sender": "info@members.netflix.com",
+      "received": "2025-02-04 15:34:30",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892A80000"
+    },
+    {
+      "subject": "Weekly Update: Fight for Pyro & Red Festival Conti",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-02-08 00:56:00",
+      "threat_score": 115,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 14",
+        "credential request: ssn"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8929B0000"
+    },
+    {
+      "subject": "This Month in Sea of Thieves: February 2025",
+      "sender": "seaofthieves@microsoft.com",
+      "received": "2025-02-11 12:58:53",
+      "threat_score": 60,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "suspicious keywords: 1",
+        "urgency: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892930000"
+    },
+    {
+      "subject": "Weekly Update: Coramor 2955 & F7C-M Super Hornet M",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-02-14 23:57:12",
+      "threat_score": 115,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 8",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892820000"
+    },
+    {
+      "subject": "Et si vous partiez en France pour vos prochaines v",
+      "sender": "noreply@news.sandaya.fr",
+      "received": "2025-02-15 16:13:07",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 11",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892800000"
+    },
+    {
+      "subject": "Last Chance: Red Festival 2955",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-02-15 21:06:55",
+      "threat_score": 50,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8927F0000"
+    },
+    {
+      "subject": "-25% sur Avowed ! Joue dès maintenant sur PC ou co",
+      "sender": "newsletter@n.instant-gaming.com",
+      "received": "2025-02-18 17:02:27",
+      "threat_score": 55,
+      "threats": [
+        "spf softfail",
+        "multiple hops: 6",
+        "urgency: 4"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892780000"
+    },
+    {
+      "subject": "Weekly Update: Coramor & Fight for Pyro Continue!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-02-21 23:56:02",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 12"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8926A0000"
+    },
+    {
+      "subject": "The wilderness bites back in Sea of Thieves Season",
+      "sender": "seaofthieves@microsoft.com",
+      "received": "2025-02-23 10:12:23",
+      "threat_score": 60,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "suspicious keywords: 1",
+        "urgency: 16"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892660000"
+    },
+    {
+      "subject": "Venez faire des affaires à Terremine sans plus tar",
+      "sender": "noreply@e.blizzard.com",
+      "received": "2025-02-27 12:04:01",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 12",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892580000"
+    },
+    {
+      "subject": "Essayez le nouveau mode Classé amélioré !",
+      "sender": "no-reply@email.supercell.com",
+      "received": "2025-02-28 00:47:11",
+      "threat_score": 130,
+      "threats": [
+        "suspicious path: https://managed-asset.mtech.supercell.com/scid-ema",
+        "suspicious path: https://managed-asset.mtech.supercell.com/scid-ema",
+        "suspicious path: https://managed-asset.mtech.supercell.com/scid-ema",
+        "suspicious path: https://managed-asset.mtech.supercell.com/scid-ema",
+        "suspicious path: https://managed-asset.mtech.supercell.com/scid-ema",
+        "suspicious path: https://managed-asset.mtech.supercell.com/scid-ema",
+        "suspicious path: https://managed-asset.mtech.supercell.com/scid-ema",
+        "suspicious path: https://managed-asset.mtech.supercell.com/scid-ema",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892540000"
+    },
+    {
+      "subject": "Weekly Update: Supply or Die is LIVE & Last Call f",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-03-01 00:40:00",
+      "threat_score": 95,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 12"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892510000"
+    },
+    {
+      "subject": "De nouvelles variantes de gobelins arrivent avec l",
+      "sender": "noreply@e.blizzard.com",
+      "received": "2025-03-05 01:06:17",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 4",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892460000"
+    },
+    {
+      "subject": "Alerte de sécurité",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2025-03-08 23:56:42",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892390000"
+    },
+    {
+      "subject": "Fortuna Favors the Brave! Stella Fortuna is LIVE🍀",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-03-12 17:18:38",
+      "threat_score": 60,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8922C0000"
+    },
+    {
+      "subject": "Thank you for your Steam purchase!",
+      "sender": "noreply@steampowered.com",
+      "received": "2025-03-12 21:51:27",
+      "threat_score": 50,
+      "threats": [
+        "multiple hops: 6",
+        "suspicious keywords: 2",
+        "financial terms: 3"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892270000"
+    },
+    {
+      "subject": "Thank you for your gift purchase!",
+      "sender": "noreply@steampowered.com",
+      "received": "2025-03-12 22:21:18",
+      "threat_score": 50,
+      "threats": [
+        "multiple hops: 6",
+        "suspicious keywords: 2",
+        "financial terms: 3"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892260000"
+    },
+    {
+      "subject": "Weekly Update: Stella Fortuna is LIVE & Supply or ",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-03-14 23:10:26",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 14"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8921C0000"
+    },
+    {
+      "subject": "Thank you for your Steam purchase!",
+      "sender": "noreply@steampowered.com",
+      "received": "2025-03-15 01:36:30",
+      "threat_score": 50,
+      "threats": [
+        "multiple hops: 6",
+        "suspicious keywords: 2",
+        "financial terms: 3"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8921B0000"
+    },
+    {
+      "subject": "Thank you for your Steam purchase!",
+      "sender": "noreply@steampowered.com",
+      "received": "2025-03-16 14:46:01",
+      "threat_score": 50,
+      "threats": [
+        "multiple hops: 6",
+        "suspicious keywords: 2",
+        "financial terms: 3"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892170000"
+    },
+    {
+      "subject": "Alerte de sécurité pour maranoniko@gmail.com",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2025-03-16 17:15:53",
+      "threat_score": 80,
+      "threats": [
+        "suspicious path: https://www.gstatic.com/accountalerts/email/Icon_r",
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892160000"
+    },
+    {
+      "subject": "Weekly Update: Alpha 4.1 Patch Watch & Last Chance",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-03-21 23:07:12",
+      "threat_score": 115,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 10"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF892020000"
+    },
+    {
+      "subject": "Alerte de sécurité pour maranoniko@gmail.com",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2025-03-23 15:58:39",
+      "threat_score": 80,
+      "threats": [
+        "suspicious path: https://www.gstatic.com/accountalerts/email/Icon_r",
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891FE0000"
+    },
+    {
+      "subject": "Access Authorized: Restricted Vanduul Comms Reveal",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-03-25 18:31:17",
+      "threat_score": 110,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891F70000"
+    },
+    {
+      "subject": "Your Google Play Order Receipt from Mar 26, 2025",
+      "sender": "googleplay-noreply@google.com",
+      "received": "2025-03-26 15:15:20",
+      "threat_score": 55,
+      "threats": [
+        "lookalike domain: google.com",
+        "multiple hops: 7",
+        "suspicious keywords: 1"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891F50000"
+    },
+    {
+      "subject": "Alpha 4.1: Orbital Assault is LIVE!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-03-27 21:17:48",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 4"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891EC0000"
+    },
+    {
+      "subject": "Captains of Industry: Celebrate the unsung heroes ",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-03-27 21:25:33",
+      "threat_score": 70,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891EB0000"
+    },
+    {
+      "subject": "Lumi est là et ça va chauffer !",
+      "sender": "no-reply@email.supercell.com",
+      "received": "2025-03-28 01:07:33",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 7",
+        "urgency: 4",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891EA0000"
+    },
+    {
+      "subject": "🔥 -27% sur The Last of Us: Part II Remastered !",
+      "sender": "newsletter@n.instant-gaming.com",
+      "received": "2025-04-03 10:03:52",
+      "threat_score": 70,
+      "threats": [
+        "spf softfail",
+        "multiple hops: 6",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891CD0000"
+    },
+    {
+      "subject": "🎮 Gagne une Nintendo Switch 2 ! Participe à notre ",
+      "sender": "newsletter@n.instant-gaming.com",
+      "received": "2025-04-04 10:01:20",
+      "threat_score": 55,
+      "threats": [
+        "spf softfail",
+        "multiple hops: 6",
+        "urgency: 4"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891C60000"
+    },
+    {
+      "subject": "Weekly Update: March Monthly Report & Referral Pro",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-04-04 23:57:39",
+      "threat_score": 95,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891C30000"
+    },
+    {
+      "subject": "Disponible mardi 8 avril : How to Sell Drugs Onlin",
+      "sender": "info@members.netflix.com",
+      "received": "2025-04-06 17:26:18",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/engagement/rev",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891C00000"
+    },
+    {
+      "subject": "Alerte de sécurité",
+      "sender": "no-reply@accounts.google.com",
+      "received": "2025-04-08 10:28:24",
+      "threat_score": 65,
+      "threats": [
+        "url shortener: https://lh3.googleusercontent.com/a/ACg8ocI0gbWjlw",
+        "lookalike domain: accounts.google.com",
+        "multiple hops: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891BC0000"
+    },
+    {
+      "subject": "-28% sur South of Midnight ! A découvrir sur PC ou",
+      "sender": "newsletter@n.instant-gaming.com",
+      "received": "2025-04-08 11:00:35",
+      "threat_score": 55,
+      "threats": [
+        "spf softfail",
+        "multiple hops: 6",
+        "urgency: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891BB0000"
+    },
+    {
+      "subject": "Weekly Update: CitizenCon Direct & Roadmap Roundup",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-04-12 00:18:14",
+      "threat_score": 95,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 7"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891AB0000"
+    },
+    {
+      "subject": "Ponts de Mai : à vous les week-ends prolongés !",
+      "sender": "noreply@news.sandaya.fr",
+      "received": "2025-04-16 18:03:29",
+      "threat_score": 55,
+      "threats": [
+        "multiple hops: 6",
+        "urgency: 14",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8919E0000"
+    },
+    {
+      "subject": "Un jeu de votre liste de souhaits est en promotion",
+      "sender": "xbox-noreply@microsoft.com",
+      "received": "2025-04-17 19:59:15",
+      "threat_score": 50,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "urgency: 5"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891990000"
+    },
+    {
+      "subject": "Weekly Update: April Free Fly & Spring Celebration",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-04-18 23:59:03",
+      "threat_score": 115,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "urgency: 8"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891940000"
+    },
+    {
+      "subject": "Nyko, You Saison 5 est disponible sur Netflix",
+      "sender": "info@members.netflix.com",
+      "received": "2025-04-29 17:10:45",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/engagement/rev",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891750000"
+    },
+    {
+      "subject": "🔔 Rappel : Astérix & Obélix : Le Combat des Chefs ",
+      "sender": "info@members.netflix.com",
+      "received": "2025-04-30 12:55:10",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/engagement/rev",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891700000"
+    },
+    {
+      "subject": "Save the Date: Invictus Launch Week 2955",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-05-01 18:21:18",
+      "threat_score": 90,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891680000"
+    },
+    {
+      "subject": "Weekly Update: Countdown to Invictus, and Bar Citi",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-05-03 00:04:39",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 10"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891620000"
+    },
+    {
+      "subject": "Last Chance Warbond! Argo ATLS GEO & Drake Golem",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-05-03 21:07:30",
+      "threat_score": 90,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8915D0000"
+    },
+    {
+      "subject": "Weekly Update: April Monthly Report & Roadmap Roun",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-05-10 00:01:22",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 8"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891470000"
+    },
+    {
+      "subject": "Un jeu de votre liste de souhaits est en promotion",
+      "sender": "xbox-noreply@microsoft.com",
+      "received": "2025-05-13 15:36:01",
+      "threat_score": 50,
+      "threats": [
+        "lookalike domain: microsoft.com",
+        "urgency: 5"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891410000"
+    },
+    {
+      "subject": "Welcome Aboard! The Doors to Invictus are Open!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-05-15 19:18:12",
+      "threat_score": 125,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 5"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891360000"
+    },
+    {
+      "subject": "Claim your free plugin — STL Tones AmpHub LE",
+      "sender": "updates@novationmusic.com",
+      "received": "2025-05-16 18:17:35",
+      "threat_score": 50,
+      "threats": [
+        "multiple hops: 6",
+        "suspicious keywords: 1",
+        "credential request: cvv"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891310000"
+    },
+    {
+      "subject": "Weekly Update: All Things Invictus Launch Week 🚀!",
+      "sender": "no-reply@cloudimperiumgames.com",
+      "received": "2025-05-16 23:54:17",
+      "threat_score": 85,
+      "threats": [
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "url shortener: https://mcusercontent.com/32d8ef31243db6075c45571b",
+        "multiple hops: 6",
+        "urgency: 9"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF891300000"
+    },
+    {
+      "subject": "Disponible lundi 19 mai : Les Bisounours : Libérez",
+      "sender": "info@members.netflix.com",
+      "received": "2025-05-17 16:00:31",
+      "threat_score": 55,
+      "threats": [
+        "url shortener: https://assets.nflxext.com/us/email/gem/nflx.png",
+        "lookalike domain: members.netflix.com"
+      ],
+      "entry_id": "00000000DBD3C2A1354BE9419CE0363B6845EFBA0700868B0E0727CF5A499AC60251269FEF0C0000000001210000868B0E0727CF5A499AC60251269FEF0C0008CEF8912E0000"
+    }
+  ],
+  "threshold": 50,
+  "api_usage": {
+    "virustotal": 0,
+    "urlscan": 0,
+    "abuseipdb": 0
+  }
+}

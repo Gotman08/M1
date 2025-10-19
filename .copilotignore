@@ -1,0 +1,11 @@
+# Fichiers spécifiques
+Imagerie/Tp1.cpp
+Imagerie/image.hpp
+Imagerie/dog32.hpp
+
+# Ou tout le dossier Imagerie
+Imagerie/**
+
+# Patterns
+*.sensitive
+secrets/
