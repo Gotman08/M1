@@ -1,2 +1,0 @@
-pywin32>=305
-requests>=2.31.0
