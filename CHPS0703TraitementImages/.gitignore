@@ -1,0 +1,26 @@
+# Fichiers compiles
+bin/
+build/
+*.exe
+*.o
+*.obj
+
+# Fichiers de debug
+*.pdb
+*.ilk
+
+# Fichiers temporaires
+*.tmp
+*.log
+
+# IDE
+.vscode/
+.vs/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
