@@ -266,9 +266,17 @@ public:
                 int rt, gt, bt; getRGB(yTop, xSrc, rt, gt, bt);
                 int rb, gb, bb; getRGB(yBot, xSrc, rb, gb, bb);
 
-                cout << "\033[38;2;" << rt << ";" << gt << ";" << bt << "m"
-                     << "\033[48;2;" << rb << ";" << gb << ";" << bb << "m"
-                     << "▀";
+                #ifdef _WIN32
+                    // NOTE: Windows - utilise caractere ASCII compatible
+                    cout << "\033[38;2;" << rt << ";" << gt << ";" << bt << "m"
+                         << "\033[48;2;" << rb << ";" << gb << ";" << bb << "m"
+                         << "\xDB";  // bloc plein ASCII (█)
+                #else
+                    // NOTE: Linux/macOS - utilise demi-bloc Unicode
+                    cout << "\033[38;2;" << rt << ";" << gt << ";" << bt << "m"
+                         << "\033[48;2;" << rb << ";" << gb << ";" << bb << "m"
+                         << "▀";
+                #endif
             }
             cout << "\033[0m\n";
         }
