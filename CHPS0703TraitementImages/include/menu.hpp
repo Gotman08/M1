@@ -48,6 +48,7 @@ inline int afficherMenu() {
     std::cout << "[18] filtre prewitt" << std::endl;
     std::cout << "[19] filtre canny" << std::endl;
     std::cout << "[20] filtre bilateral" << std::endl;
+    std::cout << "[21] convertir noir et blanc" << std::endl;
     std::cout << "[0]  quitter" << std::endl;
     std::cout << "choix: ";
 

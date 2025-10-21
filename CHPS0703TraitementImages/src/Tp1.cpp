@@ -6,6 +6,7 @@
 #include "../include/image.hpp"
 #include "../include/menu.hpp"
 #include "../include/Operations.hpp"
+#include "../include/grayscale.hpp"
 
 using std::cout;
 using std::cin;
@@ -1174,6 +1175,34 @@ public:
         freeMemory(temp);
     }
 
+    /**
+     * @brief Convertit l'image RGB en niveaux de gris.
+     * 
+     * Applique une méthode de conversion RGB vers grayscale en remplaçant chaque
+     * pixel RGB par sa valeur de luminance calculée selon la méthode choisie.
+     * L'image résultante conserve 3 canaux mais avec des valeurs identiques (R=G=B).
+     * 
+     * @param method Méthode de conversion (défaut: REC601)
+     * @note Après conversion, l'image est en niveaux de gris mais reste en format RGB
+     * @see grayscale.hpp pour les différentes méthodes disponibles
+     */
+    void toGrayscale(Grayscale::Method method = Grayscale::Method::REC601) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                const int base = x * colors;
+                const double r = data[y][base + 0];
+                const double g = (colors > 1) ? data[y][base + 1] : r;
+                const double b = (colors > 2) ? data[y][base + 2] : r;
+                
+                const double gray = Grayscale::convert(r, g, b, method);
+                
+                data[y][base + 0] = gray;
+                if (colors > 1) data[y][base + 1] = gray;
+                if (colors > 2) data[y][base + 2] = gray;
+            }
+        }
+    }
+
 };
 
 Img* Img::instance = nullptr;
@@ -1392,6 +1421,43 @@ int main() {
                     } catch (const std::runtime_error& e) {
                         cout << "erreur" << endl;
                     }
+                    break;
+                }
+
+                case 21: {
+                    cout << "methodes conversion:" << endl;
+                    cout << "  [1] rec601 sdtv (defaut)" << endl;
+                    cout << "  [2] rec709 hdtv" << endl;
+                    cout << "  [3] moyenne" << endl;
+                    cout << "  [4] lightness hsl" << endl;
+                    cout << "  [5] max rgb" << endl;
+                    cout << "  [6] min rgb" << endl;
+                    cout << "  [7] canal rouge" << endl;
+                    cout << "  [8] canal vert" << endl;
+                    cout << "  [9] canal bleu" << endl;
+                    
+                    int methodChoice;
+                    if (!readInt("methode (1-9): ", methodChoice)) break;
+                    
+                    Grayscale::Method method = Grayscale::Method::REC601;
+                    switch (methodChoice) {
+                        case 1: method = Grayscale::Method::REC601; break;
+                        case 2: method = Grayscale::Method::REC709; break;
+                        case 3: method = Grayscale::Method::AVERAGE; break;
+                        case 4: method = Grayscale::Method::LIGHTNESS; break;
+                        case 5: method = Grayscale::Method::MAXIMUM; break;
+                        case 6: method = Grayscale::Method::MINIMUM; break;
+                        case 7: method = Grayscale::Method::RED; break;
+                        case 8: method = Grayscale::Method::GREEN; break;
+                        case 9: method = Grayscale::Method::BLUE; break;
+                        default:
+                            cout << "methode invalide, utilise rec601" << endl;
+                            break;
+                    }
+                    
+                    img.toGrayscale(method);
+                    img.printPreview();
+                    cout << "info: conversion " << Grayscale::getMethodName(method) << " appliquee" << endl;
                     break;
                 }
                     
