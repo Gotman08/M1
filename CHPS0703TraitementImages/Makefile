@@ -1,7 +1,7 @@
-# Makefile - Traitement d'Images
-# ================================
+# Makefile - Système de Traitement d'Images (Architecture POO)
+# ==============================================================
 
-# Detection OS
+# Détection OS
 ifeq ($(OS),Windows_NT)
     DETECTED_OS := Windows
     RM := del /Q
@@ -10,7 +10,7 @@ ifeq ($(OS),Windows_NT)
     MKDIR_END := mkdir
     FIXPATH = $(subst /,\,$1)
     EXE_EXT := .exe
-    RUN_PREFIX := 
+    RUN_PREFIX :=
     BROWSER := cmd.exe /c start
 else
     DETECTED_OS := $(shell uname -s)
@@ -32,7 +32,7 @@ else
     endif
 endif
 
-# Compilateur
+# Compilateur et options
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra -O2
 DEBUGFLAGS = -g -O0 -DDEBUG
@@ -42,154 +42,168 @@ SRC_DIR = src
 INC_DIR = include
 BUILD_DIR = build
 BIN_DIR = bin
+DOCS_DIR = docs
+TESTS_DIR = tests
 
-# Fichiers
-SRC_FILES = $(SRC_DIR)/Tp1.cpp
-TEST_FILES = $(SRC_DIR)/test.cpp
-HEADERS = $(INC_DIR)/image.hpp $(INC_DIR)/dog32.hpp $(INC_DIR)/menu.hpp $(INC_DIR)/Operations.hpp
+# Fichiers source (architecture POO)
+SRC_FILES = $(SRC_DIR)/main.cpp
+HEADERS = $(INC_DIR)/ImageProcessing.hpp \
+          $(INC_DIR)/core/*.hpp \
+          $(INC_DIR)/utils/*.hpp \
+          $(INC_DIR)/filters/*.hpp \
+          $(INC_DIR)/operations/*.hpp \
+          $(INC_DIR)/display/*.hpp \
+          $(INC_DIR)/ui/*.hpp
 INCLUDES = -I$(INC_DIR)
 
 # Cibles
-TARGET = $(BIN_DIR)/Tp1$(EXE_EXT)
-TARGET_DEBUG = $(BIN_DIR)/Tp1_debug$(EXE_EXT)
-TARGET_TEST = $(BIN_DIR)/test_unit$(EXE_EXT)
+TARGET = $(BIN_DIR)/image_processor$(EXE_EXT)
+TARGET_DEBUG = $(BIN_DIR)/image_processor_debug$(EXE_EXT)
 
-.PHONY: all clean clean-all debug run test help dirs valgrind memcheck doc doc-rebuild
+.PHONY: all clean clean-all debug run test help dirs doc doc-rebuild
 
+# Cible par défaut
 all: dirs $(TARGET)
 
+# Création des dossiers nécessaires
 dirs:
 ifeq ($(DETECTED_OS),Windows)
 	@$(MKDIR) "$(call FIXPATH,$(BIN_DIR))" $(MKDIR_END)
 	@$(MKDIR) "$(call FIXPATH,$(BUILD_DIR))" $(MKDIR_END)
 else
-	@$(MKDIR) $(BIN_DIR) $(MKDIR_END)
-	@$(MKDIR) $(BUILD_DIR) $(MKDIR_END)
+	@$(MKDIR) $(BIN_DIR)
+	@$(MKDIR) $(BUILD_DIR)
 endif
 
+# Compilation version release
 $(TARGET): $(SRC_FILES) $(HEADERS) | dirs
+	@echo "Compilation version release..."
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SRC_FILES) -o $(TARGET)
+	@echo "Compilation reussie: $(TARGET)"
 
+# Compilation version debug
 debug: CXXFLAGS += $(DEBUGFLAGS)
 debug: dirs $(TARGET_DEBUG)
 
 $(TARGET_DEBUG): $(SRC_FILES) $(HEADERS) | dirs
+	@echo "Compilation version debug..."
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(SRC_FILES) -o $(TARGET_DEBUG)
+	@echo "Compilation reussie: $(TARGET_DEBUG)"
 
+# Exécution
 run: $(TARGET)
-	@cd $(BIN_DIR) && $(RUN_PREFIX)Tp1$(EXE_EXT)
+	@echo "Execution du programme..."
+	@cd $(BIN_DIR) && $(RUN_PREFIX)image_processor$(EXE_EXT)
 
-test: $(TARGET_TEST)
-	@echo "execution tests..."
-	@cd $(BIN_DIR) && $(RUN_PREFIX)test_unit$(EXE_EXT)
-
-$(TARGET_TEST): $(TEST_FILES) $(HEADERS) | dirs
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(TEST_FILES) -o $(TARGET_TEST)
-
-valgrind: debug
+# Tests
+test:
+	@echo "Execution des tests..."
 ifeq ($(DETECTED_OS),Windows)
-	@echo "valgrind non disponible sur windows"
-	@echo "utilisez: make memcheck ou wsl"
+	@if exist "$(TESTS_DIR)\test_image.cpp" ( \
+		$(CXX) $(CXXFLAGS) $(INCLUDES) $(TESTS_DIR)/test_image.cpp -o $(BIN_DIR)/test_image$(EXE_EXT) && \
+		cd $(BIN_DIR) && $(RUN_PREFIX)test_image$(EXE_EXT) \
+	) else ( \
+		echo "Aucun test disponible" \
+	)
 else
-	valgrind --leak-check=full --show-leak-kinds=all $(RUN_PREFIX)$(TARGET_DEBUG)
-endif
-
-memcheck: debug
-	@echo "verification memoire..."
-ifeq ($(DETECTED_OS),Windows)
-	@echo "drmemory non implemente"
-	@echo "utilisez wsl ou installez drmemory"
-else
-	@if command -v valgrind >/dev/null 2>&1; then \
-		valgrind --leak-check=full $(RUN_PREFIX)$(TARGET_DEBUG); \
+	@if [ -f "$(TESTS_DIR)/test_image.cpp" ]; then \
+		$(CXX) $(CXXFLAGS) $(INCLUDES) $(TESTS_DIR)/test_image.cpp -o $(BIN_DIR)/test_image$(EXE_EXT); \
+		cd $(BIN_DIR) && $(RUN_PREFIX)test_image$(EXE_EXT); \
 	else \
-		echo "valgrind non installe"; \
-		echo "installez: sudo apt-get install valgrind"; \
+		echo "Aucun test disponible"; \
 	fi
 endif
 
+# Documentation Doxygen
 doc:
-	@echo "generation documentation..."
+	@echo "Generation documentation..."
 ifeq ($(DETECTED_OS),Windows)
-	@if not exist "docs\doxygen\html" ( \
+	@if not exist "$(DOCS_DIR)\doxygen\html" ( \
 		doxygen Doxyfile \
 	) else ( \
-		echo doc existe deja (utilisez: make doc-rebuild) \
+		echo Documentation existe deja (utilisez: make doc-rebuild) \
 	)
-	@echo "ouverture documentation..."
-	@if exist "docs\doxygen\html\index.html" ( \
-		$(BROWSER) docs\doxygen\html\index.html \
-	) else ( \
-		echo erreur: doc non trouvee \
+	@if exist "$(DOCS_DIR)\doxygen\html\index.html" ( \
+		$(BROWSER) $(DOCS_DIR)\doxygen\html\index.html \
 	)
 else
-	@if [ ! -d "docs/doxygen/html" ]; then \
+	@if [ ! -d "$(DOCS_DIR)/doxygen/html" ]; then \
 		doxygen Doxyfile; \
 	else \
-		echo "doc existe deja (utilisez: make doc-rebuild)"; \
+		echo "Documentation existe deja (utilisez: make doc-rebuild)"; \
 	fi
-	@echo "ouverture documentation..."
-	@if [ -f "docs/doxygen/html/index.html" ]; then \
-		$(BROWSER) docs/doxygen/html/index.html 2>/dev/null || \
-		echo "doc disponible: docs/doxygen/html/index.html"; \
-	else \
-		echo "erreur: doc non trouvee"; \
+	@if [ -f "$(DOCS_DIR)/doxygen/html/index.html" ]; then \
+		$(BROWSER) $(DOCS_DIR)/doxygen/html/index.html 2>/dev/null || \
+		echo "Documentation disponible: $(DOCS_DIR)/doxygen/html/index.html"; \
 	fi
 endif
 
 doc-rebuild:
-	@echo "regeneration documentation..."
+	@echo "Regeneration documentation..."
 ifeq ($(DETECTED_OS),Windows)
-	@if exist "docs\doxygen" $(RMDIR) "docs\doxygen" 2>nul
+	@if exist "$(DOCS_DIR)\doxygen" $(RMDIR) "$(DOCS_DIR)\doxygen" 2>nul
 	@doxygen Doxyfile
-	@echo "ouverture documentation..."
-	@$(BROWSER) docs\doxygen\html\index.html
+	@$(BROWSER) $(DOCS_DIR)\doxygen\html\index.html
 else
-	@$(RMDIR) docs/doxygen 2>/dev/null || true
+	@$(RMDIR) $(DOCS_DIR)/doxygen 2>/dev/null || true
 	@doxygen Doxyfile
-	@echo "ouverture documentation..."
-	@$(BROWSER) docs/doxygen/html/index.html 2>/dev/null || \
-		echo "doc generee: docs/doxygen/html/index.html"
+	@$(BROWSER) $(DOCS_DIR)/doxygen/html/index.html 2>/dev/null || \
+		echo "Documentation generee: $(DOCS_DIR)/doxygen/html/index.html"
 endif
 
+# Nettoyage
 clean:
-	@echo "nettoyage executables et objets..."
+	@echo "Nettoyage executables et objets..."
 ifeq ($(DETECTED_OS),Windows)
 	@if exist "$(call FIXPATH,$(BIN_DIR))\*" $(RM) "$(call FIXPATH,$(BIN_DIR))\*" 2>nul
 	@if exist "$(call FIXPATH,$(BUILD_DIR))\*.o" $(RM) "$(call FIXPATH,$(BUILD_DIR))\*.o" 2>nul
 	@if exist "*.o" $(RM) *.o 2>nul
 	@if exist "*.exe" $(RM) *.exe 2>nul
 else
-	@$(RM) $(BIN_DIR)/* $(BUILD_DIR)/*.o *.o *.exe 2>/dev/null || true
+	-@$(RM) $(BIN_DIR)/* 2>/dev/null
+	-@$(RM) $(BUILD_DIR)/*.o 2>/dev/null
+	-@$(RM) *.o *.exe 2>/dev/null
 endif
-	@echo "nettoye"
+	@echo "Nettoyage termine"
 
 clean-all: clean
-	@echo "nettoyage complet..."
+	@echo "Nettoyage complet..."
 ifeq ($(DETECTED_OS),Windows)
-	@if exist "docs\doxygen" $(RMDIR) "docs\doxygen" 2>nul
+	@if exist "$(DOCS_DIR)\doxygen" $(RMDIR) "$(DOCS_DIR)\doxygen" 2>nul
 	@if exist "*.tga" $(RM) *.tga 2>nul
 	@if exist "*.TGA" $(RM) *.TGA 2>nul
 else
-	@$(RMDIR) docs/doxygen 2>/dev/null || true
+	@$(RMDIR) $(DOCS_DIR)/doxygen 2>/dev/null || true
 	@$(RM) *.tga *.TGA 2>/dev/null || true
 endif
-	@echo "nettoyage complet termine"
+	@echo "Nettoyage complet termine"
 
+# Aide
 help:
-	@echo "Makefile - Traitement d'Images"
-	@echo "================================"
+	@echo "=========================================="
+	@echo "  Systeme de Traitement d'Images (POO)  "
+	@echo "=========================================="
 	@echo ""
 	@echo "OS detecte: $(DETECTED_OS)"
 	@echo ""
-	@echo "Cibles disponibles:"
-	@echo "  make             - compile version release"
-	@echo "  make debug       - compile version debug"
-	@echo "  make run         - compile et execute"
-	@echo "  make test        - execute tests unitaires"
-	@echo "  make doc         - ouvre doc (genere si necessaire)"
-	@echo "  make doc-rebuild - force regeneration documentation"
-	@echo "  make valgrind    - analyse memoire (valgrind)"
-	@echo "  make clean       - nettoie executables et objets"
-	@echo "  make clean-all   - nettoie tout (doc, images, etc)"
-	@echo "  make help        - affiche aide"
+	@echo "Commandes disponibles:"
+	@echo "  make             - Compile le programme (version release)"
+	@echo "  make run         - Compile et execute le programme"
+	@echo "  make debug       - Compile en mode debug"
+	@echo "  make test        - Execute les tests unitaires"
+	@echo "  make doc         - Genere la documentation Doxygen"
+	@echo "  make doc-rebuild - Regenere la documentation (force)"
+	@echo "  make clean       - Nettoie executables et fichiers objets"
+	@echo "  make clean-all   - Nettoie tout (doc, images, etc.)"
+	@echo "  make help        - Affiche cette aide"
+	@echo ""
+	@echo "Structure du projet:"
+	@echo "  src/             - Code source (.cpp)"
+	@echo "  include/         - Fichiers d'en-tete (.hpp)"
+	@echo "  bin/             - Executables compiles"
+	@echo "  docs/            - Documentation"
+	@echo "  tests/           - Tests unitaires"
+	@echo "  archive/         - Ancien code (reference)"
+	@echo ""
+	@echo "Pour plus d'informations, consultez: docs/README_REFACTORING.md"
+	@echo ""

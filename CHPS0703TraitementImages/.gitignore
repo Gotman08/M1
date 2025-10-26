@@ -1,9 +1,10 @@
-# Fichiers compiles
+# Fichiers compilés
 bin/
 build/
 *.exe
 *.o
 *.obj
+*.out
 
 # Fichiers de debug
 *.pdb
@@ -12,15 +13,26 @@ build/
 # Fichiers temporaires
 *.tmp
 *.log
+*.swp
+*.swo
+*~
+
+# Documentation générée
+docs/doxygen/
 
 # IDE
 .vscode/
 .vs/
-*.swp
-*.swo
-*~
+*.code-workspace
 
 # OS
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Images de sortie
+*.tga
+*.TGA
+
+# Note: archive/ est conservé dans git pour référence historique
+# Note: image.hpp et dog32.hpp sont conservés (buffers d'images nécessaires)
