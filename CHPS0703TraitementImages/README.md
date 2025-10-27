@@ -10,11 +10,20 @@ Système complet de traitement d'images implémenté en **C++ moderne** selon le
 ## ✨ Fonctionnalités
 
 ### 🎨 Filtres disponibles
+#### Filtres de lissage
 - **Gaussien** - Lissage préservant la structure
 - **Moyen** - Lissage uniforme
 - **Médian** - Réduction bruit poivre et sel
+- **Bilatéral** - Lissage préservant les contours
+
+#### Filtres différentiels
 - **Sobel** - Détection de contours (gradient)
 - **Prewitt** - Détection de contours alternative
+- **Canny** - Détection de contours multi-étapes (optimal)
+
+#### Filtres de rang
+- **Min** - Filtre morphologique (infimum local)
+- **Max** - Filtre morphologique (supremum local)
 
 ### 🔧 Opérations morphologiques
 - **Érosion** - Réduction objets blancs

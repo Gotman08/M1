@@ -30,12 +30,19 @@
 #include "utils/ImageUtils.hpp"
 #include "utils/ColorConversion.hpp"
 
-// Filtres
+// Filtres de lissage
 #include "filters/GaussianFilter.hpp"
 #include "filters/MeanFilter.hpp"
 #include "filters/MedianFilter.hpp"
+#include "filters/BilateralFilter.hpp"
+
+// Filtres différentiels
 #include "filters/SobelFilter.hpp"
 #include "filters/PrewittFilter.hpp"
+#include "filters/CannyFilter.hpp"
+
+// Filtres de rang
+#include "filters/RankFilters.hpp"
 
 // Opérations morphologiques
 #include "operations/MorphologicalOperation.hpp"
@@ -66,9 +73,11 @@
  * @section features_sec Fonctionnalités
  *
  * - **Gestion d'images** : Classe Image avec gestion automatique de la mémoire (RAII)
- * - **Filtres** : Filtres gaussien, moyen, médian, Sobel, Prewitt, etc.
+ * - **Filtres de lissage** : Gaussien, Moyen, Médian, Bilatéral
+ * - **Filtres différentiels** : Sobel, Prewitt, Canny
+ * - **Filtres de rang** : Min, Max (non-linéaires)
  * - **Morphologie** : Érosion, dilatation, ouverture, fermeture
- * - **Transformations** : Conversion grayscale, binarisation, quantification
+ * - **Transformations** : Conversion grayscale, binarisation, quantification, rehaussement, égalisation
  * - **Affichage** : Prévisualisation en couleur dans le terminal
  *
  * @section arch_sec Architecture

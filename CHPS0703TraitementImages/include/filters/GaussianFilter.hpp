@@ -2,6 +2,7 @@
 
 #include "../core/ImageFilter.hpp"
 #include <vector>
+#include <cmath>
 
 /**
  * @file GaussianFilter.hpp
@@ -10,17 +11,23 @@
 namespace ImageProcessing {
 
 /**
- * @brief Filtre gaussien (lissage préservant la structure)
+ * @brief Filtre de lissage linéaire basé sur une convolution gaussienne.
  *
- * Applique une convolution avec un noyau gaussien 2D défini par :
+ * Applique une convolution avec un noyau gaussien 2D.
+ * La formule de la fonction gaussienne continue est :
  * G(x,y) = (1 / (2*pi*sigma^2)) * exp(-(x^2 + y^2) / (2*sigma^2))
  *
- * Le filtre gaussien lisse les détails fins tout en préservant mieux
- * les transitions importantes que le filtre moyen. Les pixels proches
+ * Cet opérateur est un filtre linéaire (tel que défini dans CM04)
+ * appartenant à la famille des filtres de lissage (passe-bas).
+ *
+ * Le filtre gaussien lisse les détails fins. Les pixels proches
  * du centre contribuent plus fortement (pondération gaussienne).
  *
  * @note Filtre séparable : peut être optimisé en deux passes 1D
- * @note Passe-bas : atténue les hautes fréquences (détails fins)
+ * (CM04, Séparabilité dimensionnelle).
+ * @note Passe-bas : atténue les hautes fréquences (détails fins).
+ * @note La normalisation du noyau est gérée pour assurer la cohérence
+ * (CM04, Normalisation du masque).
  *
  * @see TD#2 Exercice 2 - Filtre gaussien
  */
@@ -54,15 +61,18 @@ public:
     /**
      * @brief Applique le filtre gaussien sur l'image
      *
-     * Effectue une convolution 2D avec le noyau gaussien pré-calculé.
+     * Effectue une convolution 2D (CM04, définition de la convolution discrète)
+     * avec le noyau gaussien pré-calculé.
      * Le noyau est normalisé (somme = 1) pour préserver la luminosité moyenne.
      *
      * @param data Données de l'image à filtrer (modifiées en place)
      *
      * @throws std::runtime_error Si une erreur survient pendant le filtrage
      *
-     * @note Les bords sont traités en ignorant les pixels hors limites
+     * @note Gestion des effets de bord (CM04) : les pixels hors de l'image
+     * sont ignorés (équivalent à un "zero-padding").
      * @note Complexité : O(w * h * k^2 * c) où k=kernelSize, c=nombre de canaux
+     * (peut être O(w * h * k * c) avec un filtre séparable).
      */
     void apply(ImageData& data) override {
         const int width = data.getWidth();
@@ -82,6 +92,7 @@ public:
                             const int ny = y + dy;
                             const int nx = x + dx;
 
+                            // Gestion des effets de bord
                             if (ny >= 0 && ny < height && nx >= 0 && nx < width) {
                                 const double weight = kernel[dy + radius][dx + radius];
                                 sum += weight * temp[ny][nx * colors + c];
@@ -116,11 +127,13 @@ private:
      * @brief Calcule et normalise le noyau gaussien 2D
      *
      * Génère un noyau gaussien 2D en évaluant la fonction gaussienne
-     * pour chaque position (dx, dy) relative au centre. Le noyau est
-     * ensuite normalisé pour que la somme de tous ses éléments soit égale à 1.
+     * (sans le coefficient de normalisation) pour chaque position (dx, dy)
+     * relative au centre.
+     * Le noyau est ensuite normalisé pour que la somme de tous ses
+     * éléments soit égale à 1.
      *
      * @note Appelé une seule fois lors de la construction
-     * @note Formule : G(dx,dy) = exp(-(dx^2 + dy^2) / (2*sigma^2))
+     * @note Formule échantillonnée : G'(dx,dy) = exp(-(dx^2 + dy^2) / (2*sigma^2))
      */
     void computeKernel() {
         const int radius = getRadius();
@@ -134,15 +147,7 @@ private:
             for (int dx = -radius; dx <= radius; ++dx) {
                 const double dist2 = dx * dx + dy * dy;
 
-                // exp implémenté manuellement (série de Taylor)
-                // exp(x) = 1 + x + x^2/2! + x^3/3! + ...
-                const double x = -dist2 / sigma2;
-                double value = 1.0;
-                double term = 1.0;
-                for (int n = 1; n < 20; ++n) {
-                    term *= x / n;
-                    value += term;
-                }
+                const double value = std::exp(-dist2 / sigma2);
 
                 kernel[dy + radius][dx + radius] = value;
                 sum += value;

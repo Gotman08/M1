@@ -19,23 +19,23 @@ void testGrayscaleImage() {
         // NOTE: test des opérations de base
         imgnb.binaryzation(128.0);
         std::cout << "binaryzation ok\n";
-        
+
         imgnb.reload();
         imgnb.negatif();
         std::cout << "negatif ok\n";
-        
+
         imgnb.reload();
         imgnb.quantification(4);
         std::cout << "quantification ok\n";
-        
+
         imgnb.reload();
         imgnb.rehaussement(1.5, 10.0);
         std::cout << "rehaussement ok\n";
-        
+
         imgnb.reload();
         imgnb.egalisationHistogramme();
         std::cout << "egalisation ok\n";
-        
+
         // NOTE: test des filtres
         imgnb.reload();
         imgnb.filtreMoyen(3);

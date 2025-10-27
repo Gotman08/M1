@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../core/ImageFilter.hpp"
+#include <vector> // Nécessaire pour le noyau
 
 /**
  * @file MeanFilter.hpp
@@ -9,21 +10,28 @@
 namespace ImageProcessing {
 
 /**
- * @brief Filtre moyen (lissage uniforme)
+ * @brief Filtre de lissage linéaire (Moyenneur).
  *
- * Calcule la moyenne arithmétique des pixels dans une fenêtre locale
- * de taille kernelSize x kernelSize. Opérateur linéaire défini par :
- * I'(x) = (1/|B|) * sum{I(x+b) | b in B} où B est l'élément structurant.
+ * Opérateur de convolution linéaire (tel que défini dans CM04)
+ * qui applique un noyau (masque) uniforme.
  *
- * Réduit les variations locales et lisse les textures fines, mais perd
- * de la netteté. Utile pour éliminer les petites variations de bruit gaussien.
+ * Le noyau est :
+ * N(x,y) = 1 / (kernelSize * kernelSize) si (x,y) est dans la fenêtre
+ * N(x,y) = 0 sinon
  *
- * @note Filtre passe-bas : atténue les hautes fréquences (détails fins)
- * @note Moins bon que le gaussien pour préserver les contours
+ * Cet opérateur est listé comme "moyenne" ou "lissage"
+ * dans les exemples de traitements linéaires (CM02, CM04).
+ *
+ * @note Filtre passe-bas : atténue les hautes fréquences (détails fins).
+ * @note La normalisation (1 / k^2) est gérée dans le calcul du noyau
+ * (voir CM04, Normalisation du masque).
  *
  * @see TD#2 Exercice 1 - Filtre moyen
  */
 class MeanFilter : public ConvolutionFilter {
+private:
+    std::vector<std::vector<double>> kernel; ///< Noyau de convolution pré-calculé
+
 public:
     /**
      * @brief Constructeur avec taille de noyau
@@ -36,19 +44,23 @@ public:
      * MeanFilter filter(3);  // Filtre moyen 3x3
      * filter.apply(imageData);
      */
-    explicit MeanFilter(int kernelSize = 3) : ConvolutionFilter(kernelSize) {}
+    explicit MeanFilter(int kernelSize = 3) : ConvolutionFilter(kernelSize) {
+        computeKernel(); // Calculer le noyau à la construction
+    }
 
     /**
-     * @brief Applique le filtre moyen sur l'image
+     * @brief Applique le filtre moyen (convolution) sur l'image
      *
-     * Remplace chaque pixel par la moyenne arithmétique de ses voisins
-     * dans une fenêtre de taille kernelSize x kernelSize.
+     * Remplace chaque pixel par la moyenne pondérée de ses voisins
+     * (voir CM04, convolution discrète), où la pondération est
+     * définie par le noyau uniforme pré-calculé.
      *
      * @param data Données de l'image à filtrer (modifiées en place)
      *
      * @throws std::runtime_error Si une erreur survient pendant le filtrage
      *
-     * @note Les bords sont traités en ignorant les pixels hors limites
+     * @note Gestion des effets de bord (voir CM04) : les pixels hors de l'image
+     * sont ignorés (équivalent à un "zero-padding").
      * @note Complexité : O(w * h * k^2 * c) où k=kernelSize, c=nombre de canaux
      */
     void apply(ImageData& data) override {
@@ -63,21 +75,23 @@ public:
             for (int x = 0; x < width; ++x) {
                 for (int c = 0; c < colors; ++c) {
                     double sum = 0.0;
-                    int count = 0;
 
+                    // Appliquer le noyau de convolution
                     for (int dy = -radius; dy <= radius; ++dy) {
                         for (int dx = -radius; dx <= radius; ++dx) {
                             const int ny = y + dy;
                             const int nx = x + dx;
 
+                            // Gestion des effets de bord
                             if (ny >= 0 && ny < height && nx >= 0 && nx < width) {
-                                sum += temp[ny][nx * colors + c];
-                                ++count;
+                                // Utiliser le noyau pré-calculé
+                                const double weight = kernel[dy + radius][dx + radius];
+                                sum += weight * temp[ny][nx * colors + c];
                             }
                         }
                     }
 
-                    data[y][x * colors + c] = (count > 0) ? (sum / count) : temp[y][x * colors + c];
+                    data[y][x * colors + c] = ImageUtils::clamp(sum, 0.0, 255.0);
                 }
             }
         }
@@ -90,6 +104,25 @@ public:
      */
     const char* getName() const override {
         return "Mean Filter";
+    }
+
+private:
+    /**
+     * @brief Calcule le noyau de convolution moyen (uniforme).
+     *
+     * Remplit le noyau avec une valeur constante (1 / N) où N est
+     * le nombre total d'éléments dans le noyau (kernelSize * kernelSize).
+     * C'est la "valeur de N" qui définit le masque de convolution (CM04).
+     */
+    void computeKernel() {
+        const double weight = 1.0 / (kernelSize * kernelSize);
+        kernel.resize(kernelSize, std::vector<double>(kernelSize));
+
+        for (int i = 0; i < kernelSize; ++i) {
+            for (int j = 0; j < kernelSize; ++j) {
+                kernel[i][j] = weight;
+            }
+        }
     }
 };
 
