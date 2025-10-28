@@ -1,0 +1,65 @@
+// ============================================================================
+// Génération des Maillages Structurés pour l'Étude de Convergence
+// ============================================================================
+// Domaine : [0,4] × [0,2]
+// Maillages : 4×4, 8×8, 16×16, 32×32 intervalles
+// Labels : 1 = Dirichlet (x=0 et x=4), 2 = Neumann (y=0 et y=2)
+// ============================================================================
+
+// Paramètres du domaine
+real Lx = 4.0;  // Longueur en x
+real Ly = 2.0;  // Longueur en y
+
+// ====================
+// Maillage 1 : 4×4
+// ====================
+int nx1 = 4;
+int ny1 = 4;
+mesh Th1 = square(nx1, ny1, [Lx*x, Ly*y],
+                  flags=0,  // Maillage structuré sans optimisation
+                  label=[1,2,1,2]);  // [gauche, haut, droite, bas]
+
+savemesh(Th1, "meshes/m1.msh");
+cout << "Maillage m1.msh généré : " << Th1.nt << " triangles, "
+     << Th1.nv << " sommets" << endl;
+
+// ====================
+// Maillage 2 : 8×8
+// ====================
+int nx2 = 8;
+int ny2 = 8;
+mesh Th2 = square(nx2, ny2, [Lx*x, Ly*y],
+                  flags=0,
+                  label=[1,2,1,2]);
+
+savemesh(Th2, "meshes/m2.msh");
+cout << "Maillage m2.msh généré : " << Th2.nt << " triangles, "
+     << Th2.nv << " sommets" << endl;
+
+// ====================
+// Maillage 3 : 16×16
+// ====================
+int nx3 = 16;
+int ny3 = 16;
+mesh Th3 = square(nx3, ny3, [Lx*x, Ly*y],
+                  flags=0,
+                  label=[1,2,1,2]);
+
+savemesh(Th3, "meshes/m3.msh");
+cout << "Maillage m3.msh généré : " << Th3.nt << " triangles, "
+     << Th3.nv << " sommets" << endl;
+
+// ====================
+// Maillage 4 : 32×32
+// ====================
+int nx4 = 32;
+int ny4 = 32;
+mesh Th4 = square(nx4, ny4, [Lx*x, Ly*y],
+                  flags=0,
+                  label=[1,2,1,2]);
+
+savemesh(Th4, "meshes/m4.msh");
+cout << "Maillage m4.msh généré : " << Th4.nt << " triangles, "
+     << Th4.nv << " sommets" << endl;
+
+cout << "\n=== Génération des maillages terminée ===" << endl;

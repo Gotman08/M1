@@ -1,0 +1,151 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║                  BIENVENUE - ÉLÉMENTS FINIS P1                       ║
+║                  Étude de Convergence en 2D                          ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+
+NOUVEAU ? COMMENCEZ ICI !
+═════════════════════════════════════════════════════════════════════
+
+1️⃣  LIRE LA DOCUMENTATION
+   📖 QUICKSTART.md           Guide rapide (5 minutes)
+   📖 README.md               Documentation complète
+   📖 PROJET_COMPLET.txt      Résumé du projet
+
+2️⃣  INSTALLER LES DÉPENDANCES
+   Sous WSL/Linux :
+   
+   sudo apt-get update
+   sudo apt-get install freefem++ python3-pip
+   pip3 install numpy matplotlib scipy
+
+3️⃣  TESTER L'INSTALLATION
+   bash test_installation.sh
+
+4️⃣  LANCER L'ÉTUDE COMPLÈTE
+   python3 main.py
+   
+   OU
+   
+   make all
+
+
+RÉSUMÉ ULTRA-RAPIDE
+═════════════════════════════════════════════════════════════════════
+
+Ce projet résout le problème de Poisson 2D :
+  -Δu = f  dans [0,4] × [0,2]
+  
+Avec la solution exacte connue :
+  u(x,y) = 1 + sin(πx/2) + x(x-4)cos(πy/2)
+
+Il calcule :
+  ✓ 4 maillages de plus en plus raffinés
+  ✓ La qualité et le pas de chaque maillage
+  ✓ L'erreur numérique pour chaque maillage
+  ✓ L'ordre de convergence
+  ✓ Un graphique de convergence
+
+
+STRUCTURE DES FICHIERS
+═════════════════════════════════════════════════════════════════════
+
+Documentation/
+  START_HERE.txt           ← Vous êtes ici !
+  QUICKSTART.md            Guide rapide
+  README.md                Documentation détaillée
+  INSTALLATION.md          Guide d'installation
+  EXERCICE1_CALCULS.md     Calculs mathématiques
+  PROJET_COMPLET.txt       Résumé complet
+
+Scripts/
+  main.py                  Script principal
+  Makefile                 Automatisation
+  test_installation.sh     Tests
+  generate_meshes.edp      Générateur de maillages
+
+Code source/
+  freefem/                 Solveurs FreeFem++
+  python/                  Scripts Python
+
+Résultats/ (générés à l'exécution)
+  meshes/                  Maillages .msh
+  results/                 Tableaux et graphiques
+
+
+EXERCICES DU TD
+═════════════════════════════════════════════════════════════════════
+
+✅ Exercice 1 : Calculs sur feuille
+   → Voir EXERCICE1_CALCULS.md
+
+✅ Exercice 2 : Analyse des maillages
+   → python/mesh_analysis.py
+
+✅ Exercice 3.1 : Solveur standard
+   → freefem/validation.edp
+
+✅ Exercice 3.2 : Solveur avec pénalisation
+   → freefem/validation_pen.edp
+
+✅ Exercice 4 : Analyse de convergence
+   → python/convergence_analysis.py
+
+
+COMMANDES ESSENTIELLES
+═════════════════════════════════════════════════════════════════════
+
+Installation :
+  sudo apt-get install freefem++ python3-pip
+  pip3 install numpy matplotlib scipy
+
+Test :
+  bash test_installation.sh
+
+Exécution :
+  python3 main.py              # Tout en une commande
+  make all                     # Ou avec Make
+
+Aide :
+  make help                    # Aide Makefile
+  python3 main.py --help       # Aide script Python
+
+
+PROCHAINES ÉTAPES
+═════════════════════════════════════════════════════════════════════
+
+👉 Nouveau utilisateur ?
+   1. Lire QUICKSTART.md (5 min)
+   2. Installer les dépendances
+   3. Lancer : python3 main.py
+   4. Regarder les résultats dans results/
+
+👉 Vous connaissez déjà le projet ?
+   make all                    # Exécution complète
+   make view-results           # Voir les résultats
+
+👉 Problème d'installation ?
+   Voir INSTALLATION.md pour un guide détaillé
+
+👉 Questions sur les maths ?
+   Voir EXERCICE1_CALCULS.md
+
+
+CONTACT ET SUPPORT
+═════════════════════════════════════════════════════════════════════
+
+📚 Documentation FreeFem++ : https://freefem.org/
+📚 Documentation Python     : https://python.org/
+📚 Documentation NumPy      : https://numpy.org/
+
+💡 Aide locale :
+   make help
+   python3 main.py --help
+   cat README.md
+
+
+═════════════════════════════════════════════════════════════════════
+Bon travail ! 🎯
+═════════════════════════════════════════════════════════════════════

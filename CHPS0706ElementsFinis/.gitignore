@@ -1,0 +1,49 @@
+# ============================================================================
+# .gitignore - Éléments Finis P1
+# ============================================================================
+
+# Maillages générés
+meshes/*.msh
+
+# Résultats
+results/*.txt
+results/*.png
+results/*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# FreeFem++
+*.log
+*.out
+*.err
+*.vtu
+*.pvd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporaires
+*.tmp
+*.temp
+*.bak
