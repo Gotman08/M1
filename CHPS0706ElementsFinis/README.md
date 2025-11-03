@@ -104,14 +104,72 @@ p ≈ ln(e_h / e_{h/2}) / ln(2)
 sudo apt-get update
 sudo apt-get install freefem++
 
-# Python 3 et dépendances
+# Python 3 et dépendances de base
 sudo apt-get install python3 python3-pip
 pip3 install numpy matplotlib scipy
+
+# OU Installation complète avec support PDF
+pip3 install -r requirements.txt
 ```
 
 **Vérification** :
 ```bash
 make test
+```
+
+## Génération du Rapport PDF
+
+Ce projet génère automatiquement un **rapport PDF académique** contenant :
+- Les 2 solveurs FreeFem++ (code source complet)
+- 2 tableaux de convergence (standard + pénalisation)
+- 2 graphiques de convergence séparés
+- Analyse comparative et conclusions
+
+### Installation des dépendances PDF
+
+```bash
+# Méthode 1 : Installer toutes les dépendances
+pip3 install -r requirements.txt
+
+# Méthode 2 : Installer seulement les dépendances PDF
+pip3 install reportlab Pillow pygments
+
+# Ou avec Makefile
+make install-deps-full
+```
+
+### Générer le rapport
+
+Le rapport PDF est généré **automatiquement** lors de l'exécution complète :
+
+```bash
+# Avec Python (génère automatiquement le PDF)
+python3 main.py
+
+# Avec Make (génère automatiquement le PDF)
+make all
+```
+
+**Fichier généré** : `results/RAPPORT_CONVERGENCE.pdf`
+
+### Générer uniquement le PDF
+
+Si vous avez déjà les résultats et souhaitez régénérer uniquement le PDF :
+
+```bash
+# Avec Python
+python3 generate_report.py
+
+# Avec Make
+make report
+```
+
+### Désactiver la génération du PDF
+
+Si vous ne souhaitez pas générer le PDF :
+
+```bash
+python3 main.py --skip-report
 ```
 
 ## Utilisation
@@ -126,11 +184,13 @@ python3 main.py
 **Options disponibles** :
 ```bash
 python3 main.py --help                  # Aide
-python3 main.py --penalization          # Inclure méthode pénalisation
 python3 main.py --only-analysis         # Analyser résultats existants
 python3 main.py --skip-meshgen          # Ignorer génération maillages
 python3 main.py --skip-solve            # Ignorer résolution FreeFem++
+python3 main.py --skip-report           # Ne pas générer le PDF
 ```
+
+**Note** : Les 2 méthodes (standard + pénalisation) sont maintenant **exécutées automatiquement**.
 
 ### Méthode 2 : Makefile
 
@@ -141,16 +201,20 @@ make all
 
 **Commandes disponibles** :
 ```bash
-make help              # Aide
-make meshes            # Générer les maillages
-make analyze           # Analyser les maillages
-make solve             # Résoudre (standard)
-make solve-pen         # Résoudre (pénalisation)
-make convergence       # Analyse de convergence
-make view-results      # Afficher les résultats
-make clean             # Nettoyer
-make test              # Tests rapides
-make install-deps      # Installer dépendances Python
+make help                  # Aide
+make all                   # Exécution complète avec PDF (défaut)
+make full                  # Alias pour 'make all'
+make meshes                # Générer les maillages
+make analyze               # Analyser les maillages
+make solve                 # Résoudre (standard)
+make solve-pen             # Résoudre (pénalisation)
+make convergence           # Analyse de convergence (2 méthodes)
+make report                # Générer uniquement le PDF
+make view-results          # Afficher les résultats
+make clean                 # Nettoyer
+make test                  # Tests rapides
+make install-deps          # Installer dépendances de base
+make install-deps-full     # Installer toutes dépendances (avec PDF)
 ```
 
 **Exécution par étapes** :

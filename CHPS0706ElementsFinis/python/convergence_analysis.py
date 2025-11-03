@@ -143,6 +143,9 @@ def plot_convergence(h_values, errors, method='standard'):
     plt.savefig(output_file, dpi=300, bbox_inches='tight')
     print(f"✓ Graphique sauvegardé : {output_file}")
 
+    # Fermeture de la figure pour libérer la mémoire
+    plt.close()
+
     # Affichage optionnel
     # plt.show()
 
@@ -159,7 +162,7 @@ def generate_convergence_table(h_values, Q_values, errors, orders, method='stand
         method: 'standard' ou 'penalized'
     """
     mesh_names = ['m1.msh', 'm2.msh', 'm3.msh', 'm4.msh']
-    sizes = [25, 81, 289, 1089]  # Corrigé : tailles selon l'énoncé du TP
+    sizes = [81, 289, 1089, 4225]  # Tailles : 4×4=81, 8×8=289, 16×16=1089, 32×32=4225 nœuds
 
     print("\n" + "="*90)
     print(f"TABLEAU DE CONVERGENCE - Méthode {method.upper()}")

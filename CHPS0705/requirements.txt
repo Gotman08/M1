@@ -1,0 +1,12 @@
+# Reconnaissance vocale
+openai-whisper
+sounddevice
+soundfile
+numpy
+scipy
+
+# Analyse IA avec Ollama
+requests
+
+# Utilitaires
+colorama

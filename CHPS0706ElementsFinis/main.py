@@ -42,7 +42,7 @@ def print_banner():
 
 def check_freefem():
     """Vérifie que FreeFem++ est installé et accessible"""
-    print("\n[1/6] Vérification de FreeFem++...")
+    print("\n[1/7] Vérification de FreeFem++...")
 
     try:
         # Test avec FreeFem++ (sous WSL, peut-être 'FreeFem++' ou 'freefem++')
@@ -73,7 +73,7 @@ def check_freefem():
 
 def generate_meshes(freefem_cmd):
     """Génère les 4 maillages avec FreeFem++"""
-    print("\n[2/6] Génération des maillages...")
+    print("\n[2/7] Génération des maillages...")
 
     script = 'generate_meshes.edp'
 
@@ -110,7 +110,7 @@ def generate_meshes(freefem_cmd):
 
 def analyze_meshes():
     """Analyse la qualité et le pas des maillages"""
-    print("\n[3/6] Analyse des maillages (Exercice 2)...")
+    print("\n[3/7] Analyse des maillages (Exercice 2)...")
 
     try:
         mesh_results = analyze_all_meshes()
@@ -125,10 +125,10 @@ def solve_with_freefem(freefem_cmd, method='standard'):
     """Résout le problème avec FreeFem++"""
 
     if method == 'standard':
-        print("\n[4/6] Résolution avec FreeFem++ (méthode standard - Exercice 3.1)...")
+        print("\n[4/7] Résolution avec FreeFem++ (méthode standard - Exercice 3.1)...")
         script = 'freefem/validation.edp'
     else:
-        print("\n[4b/6] Résolution avec FreeFem++ (méthode pénalisation - Exercice 3.2)...")
+        print("\n[5/7] Résolution avec FreeFem++ (méthode pénalisation - Exercice 3.2)...")
         script = 'freefem/validation_pen.edp'
 
     if not os.path.exists(script):
@@ -181,9 +181,9 @@ def analyze_convergence_results(mesh_results, method='standard'):
     """Analyse la convergence et génère les graphiques"""
 
     if method == 'standard':
-        print("\n[5/6] Analyse de convergence (Exercice 4)...")
+        print("\n[4b/7] Analyse de convergence standard (Exercice 4)...")
     else:
-        print("\n[5b/6] Analyse de convergence (méthode pénalisation)...")
+        print("\n[5b/7] Analyse de convergence pénalisation (Exercice 4)...")
 
     if mesh_results is None:
         print("✗ Pas de résultats de maillage disponibles")
@@ -200,9 +200,35 @@ def analyze_convergence_results(mesh_results, method='standard'):
         return False
 
 
+def generate_pdf_report():
+    """Génère le rapport PDF final"""
+    print("\n[6/7] Génération du rapport PDF...")
+
+    try:
+        result = subprocess.run([sys.executable, 'generate_report.py'],
+                                capture_output=True,
+                                text=True,
+                                timeout=120)
+
+        if result.returncode == 0:
+            print(result.stdout)
+            print("✓ Rapport PDF généré avec succès")
+            return True
+        else:
+            print("✗ Erreur lors de la génération du PDF:")
+            print(result.stderr)
+            return False
+    except subprocess.TimeoutExpired:
+        print("✗ Timeout lors de la génération du PDF")
+        return False
+    except Exception as e:
+        print(f"✗ Erreur : {e}")
+        return False
+
+
 def display_summary():
     """Affiche un résumé des résultats"""
-    print("\n[6/6] Résumé des résultats...")
+    print("\n[7/7] Résumé des résultats...")
     print("\n" + "="*70)
     print("FICHIERS GÉNÉRÉS")
     print("="*70)
@@ -217,8 +243,15 @@ def display_summary():
         ('results/m2_error.txt', 'Erreur m2 (standard)'),
         ('results/m3_error.txt', 'Erreur m3 (standard)'),
         ('results/m4_error.txt', 'Erreur m4 (standard)'),
+        ('results/m1_error_pen.txt', 'Erreur m1 (pénalisation)'),
+        ('results/m2_error_pen.txt', 'Erreur m2 (pénalisation)'),
+        ('results/m3_error_pen.txt', 'Erreur m3 (pénalisation)'),
+        ('results/m4_error_pen.txt', 'Erreur m4 (pénalisation)'),
         ('results/convergence_table_standard.txt', 'Tableau convergence (standard)'),
         ('results/convergence_plot_standard.png', 'Graphique convergence (standard)'),
+        ('results/convergence_table_penalized.txt', 'Tableau convergence (pénalisation)'),
+        ('results/convergence_plot_penalized.png', 'Graphique convergence (pénalisation)'),
+        ('results/RAPPORT_CONVERGENCE.pdf', 'Rapport PDF final'),
     ]
 
     for filepath, description in files_to_check:
@@ -249,8 +282,8 @@ def main():
                         help='Ignorer la génération des maillages')
     parser.add_argument('--skip-solve', action='store_true',
                         help='Ignorer la résolution FreeFem++')
-    parser.add_argument('--penalization', action='store_true',
-                        help='Exécuter aussi la méthode de pénalisation')
+    parser.add_argument('--skip-report', action='store_true',
+                        help='Ne pas générer le rapport PDF')
     parser.add_argument('--only-analysis', action='store_true',
                         help='Uniquement analyser les résultats existants')
 
@@ -279,24 +312,38 @@ def main():
         print("\n✗ Échec de l'analyse des maillages")
         return 1
 
-    # Résolution avec FreeFem++ (méthode standard)
+    # ========================================================================
+    # RÉSOLUTION AVEC LES 2 MÉTHODES (standard + pénalisation)
+    # ========================================================================
+
+    # Méthode 1 : Standard (Exercice 3.1)
     if not args.skip_solve and not args.only_analysis:
         if not solve_with_freefem(freefem_cmd, method='standard'):
-            print("\n✗ Échec de la résolution FreeFem++")
+            print("\n✗ Échec de la résolution standard")
             return 1
 
-    # Analyse de convergence (méthode standard)
+    # Analyse de convergence - Standard
     if not analyze_convergence_results(mesh_results, method='standard'):
-        print("\n✗ Échec de l'analyse de convergence")
+        print("\n✗ Échec de l'analyse de convergence standard")
         return 1
 
-    # Méthode de pénalisation (optionnel)
-    if args.penalization and not args.only_analysis:
+    # Méthode 2 : Pénalisation (Exercice 3.2) - TOUJOURS EXÉCUTÉE
+    if not args.skip_solve and not args.only_analysis:
         if not solve_with_freefem(freefem_cmd, method='penalized'):
-            print("\n⚠️  Méthode de pénalisation échouée (ignorée)")
+            print("\n⚠️  Méthode de pénalisation échouée")
+            # On continue quand même pour générer le PDF avec les résultats standard
         else:
+            # Analyse de convergence - Pénalisation
             if not analyze_convergence_results(mesh_results, method='penalized'):
-                print("\n⚠️  Analyse pénalisation échouée (ignorée)")
+                print("\n⚠️  Analyse pénalisation échouée")
+
+    # ========================================================================
+    # GÉNÉRATION DU RAPPORT PDF
+    # ========================================================================
+
+    if not args.skip_report:
+        if not generate_pdf_report():
+            print("\n⚠️  Génération du PDF échouée (résultats disponibles quand même)")
 
     # Résumé final
     display_summary()

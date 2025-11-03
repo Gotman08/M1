@@ -33,10 +33,13 @@ CONVERGENCE_ANALYSIS := $(PYTHON_DIR)/convergence_analysis.py
 MAIN_SCRIPT := main.py
 
 # Cibles
-.PHONY: all clean help meshes solve analyze convergence test install-deps view-results
+.PHONY: all full clean help meshes solve solve-pen analyze convergence report test install-deps install-deps-full view-results
 
-# Cible par défaut
-all: convergence
+# Cible par défaut - Exécution complète avec PDF
+all: full
+
+# Exécution complète avec génération du rapport PDF
+full: convergence report
 	@echo ""
 	@echo "════════════════════════════════════════════════════════════"
 	@echo "✓ Étude de convergence terminée avec succès"
@@ -45,8 +48,11 @@ all: convergence
 	@echo "Fichiers générés :"
 	@echo "  - Maillages        : $(MESH_DIR)/"
 	@echo "  - Résultats        : $(RESULTS_DIR)/"
-	@echo "  - Tableau          : $(RESULTS_DIR)/convergence_table_standard.txt"
-	@echo "  - Graphique        : $(RESULTS_DIR)/convergence_plot_standard.png"
+	@echo "  - Tableau standard : $(RESULTS_DIR)/convergence_table_standard.txt"
+	@echo "  - Tableau pénal.   : $(RESULTS_DIR)/convergence_table_penalized.txt"
+	@echo "  - Graphique std    : $(RESULTS_DIR)/convergence_plot_standard.png"
+	@echo "  - Graphique pénal. : $(RESULTS_DIR)/convergence_plot_penalized.png"
+	@echo "  - Rapport PDF      : $(RESULTS_DIR)/RAPPORT_CONVERGENCE.pdf"
 	@echo ""
 
 # Aide
@@ -57,17 +63,20 @@ help:
 	@echo ""
 	@echo "Cibles disponibles :"
 	@echo ""
-	@echo "  make all           - Exécution complète (défaut)"
-	@echo "  make meshes        - Générer les 4 maillages"
-	@echo "  make analyze       - Analyser les maillages (qualité Q et pas h)"
-	@echo "  make solve         - Résoudre avec FreeFem++ (standard)"
-	@echo "  make solve-pen     - Résoudre avec pénalisation"
-	@echo "  make convergence   - Analyse de convergence complète"
-	@echo "  make test          - Tests rapides"
-	@echo "  make view-results  - Afficher les résultats"
-	@echo "  make clean         - Nettoyer les fichiers générés"
-	@echo "  make install-deps  - Installer les dépendances Python"
-	@echo "  make help          - Afficher cette aide"
+	@echo "  make all               - Exécution complète avec PDF (défaut)"
+	@echo "  make full              - Alias pour 'make all'"
+	@echo "  make meshes            - Générer les 4 maillages"
+	@echo "  make analyze           - Analyser les maillages (qualité Q et pas h)"
+	@echo "  make solve             - Résoudre avec FreeFem++ (standard)"
+	@echo "  make solve-pen         - Résoudre avec pénalisation"
+	@echo "  make convergence       - Analyse de convergence (2 méthodes)"
+	@echo "  make report            - Générer uniquement le PDF"
+	@echo "  make test              - Tests rapides"
+	@echo "  make view-results      - Afficher les résultats"
+	@echo "  make clean             - Nettoyer les fichiers générés"
+	@echo "  make install-deps      - Installer dépendances de base"
+	@echo "  make install-deps-full - Installer toutes dépendances (avec PDF)"
+	@echo "  make help              - Afficher cette aide"
 	@echo ""
 	@echo "Exemples :"
 	@echo "  make              # Tout exécuter"
@@ -75,12 +84,19 @@ help:
 	@echo "  make clean all    # Nettoyer puis tout refaire"
 	@echo ""
 
-# Installation des dépendances Python
+# Installation des dépendances Python (de base)
 install-deps:
-	@echo "Installation des dépendances Python..."
+	@echo "Installation des dépendances Python (de base)..."
 	$(PYTHON) -m pip install --upgrade pip
 	$(PYTHON) -m pip install numpy matplotlib scipy
-	@echo "✓ Dépendances installées"
+	@echo "✓ Dépendances de base installées"
+
+# Installation complète avec dépendances PDF
+install-deps-full:
+	@echo "Installation complète des dépendances Python (avec PDF)..."
+	$(PYTHON) -m pip install --upgrade pip
+	$(PYTHON) -m pip install -r requirements.txt
+	@echo "✓ Toutes les dépendances installées (incluant reportlab, Pillow, pygments)"
 
 # Vérification de FreeFem++
 check-freefem:
@@ -136,19 +152,21 @@ solve-pen: analyze check-freefem
 	done
 	@echo "✓ Résolution avec pénalisation terminée"
 
-# Analyse de convergence
-convergence: solve
+# Analyse de convergence - LES 2 MÉTHODES
+convergence: solve solve-pen
 	@echo ""
-	@echo "[4/4] Analyse de convergence (Exercice 4)..."
+	@echo "[4/5] Analyse de convergence (Exercice 4)..."
 	@echo "════════════════════════════════════════════════════════════"
 	$(PYTHON) $(MAIN_SCRIPT) --only-analysis
 	@echo "✓ Analyse de convergence terminée"
 
-# Tout avec pénalisation
-all-with-pen: convergence solve-pen
+# Génération du rapport PDF
+report:
 	@echo ""
-	@echo "Analyse de convergence (pénalisation)..."
-	$(PYTHON) $(CONVERGENCE_ANALYSIS)
+	@echo "[5/5] Génération du rapport PDF..."
+	@echo "════════════════════════════════════════════════════════════"
+	$(PYTHON) generate_report.py
+	@echo "✓ Rapport PDF généré"
 
 # Afficher les résultats
 view-results:

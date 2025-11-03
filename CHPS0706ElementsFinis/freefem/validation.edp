@@ -18,7 +18,7 @@ if (ARGV.n >= 2) {
 // Chargement du maillage
 mesh Th = readmesh(meshfile);
 cout << "\n========================================" << endl;
-cout << "Maillage chargé : " << meshfile << endl;
+cout << "Maillage charge : " << meshfile << endl;
 cout << "  Sommets   : " << Th.nv << endl;
 cout << "  Triangles : " << Th.nt << endl;
 cout << "========================================\n" << endl;
@@ -46,8 +46,8 @@ func real duExactDy(real x, real y) {
 // Second membre f = -Δu
 // f = (π²/4)[sin(πx/2) + x(x-4)cos(πy/2)] - 2cos(πy/2)
 func real f(real x, real y) {
-    real pi2_4 = pi*pi / 4.0;
-    return pi2_4 * (sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0)) - 2.0*cos(pi*y/2.0);
+    real pi24 = pi*pi / 4.0;
+    return pi24 * (sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0)) - 2.0*cos(pi*y/2.0);
 }
 
 // Condition de Dirichlet
@@ -82,9 +82,9 @@ problem Poisson(uh, vh) =
     // elle n'apparaît pas dans la formulation variationnelle
 
 // Résolution du système linéaire
-cout << "Résolution du système linéaire..." << endl;
+cout << "Resolution du systeme lineaire..." << endl;
 Poisson;
-cout << "✓ Système résolu\n" << endl;
+cout << "Systeme resolu" << endl;
 
 // ============================================================================
 // CALCUL DE L'ERREUR EN SEMI-NORME H¹
@@ -126,12 +126,12 @@ real normH1 = sqrt(
 // ============================================================================
 
 cout << "========================================" << endl;
-cout << "RÉSULTATS DE LA VALIDATION" << endl;
+cout << "RESULTATS DE LA VALIDATION" << endl;
 cout << "========================================" << endl;
-cout << "Erreur L²          : " << errL2 << endl;
-cout << "Erreur H¹          : " << errH1 << endl;
-cout << "Norme H¹ exacte    : " << normH1 << endl;
-cout << "Erreur relative H¹ : " << (errH1/normH1)*100 << " %" << endl;
+cout << "Erreur L2          : " << errL2 << endl;
+cout << "Erreur H1          : " << errH1 << endl;
+cout << "Norme H1 exacte    : " << normH1 << endl;
+cout << "Erreur relative H1 : " << (errH1/normH1)*100 << " %" << endl;
 cout << "========================================\n" << endl;
 
 // Sauvegarde de l'erreur avec 16 décimales
@@ -142,7 +142,7 @@ cout << "========================================\n" << endl;
     resultsFile << errH1 << endl;
 }
 
-cout << "✓ Erreur sauvegardée dans results/" << meshfile(8:10) << "_error.txt\n" << endl;
+cout << "Erreur sauvegardee dans results/" << meshfile(8:10) << "_error.txt" << endl;
 
 // ============================================================================
 // VISUALISATION (optionnel)

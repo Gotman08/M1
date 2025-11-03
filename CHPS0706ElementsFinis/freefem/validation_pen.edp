@@ -23,7 +23,7 @@ if (ARGV.n >= 2) {
 // Chargement du maillage
 mesh Th = readmesh(meshfile);
 cout << "\n========================================" << endl;
-cout << "Maillage chargé : " << meshfile << endl;
+cout << "Maillage charge : " << meshfile << endl;
 cout << "  Sommets   : " << Th.nv << endl;
 cout << "  Triangles : " << Th.nt << endl;
 cout << "========================================\n" << endl;
@@ -36,8 +36,8 @@ cout << "========================================\n" << endl;
 // Typiquement : α = 10^10 ou plus
 real alpha = 1e10;
 
-cout << "Paramètre de pénalisation α = " << alpha << endl;
-cout << "(Méthode de Fourier-Robin pour imposer Dirichlet)\n" << endl;
+cout << "Parametre de penalisation alpha = " << alpha << endl;
+cout << "(Methode de Fourier-Robin pour imposer Dirichlet)\n" << endl;
 
 // ============================================================================
 // EXERCICE 1 : Définition des fonctions exactes
@@ -59,8 +59,8 @@ func real duExactDy(real x, real y) {
 
 // Second membre f = -Δu
 func real f(real x, real y) {
-    real pi2_4 = pi*pi / 4.0;
-    return pi2_4 * (sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0)) - 2.0*cos(pi*y/2.0);
+    real pi24 = pi*pi / 4.0;
+    return pi24 * (sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0)) - 2.0*cos(pi*y/2.0);
 }
 
 // Condition de Dirichlet (maintenant traitée par pénalisation)
@@ -101,9 +101,9 @@ problem PoissonPenalized(uh, vh) =
     // La condition de Neumann ∇u·n = 0 reste naturelle (label 2)
 
 // Résolution du système linéaire
-cout << "Résolution du système linéaire avec pénalisation..." << endl;
+cout << "Resolution du systeme lineaire avec penalisation..." << endl;
 PoissonPenalized;
-cout << "✓ Système résolu\n" << endl;
+cout << "Systeme resolu" << endl;
 
 // ============================================================================
 // CALCUL DE L'ERREUR EN SEMI-NORME H¹
@@ -151,13 +151,13 @@ real normH1 = sqrt(
 // ============================================================================
 
 cout << "========================================" << endl;
-cout << "RÉSULTATS DE LA VALIDATION (PÉNALISATION)" << endl;
+cout << "RESULTATS DE LA VALIDATION (PENALISATION)" << endl;
 cout << "========================================" << endl;
-cout << "Erreur L²          : " << errL2 << endl;
-cout << "Erreur H¹          : " << errH1 << endl;
-cout << "Erreur L² sur Γ_D  : " << errL2_boundary << endl;
-cout << "Norme H¹ exacte    : " << normH1 << endl;
-cout << "Erreur relative H¹ : " << (errH1/normH1)*100 << " %" << endl;
+cout << "Erreur L2          : " << errL2 << endl;
+cout << "Erreur H1          : " << errH1 << endl;
+cout << "Erreur L2 sur Gamma_D  : " << errL2_boundary << endl;
+cout << "Norme H1 exacte    : " << normH1 << endl;
+cout << "Erreur relative H1 : " << (errH1/normH1)*100 << " %" << endl;
 cout << "========================================\n" << endl;
 
 // Sauvegarde de l'erreur avec 16 décimales
@@ -168,21 +168,21 @@ cout << "========================================\n" << endl;
     resultsFile << errH1 << endl;
 }
 
-cout << "✓ Erreur sauvegardée dans results/" << meshfile(8:10) << "_error_pen.txt\n" << endl;
+cout << "Erreur sauvegardee dans results/" << meshfile(8:10) << "_error_pen.txt" << endl;
 
 // ============================================================================
 // VÉRIFICATION DE LA QUALITÉ DE LA PÉNALISATION
 // ============================================================================
 
-cout << "Vérification de la pénalisation :" << endl;
-cout << "  Si α est suffisamment grand, l'erreur sur Γ_D doit être très petite" << endl;
-cout << "  Erreur L² sur Γ_D = " << errL2_boundary << endl;
+cout << "Verification de la penalisation :" << endl;
+cout << "  Si alpha est suffisamment grand, l'erreur sur Gamma_D doit etre tres petite" << endl;
+cout << "  Erreur L2 sur Gamma_D = " << errL2_boundary << endl;
 if (errL2_boundary < 1e-6) {
-    cout << "  ✓ Pénalisation efficace (erreur < 10⁻⁶)" << endl;
+    cout << "  Penalisation efficace (erreur < 10^-6)" << endl;
 } else if (errL2_boundary < 1e-3) {
-    cout << "  ⚠ Pénalisation acceptable (erreur < 10⁻³)" << endl;
+    cout << "  Penalisation acceptable (erreur < 10^-3)" << endl;
 } else {
-    cout << "  ⚠ Attention : α peut-être trop petit (erreur > 10⁻³)" << endl;
+    cout << "  Attention : alpha peut-etre trop petit (erreur > 10^-3)" << endl;
 }
 cout << endl;
 

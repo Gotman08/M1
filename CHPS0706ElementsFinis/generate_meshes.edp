@@ -15,12 +15,12 @@ real Ly = 2.0;  // Longueur en y
 // ====================
 int nx1 = 4;
 int ny1 = 4;
-mesh Th1 = square(nx1, ny1, [Lx*x, Ly*y],
-                  flags=0,  // Maillage structuré sans optimisation
-                  label=[1,2,1,2]);  // [gauche, haut, droite, bas]
+mesh Th1 = square(nx1, ny1, [Lx*x, Ly*y]);
+// Changement des labels : 1,3 -> 1 (Dirichlet), 2,4 -> 2 (Neumann)
+Th1 = change(Th1, label=[1,2,1,2]);
 
 savemesh(Th1, "meshes/m1.msh");
-cout << "Maillage m1.msh généré : " << Th1.nt << " triangles, "
+cout << "Maillage m1.msh genere : " << Th1.nt << " triangles, "
      << Th1.nv << " sommets" << endl;
 
 // ====================
@@ -28,12 +28,11 @@ cout << "Maillage m1.msh généré : " << Th1.nt << " triangles, "
 // ====================
 int nx2 = 8;
 int ny2 = 8;
-mesh Th2 = square(nx2, ny2, [Lx*x, Ly*y],
-                  flags=0,
-                  label=[1,2,1,2]);
+mesh Th2 = square(nx2, ny2, [Lx*x, Ly*y]);
+Th2 = change(Th2, label=[1,2,1,2]);
 
 savemesh(Th2, "meshes/m2.msh");
-cout << "Maillage m2.msh généré : " << Th2.nt << " triangles, "
+cout << "Maillage m2.msh genere : " << Th2.nt << " triangles, "
      << Th2.nv << " sommets" << endl;
 
 // ====================
@@ -41,12 +40,11 @@ cout << "Maillage m2.msh généré : " << Th2.nt << " triangles, "
 // ====================
 int nx3 = 16;
 int ny3 = 16;
-mesh Th3 = square(nx3, ny3, [Lx*x, Ly*y],
-                  flags=0,
-                  label=[1,2,1,2]);
+mesh Th3 = square(nx3, ny3, [Lx*x, Ly*y]);
+Th3 = change(Th3, label=[1,2,1,2]);
 
 savemesh(Th3, "meshes/m3.msh");
-cout << "Maillage m3.msh généré : " << Th3.nt << " triangles, "
+cout << "Maillage m3.msh genere : " << Th3.nt << " triangles, "
      << Th3.nv << " sommets" << endl;
 
 // ====================
@@ -54,12 +52,11 @@ cout << "Maillage m3.msh généré : " << Th3.nt << " triangles, "
 // ====================
 int nx4 = 32;
 int ny4 = 32;
-mesh Th4 = square(nx4, ny4, [Lx*x, Ly*y],
-                  flags=0,
-                  label=[1,2,1,2]);
+mesh Th4 = square(nx4, ny4, [Lx*x, Ly*y]);
+Th4 = change(Th4, label=[1,2,1,2]);
 
 savemesh(Th4, "meshes/m4.msh");
-cout << "Maillage m4.msh généré : " << Th4.nt << " triangles, "
+cout << "Maillage m4.msh genere : " << Th4.nt << " triangles, "
      << Th4.nv << " sommets" << endl;
 
-cout << "\n=== Génération des maillages terminée ===" << endl;
+cout << "\n=== Generation des maillages terminee ===" << endl;
