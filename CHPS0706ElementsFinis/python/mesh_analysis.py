@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Analyse des Maillages - Exercice 2
-===================================
-Calcul de la qualité Q et du pas h pour les 4 maillages
+Analyse des maillages - Exercice 2
+Calcul de la qualite Q et du pas h pour les 4 maillages
 """
 
 import sys
@@ -14,12 +13,10 @@ from utils import read_freefem_mesh, compute_mesh_characteristics
 
 
 def analyze_all_meshes():
-    """
-    Analyse les 4 maillages et affiche les résultats
-    """
+    """Analyse les 4 maillages et affiche les resultats"""
     mesh_files = ['m1.msh', 'm2.msh', 'm3.msh', 'm4.msh']
     mesh_names = ['m1', 'm2', 'm3', 'm4']
-    expected_sizes = [25, 81, 289, 1089]  # Corrigé : tailles selon l'énoncé du TP
+    expected_sizes = [25, 81, 289, 1089]  # tailles selon l'enonce du TP
 
     results = []
 
@@ -32,7 +29,7 @@ def analyze_all_meshes():
         mesh_path = os.path.join('meshes', mesh_file)
 
         if not os.path.exists(mesh_path):
-            print(f"⚠️  Fichier {mesh_file} non trouvé!")
+            print(f"Attention : fichier {mesh_file} non trouve!")
             results.append({
                 'name': mesh_name,
                 'N': expected_nv,
@@ -44,7 +41,7 @@ def analyze_all_meshes():
         # Lecture du maillage
         mesh_data = read_freefem_mesh(mesh_path)
 
-        # Calcul des caractéristiques (Q = max des qualités, h = max des diamètres)
+        # Calcul Q et h
         Q_max, h = compute_mesh_characteristics(mesh_data)
 
         results.append({
@@ -57,11 +54,11 @@ def analyze_all_meshes():
         print(f"Maillage {mesh_name}.msh:")
         print(f"  - Taille N        : {mesh_data['nv']} sommets")
         print(f"  - Triangles       : {mesh_data['nt']}")
-        print(f"  - Qualité Q       : {Q_max:.16f}")
+        print(f"  - Qualite Q       : {Q_max:.16f}")
         print(f"  - Pas h           : {h:.16f}")
         print()
 
-    # Sauvegarde des résultats
+    # Sauvegarde
     output_file = os.path.join('results', 'mesh_analysis.txt')
     os.makedirs('results', exist_ok=True)
 
@@ -76,7 +73,7 @@ def analyze_all_meshes():
                 f.write(f"  Q = {res['Q']:.16f}\n")
                 f.write(f"  h = {res['h']:.16f}\n\n")
 
-    print(f"✓ Résultats sauvegardés dans {output_file}")
+    print(f"Resultats sauvegardes dans {output_file}")
 
     return results
 

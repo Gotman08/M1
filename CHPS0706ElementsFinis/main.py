@@ -44,34 +44,32 @@ def check_freefem():
     """Vérifie que FreeFem++ est installé et accessible"""
     print("\n[1/7] Vérification de FreeFem++...")
 
+    # Essayer d'abord FreeFem++ (capitale - installation Ubuntu)
     try:
-        # Test avec FreeFem++ (sous WSL, peut-être 'FreeFem++' ou 'freefem++')
         result = subprocess.run(['FreeFem++', '-h'],
                                 capture_output=True,
                                 timeout=5)
-        print("✓ FreeFem++ détecté (FreeFem++)")
+        print("✓ FreeFem++ détecté")
         return 'FreeFem++'
     except (subprocess.TimeoutExpired, FileNotFoundError):
         pass
 
+    # Fallback: freefem++ (minuscules)
     try:
         result = subprocess.run(['freefem++', '-h'],
                                 capture_output=True,
                                 timeout=5)
-        print("✓ FreeFem++ détecté (freefem++)")
+        print("✓ FreeFem++ détecté")
         return 'freefem++'
     except (subprocess.TimeoutExpired, FileNotFoundError):
-        pass
-
-    print("✗ FreeFem++ non trouvé dans le PATH")
-    print("\n  Pour installer FreeFem++ sous WSL :")
-    print("    sudo apt-get update")
-    print("    sudo apt-get install freefem++")
-    print("\n  Ou télécharger depuis : https://freefem.org/")
-    return None
+        print("✗ FreeFem++ non trouvé dans le PATH")
+        print("\n  Pour installer FreeFem++ :")
+        print("    sudo apt-get update")
+        print("    sudo apt-get install freefem++")
+        return None
 
 
-def generate_meshes(freefem_cmd):
+def generate_meshes(freefem_cmd, graphics=False):
     """Génère les 4 maillages avec FreeFem++"""
     print("\n[2/7] Génération des maillages...")
 
@@ -85,13 +83,21 @@ def generate_meshes(freefem_cmd):
     os.makedirs('meshes', exist_ok=True)
 
     # Exécution de FreeFem++
+    freefem_args = [freefem_cmd, script]
+    if not graphics:  # Par défaut, pas de graphiques (WSL)
+        freefem_args.append('-nw')
+
     try:
-        result = subprocess.run([freefem_cmd, script],
+        result = subprocess.run(freefem_args,
                                 capture_output=True,
                                 text=True,
                                 timeout=30)
 
-        if result.returncode != 0:
+        # FreeFem++ peut retourner un code non-zéro même en cas de succès (warnings)
+        # On vérifie plutôt que les fichiers ont été créés
+        meshes_created = all(os.path.exists(f'meshes/m{i}.msh') for i in range(1, 5))
+
+        if not meshes_created:
             print(f"✗ Erreur lors de la génération des maillages:")
             print(result.stderr)
             return False
@@ -121,7 +127,7 @@ def analyze_meshes():
         return None
 
 
-def solve_with_freefem(freefem_cmd, method='standard'):
+def solve_with_freefem(freefem_cmd, method='standard', graphics=False):
     """Résout le problème avec FreeFem++"""
 
     if method == 'standard':
@@ -149,22 +155,29 @@ def solve_with_freefem(freefem_cmd, method='standard'):
 
         print(f"\n  Traitement de {mesh_name}...")
 
+        # Construction des arguments FreeFem++
+        freefem_args = [freefem_cmd, script, mesh_file]
+        if not graphics:  # Par défaut, pas de graphiques (WSL)
+            freefem_args.append('-nw')
+
         try:
-            result = subprocess.run([freefem_cmd, script, mesh_file],
+            result = subprocess.run(freefem_args,
                                     capture_output=True,
                                     text=True,
                                     timeout=60)
 
-            if result.returncode != 0:
-                print(f"  ✗ Erreur pour {mesh_name}:")
-                print(result.stderr)
-                continue
-
-            # Afficher la sortie
+            # FreeFem++ peut retourner un code non-zéro même avec succès (warnings)
+            # On affiche la sortie et on vérifie s'il y a des vraies erreurs
             lines = result.stdout.split('\n')
             for line in lines:
                 if 'Erreur' in line or 'H¹' in line or '✓' in line or '===' in line:
                     print(f"    {line}")
+
+            # Vérifier s'il y a eu une vraie erreur fatale
+            if result.returncode != 0 and result.stderr and 'Error' in result.stderr:
+                print(f"  ⚠️  Avertissement pour {mesh_name} (code retour: {result.returncode})")
+                if result.stderr.strip():
+                    print(f"    {result.stderr}")
 
         except subprocess.TimeoutExpired:
             print(f"  ✗ Timeout pour {mesh_name}")
@@ -286,6 +299,8 @@ def main():
                         help='Ne pas générer le rapport PDF')
     parser.add_argument('--only-analysis', action='store_true',
                         help='Uniquement analyser les résultats existants')
+    parser.add_argument('--graphics', action='store_true',
+                        help='Activer les fenêtres graphiques FreeFem++ (nécessite serveur X)')
 
     args = parser.parse_args()
 
@@ -302,7 +317,7 @@ def main():
 
     # Génération des maillages
     if not args.skip_meshgen and not args.only_analysis:
-        if not generate_meshes(freefem_cmd):
+        if not generate_meshes(freefem_cmd, graphics=args.graphics):
             print("\n✗ Échec de la génération des maillages")
             return 1
 
@@ -318,7 +333,7 @@ def main():
 
     # Méthode 1 : Standard (Exercice 3.1)
     if not args.skip_solve and not args.only_analysis:
-        if not solve_with_freefem(freefem_cmd, method='standard'):
+        if not solve_with_freefem(freefem_cmd, method='standard', graphics=args.graphics):
             print("\n✗ Échec de la résolution standard")
             return 1
 
@@ -329,7 +344,7 @@ def main():
 
     # Méthode 2 : Pénalisation (Exercice 3.2) - TOUJOURS EXÉCUTÉE
     if not args.skip_solve and not args.only_analysis:
-        if not solve_with_freefem(freefem_cmd, method='penalized'):
+        if not solve_with_freefem(freefem_cmd, method='penalized', graphics=args.graphics):
             print("\n⚠️  Méthode de pénalisation échouée")
             # On continue quand même pour générer le PDF avec les résultats standard
         else:

@@ -1,18 +1,15 @@
-// ============================================================================
 // Solveur Éléments Finis P1 - Exercice 3 (Méthode Standard)
-// ============================================================================
 // Problème :
-//   -Δu = f    dans Ω = ]0,4[ × ]0,2[
-//   u = uE     sur Γ_D = {0,4} × [0,2]  (label 1)
-//   ∇u·n = 0   sur Γ_N = ]0,4[ × {0,2}  (label 2)
+//   -Deltau = f    dans Omega = ]0,4[ x ]0,2[
+//   u = uE     sur Gamma_D = {0,4} x [0,2]  (label 1)
+//   grad(u).n = 0   sur Gamma_N = ]0,4[ x {0,2}  (label 2)
 //
-// Solution exacte : u(x,y) = 1 + sin(πx/2) + x(x-4)cos(πy/2)
-// ============================================================================
+// Solution exacte : u(x,y) = 1 + sin(pi*x/2) + x(x-4)cos(pi*y/2)
 
-// Fonction pour lire le nom du maillage depuis la ligne de commande
+// Lecture du nom du maillage depuis la ligne de commande
 string meshfile = "meshes/m1.msh";
-if (ARGV.n >= 2) {
-    meshfile = ARGV[1];
+if (ARGV.n >= 3) {
+    meshfile = ARGV[2];
 }
 
 // Chargement du maillage
@@ -23,28 +20,30 @@ cout << "  Sommets   : " << Th.nv << endl;
 cout << "  Triangles : " << Th.nt << endl;
 cout << "========================================\n" << endl;
 
-// ============================================================================
-// EXERCICE 1 : Définition des fonctions exactes
-// ============================================================================
+// Définition des fonctions exactes
 
-// Solution exacte
+// Solution exacte u(x,y) = 1 + sin(pi*x/2) + x(x-4)cos(pi*y/2)
 func real uExact(real x, real y) {
     return 1.0 + sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0);
 }
 
-// Gradient de la solution exacte
-// ∂u/∂x = (π/2)cos(πx/2) + (2x-4)cos(πy/2)
+// Gradient de la solution exacte (calcul analytique)
+// du/dx = (pi/2)cos(pi*x/2) + (2x-4)cos(pi*y/2)
 func real duExactDx(real x, real y) {
     return (pi/2.0)*cos(pi*x/2.0) + (2.0*x - 4.0)*cos(pi*y/2.0);
 }
 
-// ∂u/∂y = -(π/2)x(x-4)sin(πy/2)
+// du/dy = -(pi/2)x(x-4)sin(pi*y/2)
 func real duExactDy(real x, real y) {
     return -(pi/2.0)*x*(x-4.0)*sin(pi*y/2.0);
 }
 
-// Second membre f = -Δu
-// f = (π²/4)[sin(πx/2) + x(x-4)cos(πy/2)] - 2cos(πy/2)
+// Condition de Neumann : sur y=0 et y=2, sin(0)=0 et sin(pi)=0 donc du/dy = 0 (ok)
+
+// Second membre f = -Delta(u)
+// Calcul : d2u/dx2 = -(pi^2/4)sin(pi*x/2) + 2cos(pi*y/2)
+//          d2u/dy2 = -(pi^2/4)x(x-4)cos(pi*y/2)
+// Donc f = (pi^2/4)[sin(pi*x/2) + x(x-4)cos(pi*y/2)] - 2cos(pi*y/2)
 func real f(real x, real y) {
     real pi24 = pi*pi / 4.0;
     return pi24 * (sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0)) - 2.0*cos(pi*y/2.0);
@@ -55,76 +54,47 @@ func real uD(real x, real y) {
     return uExact(x, y);
 }
 
-// ============================================================================
-// FORMULATION VARIATIONNELLE
-// ============================================================================
+// Formulation variationnelle
 
-// Espace d'éléments finis P1
 fespace Vh(Th, P1);
-
-// Inconnue et fonction test
 Vh uh, vh;
 
-// Problème variationnel :
-// ∫_Ω ∇u·∇v = ∫_Ω f·v  pour tout v ∈ V_0
-// avec u = uE sur Γ_D
+// Problème : trouver uh dans Vh tel que
+// int_Omega grad(uh).grad(vh) = int_Omega f*vh  pour tout vh
+// avec uh = uE sur Gamma_D
 problem Poisson(uh, vh) =
-    // Forme bilinéaire a(u,v) = ∫_Ω ∇u·∇v
-    int2d(Th)(dx(uh)*dx(vh) + dy(uh)*dy(vh))
+    int2d(Th)(dx(uh)*dx(vh) + dy(uh)*dy(vh))  // forme bilinéaire
+    - int2d(Th)(f(x,y) * vh)                  // forme linéaire
+    + on(2, uh = uD(x,y))                     // Dirichlet sur label 2 (x=4)
+    + on(4, uh = uD(x,y));                    // Dirichlet sur label 4 (x=0)
 
-    // Forme linéaire L(v) = ∫_Ω f·v
-    - int2d(Th)(f(x,y) * vh)
+// Note : Neumann homogène est naturel, pas besoin de l'imposer
 
-    // Condition de Dirichlet (imposée fortement sur label 1)
-    + on(1, uh = uD(x,y));
-
-    // Note : La condition de Neumann homogène ∇u·n = 0 est naturelle,
-    // elle n'apparaît pas dans la formulation variationnelle
-
-// Résolution du système linéaire
 cout << "Resolution du systeme lineaire..." << endl;
 Poisson;
 cout << "Systeme resolu" << endl;
 
-// ============================================================================
-// CALCUL DE L'ERREUR EN SEMI-NORME H¹
-// ============================================================================
+// Calcul des erreurs
 
-// Interpolation de la solution exacte
 Vh uEx;
 uEx = uExact(x, y);
 
-// Interpolation du gradient exact
-Vh duExDx, duExDy;
-duExDx = duExactDx(x, y);
-duExDy = duExactDy(x, y);
-
-// Calcul de l'erreur en semi-norme H¹(Ω)
-// |u - uh|_{H¹} = sqrt(∫_Ω |∇(u - uh)|² dx)
+// Erreur H1 semi-norme
+// Attention : utiliser les dérivées exactes duExactDx/Dy, pas dx(uEx) !
+// (l'interpolation P1 change les gradients)
 real errH1 = sqrt(
     int2d(Th)(
-        (dx(uEx) - dx(uh))^2 + (dy(uEx) - dy(uh))^2
+        (duExactDx(x,y) - dx(uh))^2 + (duExactDy(x,y) - dy(uh))^2
     )
 );
 
-// Calcul de l'erreur L²
-real errL2 = sqrt(
-    int2d(Th)(
-        (uEx - uh)^2
-    )
-);
+// Erreur L2
+real errL2 = sqrt(int2d(Th)((uEx - uh)^2));
 
-// Calcul de la norme H¹ de la solution exacte (pour référence)
-real normH1 = sqrt(
-    int2d(Th)(
-        dx(uEx)^2 + dy(uEx)^2
-    )
-);
+// Norme H1 de la solution exacte
+real normH1 = sqrt(int2d(Th)(duExactDx(x,y)^2 + duExactDy(x,y)^2));
 
-// ============================================================================
-// AFFICHAGE DES RÉSULTATS
-// ============================================================================
-
+// Affichage des résultats
 cout << "========================================" << endl;
 cout << "RESULTATS DE LA VALIDATION" << endl;
 cout << "========================================" << endl;
@@ -134,21 +104,17 @@ cout << "Norme H1 exacte    : " << normH1 << endl;
 cout << "Erreur relative H1 : " << (errH1/normH1)*100 << " %" << endl;
 cout << "========================================\n" << endl;
 
-// Sauvegarde de l'erreur avec 16 décimales
+// Sauvegarde de l'erreur (16 décimales pour convergence)
 {
-    ofstream resultsFile("results/" + meshfile(8:10) + "_error.txt");
+    ofstream resultsFile("results/" + meshfile(7:8) + "_error.txt");
     resultsFile.precision(16);
     resultsFile.scientific;
     resultsFile << errH1 << endl;
 }
 
-cout << "Erreur sauvegardee dans results/" << meshfile(8:10) << "_error.txt" << endl;
+cout << "Erreur sauvegardee dans results/" + meshfile(7:8) + "_error.txt" << endl;
 
-// ============================================================================
-// VISUALISATION (optionnel)
-// ============================================================================
-
-// Décommenter pour visualiser les résultats
+// Visualisation (optionnel, décommenter si besoin)
 // plot(uh, value=true, fill=true, cmm="Solution numérique uh");
 // plot(uEx, value=true, fill=true, cmm="Solution exacte u");
 // plot(uEx - uh, value=true, fill=true, cmm="Erreur u - uh");

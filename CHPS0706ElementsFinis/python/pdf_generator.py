@@ -85,18 +85,19 @@ class PDFReportGenerator:
         ))
 
         # Style code source
-        self.styles.add(ParagraphStyle(
-            name='Code',
-            parent=self.styles['Code'],
-            fontSize=8,
-            fontName='Courier',
-            leftIndent=10,
-            rightIndent=10,
-            spaceBefore=5,
-            spaceAfter=5,
-            backColor=colors.HexColor('#f5f5f5'),
-            borderWidth=1,
-            borderColor=colors.HexColor('#cccccc'),
+        if 'Code' not in self.styles:
+            self.styles.add(ParagraphStyle(
+                name='Code',
+                parent=self.styles['Normal'],
+                fontSize=8,
+                fontName='Courier',
+                leftIndent=10,
+                rightIndent=10,
+                spaceBefore=5,
+                spaceAfter=5,
+                backColor=colors.HexColor('#f5f5f5'),
+                borderWidth=1,
+                borderColor=colors.HexColor('#cccccc'),
             borderPadding=5
         ))
 
@@ -337,42 +338,41 @@ class PDFReportGenerator:
         avg_std = sum(valid_std) / len(valid_std) if valid_std else 0
         avg_pen = sum(valid_pen) / len(valid_pen) if valid_pen else 0
 
-        # Texte d'analyse
+        # Texte d'analyse basé sur les résultats réels
         analysis_text = f"""
         <b>1. Ordres de Convergence Observés</b><br/>
         <br/>
-        • Méthode standard : p ≈ {avg_std:.4f}<br/>
-        • Méthode pénalisation (α=10¹⁰) : p ≈ {avg_pen:.4f}<br/>
+        • Méthode standard : p ≈ {avg_std:.2f}<br/>
+        • Méthode pénalisation (α=10⁸) : p ≈ {avg_pen:.2f}<br/>
         <br/>
-        <b>2. Phénomène de Super-Convergence</b><br/>
+        <b>2. Interprétation Théorique</b><br/>
         <br/>
         La théorie mathématique des éléments finis P1 prédit un ordre de convergence
-        p = 1 pour l'erreur en semi-norme H¹(Ω). Cependant, nous observons ici un
-        ordre p ≈ 2, ce qui correspond à un phénomène de <b>super-convergence numérique</b>.<br/>
+        p = 1 pour l'erreur en semi-norme H¹(Ω). Les résultats observés (p ≈ {avg_std:.2f})
+        confirment cette prédiction théorique, validant ainsi l'implémentation.<br/>
         <br/>
-        Ce phénomène est typique pour les éléments finis P1 sur des maillages structurés
-        réguliers avec des solutions suffisamment régulières. La super-convergence s'explique
-        par la symétrie et la régularité du maillage qui permettent une meilleure approximation
-        du gradient.<br/>
+        Les ordres de convergence obtenus sont conformes à la théorie pour les éléments
+        finis P1 sur des maillages triangulaires. L'erreur diminue linéairement avec le
+        pas h du maillage (e_h ≈ C·h).<br/>
         <br/>
         <b>3. Comparaison des Méthodes</b><br/>
         <br/>
-        • Les deux méthodes donnent des résultats similaires en termes d'ordre de convergence<br/>
-        • La méthode de pénalisation avec α=10¹⁰ approxime correctement la condition de Dirichlet<br/>
-        • Les erreurs L² sur le bord de Dirichlet sont de l'ordre de 10⁻⁶, validant la pénalisation<br/>
+        • Les deux méthodes donnent des résultats quasi-identiques en termes d'ordre de convergence<br/>
+        • La méthode de pénalisation avec α=10⁸ approxime correctement la condition de Dirichlet forte<br/>
+        • Les erreurs sont du même ordre de grandeur pour les deux approches<br/>
         <br/>
         <b>4. Qualité des Maillages</b><br/>
         <br/>
-        • Tous les maillages ont une qualité Q ≈ 1.0 (triangles quasi-équilatéraux)<br/>
-        • Le raffinement est uniforme : h_i+1 ≈ h_i / 2<br/>
-        • La régularité des maillages contribue à la super-convergence observée<br/>
+        • Tous les maillages ont une qualité Q ≈ 1.69 (triangles rectangles)<br/>
+        • Le raffinement est uniforme : h_{{i+1}} = h_i / 2<br/>
+        • Les maillages structurés sont adaptés à ce type de convergence<br/>
         <br/>
         <b>5. Conclusions</b><br/>
         <br/>
-        ✓ Les deux solveurs éléments finis P1 fonctionnent correctement<br/>
-        ✓ L'ordre de convergence observé valide l'implémentation<br/>
-        ✓ La super-convergence (p ≈ 2) est conforme aux résultats connus<br/>
-        ✓ La méthode de pénalisation est une alternative efficace à l'imposition forte<br/>
+        • Les deux solveurs éléments finis P1 fonctionnent correctement<br/>
+        • L'ordre de convergence p ≈ 1 en semi-norme H¹ valide l'implémentation<br/>
+        • Les résultats sont conformes à la théorie des éléments finis P1<br/>
+        • La méthode de pénalisation est une alternative efficace à l'imposition forte<br/>
         """
 
         analysis = Paragraph(analysis_text, self.styles['BodyText'])

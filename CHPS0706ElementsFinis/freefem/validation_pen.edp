@@ -1,26 +1,20 @@
-// ============================================================================
 // Solveur Éléments Finis P1 - Exercice 3 (Méthode de Pénalisation)
-// ============================================================================
 // Problème :
-//   -Δu = f    dans Ω = ]0,4[ × ]0,2[
-//   u = uE     sur Γ_D = {0,4} × [0,2]  (label 1) - TRAITÉ PAR PÉNALISATION
-//   ∇u·n = 0   sur Γ_N = ]0,4[ × {0,2}  (label 2)
+//   -Deltau = f    dans Omega = ]0,4[ x ]0,2[
+//   u = uE     sur Gamma_D = {0,4} x [0,2]  (label 1) - PENALISATION
+//   grad(u).n = 0   sur Gamma_N = ]0,4[ x {0,2}  (label 2)
 //
-// Méthode de pénalisation :
-//   La condition de Dirichlet u = uE est traitée comme une condition
-//   de Fourier-Robin avec un grand paramètre α >> 1 :
-//   α·u = α·uE  sur Γ_D
+// Méthode : au lieu d'imposer Dirichlet avec "on", on utilise un grand alpha
+// pour pénaliser l'écart u - uE sur le bord (méthode de Fourier-Robin)
 //
-// Solution exacte : u(x,y) = 1 + sin(πx/2) + x(x-4)cos(πy/2)
-// ============================================================================
+// Solution exacte : u(x,y) = 1 + sin(pi*x/2) + x(x-4)cos(pi*y/2)
 
-// Fonction pour lire le nom du maillage depuis la ligne de commande
+// Lecture du maillage
 string meshfile = "meshes/m1.msh";
-if (ARGV.n >= 2) {
-    meshfile = ARGV[1];
+if (ARGV.n >= 3) {
+    meshfile = ARGV[2];
 }
 
-// Chargement du maillage
 mesh Th = readmesh(meshfile);
 cout << "\n========================================" << endl;
 cout << "Maillage charge : " << meshfile << endl;
@@ -28,169 +22,125 @@ cout << "  Sommets   : " << Th.nv << endl;
 cout << "  Triangles : " << Th.nt << endl;
 cout << "========================================\n" << endl;
 
-// ============================================================================
-// PARAMÈTRE DE PÉNALISATION
-// ============================================================================
-
-// Paramètre de pénalisation (très grand pour approcher la condition de Dirichlet)
-// Typiquement : α = 10^10 ou plus
-real alpha = 1e10;
+// Paramètre de pénalisation (très grand)
+real alpha = 1e8;
 
 cout << "Parametre de penalisation alpha = " << alpha << endl;
 cout << "(Methode de Fourier-Robin pour imposer Dirichlet)\n" << endl;
 
-// ============================================================================
-// EXERCICE 1 : Définition des fonctions exactes
-// ============================================================================
+// Définition des fonctions exactes
 
 // Solution exacte
 func real uExact(real x, real y) {
     return 1.0 + sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0);
 }
 
-// Gradient de la solution exacte
+// Gradient (calcul analytique)
+// du/dx = (pi/2)cos(pi*x/2) + (2x-4)cos(pi*y/2)
 func real duExactDx(real x, real y) {
     return (pi/2.0)*cos(pi*x/2.0) + (2.0*x - 4.0)*cos(pi*y/2.0);
 }
 
+// du/dy = -(pi/2)x(x-4)sin(pi*y/2)
 func real duExactDy(real x, real y) {
     return -(pi/2.0)*x*(x-4.0)*sin(pi*y/2.0);
 }
 
-// Second membre f = -Δu
+// Condition de Neumann ok : sur y=0 et y=2, sin(0)=sin(pi)=0 donc du/dy=0
+
+// Second membre f = -Delta(u)
+// Calcul : d2u/dx2 = -(pi^2/4)sin(pi*x/2) + 2cos(pi*y/2)
+//          d2u/dy2 = -(pi^2/4)x(x-4)cos(pi*y/2)
+// Donc f = (pi^2/4)[sin(pi*x/2) + x(x-4)cos(pi*y/2)] - 2cos(pi*y/2)
 func real f(real x, real y) {
     real pi24 = pi*pi / 4.0;
     return pi24 * (sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0)) - 2.0*cos(pi*y/2.0);
 }
 
-// Condition de Dirichlet (maintenant traitée par pénalisation)
+// Condition de Dirichlet (traitée par pénalisation)
 func real uD(real x, real y) {
     return uExact(x, y);
 }
 
-// ============================================================================
-// FORMULATION VARIATIONNELLE AVEC PÉNALISATION
-// ============================================================================
+// Formulation variationnelle avec pénalisation
 
-// Espace d'éléments finis P1
 fespace Vh(Th, P1);
-
-// Inconnue et fonction test
 Vh uh, vh;
 
-// Problème variationnel avec pénalisation :
-// ∫_Ω ∇u·∇v + α∫_{Γ_D} u·v = ∫_Ω f·v + α∫_{Γ_D} uE·v
-//
-// Interprétation physique :
-//   Le terme α∫_{Γ_D} (u - uE)·v impose faiblement u ≈ uE sur Γ_D
-//   quand α → +∞
+// Au lieu de u = uE sur Gamma_D, on ajoute :
+// - alpha * int_Gamma_D (u*v) dans la matrice
+// - alpha * int_Gamma_D (uE*v) dans le second membre
+// Quand alpha -> +infini, ça impose u ~= uE
 problem PoissonPenalized(uh, vh) =
-    // Forme bilinéaire volumique : a(u,v) = ∫_Ω ∇u·∇v
-    int2d(Th)(dx(uh)*dx(vh) + dy(uh)*dy(vh))
+    int2d(Th)(dx(uh)*dx(vh) + dy(uh)*dy(vh))    // forme bilinéaire
+    + int1d(Th, 2)(alpha * uh * vh)              // pénalisation sur x=4
+    + int1d(Th, 4)(alpha * uh * vh)              // pénalisation sur x=0
+    - int2d(Th)(f(x,y) * vh)                     // forme linéaire
+    - int1d(Th, 2)(alpha * uD(x,y) * vh)         // second membre pénalisé x=4
+    - int1d(Th, 4)(alpha * uD(x,y) * vh);        // second membre pénalisé x=0
 
-    // Terme de pénalisation sur Γ_D (label 1) : α∫_{Γ_D} u·v
-    + int1d(Th, 1)(alpha * uh * vh)
+// Pas de "on" ici, tout est dans la formulation faible
 
-    // Forme linéaire volumique : L(v) = ∫_Ω f·v
-    - int2d(Th)(f(x,y) * vh)
-
-    // Terme de pénalisation du second membre : α∫_{Γ_D} uE·v
-    - int1d(Th, 1)(alpha * uD(x,y) * vh);
-
-    // Note : Pas de condition "on" ici, tout est dans la formulation faible
-    // La condition de Neumann ∇u·n = 0 reste naturelle (label 2)
-
-// Résolution du système linéaire
 cout << "Resolution du systeme lineaire avec penalisation..." << endl;
 PoissonPenalized;
 cout << "Systeme resolu" << endl;
 
-// ============================================================================
-// CALCUL DE L'ERREUR EN SEMI-NORME H¹
-// ============================================================================
+// Calcul des erreurs
 
-// Interpolation de la solution exacte
 Vh uEx;
 uEx = uExact(x, y);
 
-// Interpolation du gradient exact
-Vh duExDx, duExDy;
-duExDx = duExactDx(x, y);
-duExDy = duExactDy(x, y);
-
-// Calcul de l'erreur en semi-norme H¹(Ω)
+// Erreur H1 semi-norme
+// Attention : utiliser duExactDx/Dy, pas dx(uEx) (l'interpolation change les gradients)
 real errH1 = sqrt(
     int2d(Th)(
-        (dx(uEx) - dx(uh))^2 + (dy(uEx) - dy(uh))^2
+        (duExactDx(x,y) - dx(uh))^2 + (duExactDy(x,y) - dy(uh))^2
     )
 );
 
-// Calcul de l'erreur L²
-real errL2 = sqrt(
-    int2d(Th)(
-        (uEx - uh)^2
-    )
-);
+// Erreur L2
+real errL2 = sqrt(int2d(Th)((uEx - uh)^2));
 
-// Erreur L² sur le bord de Dirichlet (pour vérifier la pénalisation)
-real errL2_boundary = sqrt(
-    int1d(Th, 1)(
-        (uEx - uh)^2
-    )
-);
+// Erreur L2 sur le bord de Dirichlet (pour vérifier si la pénalisation marche bien)
+real errL2boundary = sqrt(int1d(Th, 2)((uEx - uh)^2) + int1d(Th, 4)((uEx - uh)^2));
 
-// Calcul de la norme H¹ de la solution exacte
-real normH1 = sqrt(
-    int2d(Th)(
-        dx(uEx)^2 + dy(uEx)^2
-    )
-);
+// Norme H1 de la solution exacte
+real normH1 = sqrt(int2d(Th)(duExactDx(x,y)^2 + duExactDy(x,y)^2));
 
-// ============================================================================
-// AFFICHAGE DES RÉSULTATS
-// ============================================================================
-
+// Affichage des résultats
 cout << "========================================" << endl;
 cout << "RESULTATS DE LA VALIDATION (PENALISATION)" << endl;
 cout << "========================================" << endl;
 cout << "Erreur L2          : " << errL2 << endl;
 cout << "Erreur H1          : " << errH1 << endl;
-cout << "Erreur L2 sur Gamma_D  : " << errL2_boundary << endl;
+cout << "Erreur L2 sur Gamma_D  : " << errL2boundary << endl;
 cout << "Norme H1 exacte    : " << normH1 << endl;
 cout << "Erreur relative H1 : " << (errH1/normH1)*100 << " %" << endl;
 cout << "========================================\n" << endl;
 
-// Sauvegarde de l'erreur avec 16 décimales
+// Sauvegarde erreur H1 (16 décimales)
 {
-    ofstream resultsFile("results/" + meshfile(8:10) + "_error_pen.txt");
+    ofstream resultsFile("results/" + meshfile(7:8) + "_error_pen.txt");
     resultsFile.precision(16);
     resultsFile.scientific;
     resultsFile << errH1 << endl;
 }
 
-cout << "Erreur sauvegardee dans results/" << meshfile(8:10) << "_error_pen.txt" << endl;
+cout << "Erreur sauvegardee dans results/" + meshfile(7:8) + "_error_pen.txt" << endl;
 
-// ============================================================================
-// VÉRIFICATION DE LA QUALITÉ DE LA PÉNALISATION
-// ============================================================================
-
+// Verification de la penalisation
 cout << "Verification de la penalisation :" << endl;
-cout << "  Si alpha est suffisamment grand, l'erreur sur Gamma_D doit etre tres petite" << endl;
-cout << "  Erreur L2 sur Gamma_D = " << errL2_boundary << endl;
-if (errL2_boundary < 1e-6) {
+cout << "  Erreur L2 sur Gamma_D = " << errL2boundary << endl;
+if (errL2boundary < 1e-6) {
     cout << "  Penalisation efficace (erreur < 10^-6)" << endl;
-} else if (errL2_boundary < 1e-3) {
+} else if (errL2boundary < 1e-3) {
     cout << "  Penalisation acceptable (erreur < 10^-3)" << endl;
 } else {
-    cout << "  Attention : alpha peut-etre trop petit (erreur > 10^-3)" << endl;
+    cout << "  Attention : alpha trop petit (erreur > 10^-3)" << endl;
 }
 cout << endl;
 
-// ============================================================================
-// VISUALISATION (optionnel)
-// ============================================================================
-
-// Décommenter pour visualiser les résultats
+// Visualisation (optionnel)
 // plot(uh, value=true, fill=true, cmm="Solution numérique uh (pénalisée)");
 // plot(uEx, value=true, fill=true, cmm="Solution exacte u");
 // plot(uEx - uh, value=true, fill=true, cmm="Erreur u - uh");

@@ -1,32 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Fonctions Utilitaires pour l'Analyse des Éléments Finis
-========================================================
-Module contenant les fonctions communes pour :
-- Lecture des maillages FreeFem++
-- Calcul de qualité et pas des maillages
-- Fonctions exactes et second membre
+Fonctions utilitaires pour l'analyse des éléments finis
+Contient les fonctions communes pour lecture maillages, calculs Q/h, etc.
 """
 
 import numpy as np
 from typing import Tuple, Dict
 
-# ============================================================================
-# EXERCICE 1 : Solution Exacte et Second Membre
-# ============================================================================
+# Exercice 1 : Solution exacte et second membre
 
 def u_exact(x: np.ndarray, y: np.ndarray) -> np.ndarray:
-    """
-    Solution exacte du problème
-    u(x,y) = 1 + sin(πx/2) + x(x-4)cos(πy/2)
-
-    Args:
-        x, y: Coordonnées (peuvent être des tableaux numpy)
-
-    Returns:
-        Valeur de u(x,y)
-    """
+    """Solution exacte u(x,y) = 1 + sin(pi*x/2) + x(x-4)cos(pi*y/2)"""
     return 1.0 + np.sin(np.pi * x / 2.0) + x * (x - 4.0) * np.cos(np.pi * y / 2.0)
 
 
@@ -34,14 +19,8 @@ def grad_u_exact(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """
     Gradient de la solution exacte
 
-    ∂u/∂x = (π/2)cos(πx/2) + (2x-4)cos(πy/2)
-    ∂u/∂y = -(π/2)x(x-4)sin(πy/2)
-
-    Args:
-        x, y: Coordonnées
-
-    Returns:
-        (∂u/∂x, ∂u/∂y)
+    du/dx = (pi/2)cos(pi*x/2) + (2x-4)cos(pi*y/2)
+    du/dy = -(pi/2)x(x-4)sin(pi*y/2)
     """
     du_dx = (np.pi / 2.0) * np.cos(np.pi * x / 2.0) + (2.0 * x - 4.0) * np.cos(np.pi * y / 2.0)
     du_dy = -(np.pi / 2.0) * x * (x - 4.0) * np.sin(np.pi * y / 2.0)
@@ -50,20 +29,13 @@ def grad_u_exact(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
 
 def f_rhs(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     """
-    Second membre f(x,y) tel que -Δu = f
+    Second membre f(x,y) tel que -Delta(u) = f
 
-    Calcul de -Δu :
-    ∂²u/∂x² = -(π²/4)sin(πx/2) + 2cos(πy/2)
-    ∂²u/∂y² = -(π²/4)x(x-4)cos(πy/2)
+    Calcul de -Delta(u) :
+    d2u/dx2 = -(pi^2/4)sin(pi*x/2) + 2cos(pi*y/2)
+    d2u/dy2 = -(pi^2/4)x(x-4)cos(pi*y/2)
 
-    Donc :
-    f = -Δu = (π²/4)[sin(πx/2) + x(x-4)cos(πy/2)] - 2cos(πy/2)
-
-    Args:
-        x, y: Coordonnées
-
-    Returns:
-        Valeur de f(x,y)
+    Donc f = (pi^2/4)[sin(pi*x/2) + x(x-4)cos(pi*y/2)] - 2cos(pi*y/2)
     """
     pi2_4 = np.pi**2 / 4.0
     sin_term = np.sin(np.pi * x / 2.0)
@@ -78,58 +50,43 @@ def u_dirichlet(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     Condition de Dirichlet sur les bords x=0 et x=4
 
     uE(0,y) = 1 + 0 + 0 = 1
-    uE(4,y) = 1 + sin(2π) + 0 = 1
-
-    Args:
-        x, y: Coordonnées sur le bord de Dirichlet
-
-    Returns:
-        Valeur de uE
+    uE(4,y) = 1 + sin(2*pi) + 0 = 1
     """
     return u_exact(x, y)
 
 
-# ============================================================================
-# EXERCICE 2 : Lecture et Analyse des Maillages
-# ============================================================================
+# Exercice 2 : Lecture et analyse des maillages
 
 def read_freefem_mesh(filename: str) -> Dict:
     """
     Lecture d'un maillage FreeFem++ au format .msh
 
     Format .msh :
-    Ligne 1 : nv nt nbe (nombre sommets, triangles, arêtes bord)
-    Lignes suivantes : coordonnées sommets (x y label)
-    Puis : triangles (i1 i2 i3 label)
-    Puis : arêtes bord (i1 i2 label)
-
-    Args:
-        filename: Chemin vers le fichier .msh
-
-    Returns:
-        dict avec 'vertices', 'triangles', 'edges', 'nv', 'nt', 'nbe'
+    Ligne 1 : nv nt nbe
+    Lignes suivantes : x y label (sommets)
+    Puis : i1 i2 i3 label (triangles, indices 1-based)
+    Puis : i1 i2 label (aretes bord, indices 1-based)
     """
     with open(filename, 'r') as f:
-        # Première ligne : nv nt nbe
+        # Première ligne
         first_line = f.readline().strip().split()
-        nv = int(first_line[0])   # Nombre de sommets
-        nt = int(first_line[1])   # Nombre de triangles
-        nbe = int(first_line[2])  # Nombre d'arêtes de bord
+        nv = int(first_line[0])   # nb sommets
+        nt = int(first_line[1])   # nb triangles
+        nbe = int(first_line[2])  # nb aretes bord
 
-        # Lecture des sommets
+        # Lecture sommets
         vertices = np.zeros((nv, 3))  # x, y, label
         for i in range(nv):
             line = f.readline().strip().split()
             vertices[i] = [float(line[0]), float(line[1]), int(line[2])]
 
-        # Lecture des triangles
+        # Lecture triangles (conversion indices 1-based -> 0-based)
         triangles = np.zeros((nt, 4), dtype=int)  # i1, i2, i3, label
         for i in range(nt):
             line = f.readline().strip().split()
-            # FreeFem++ utilise l'indexation à partir de 1, on convertit en 0
             triangles[i] = [int(line[0])-1, int(line[1])-1, int(line[2])-1, int(line[3])]
 
-        # Lecture des arêtes de bord
+        # Lecture aretes bord
         edges = np.zeros((nbe, 3), dtype=int)  # i1, i2, label
         for i in range(nbe):
             line = f.readline().strip().split()
@@ -147,51 +104,33 @@ def read_freefem_mesh(filename: str) -> Dict:
 
 def triangle_quality(p1: np.ndarray, p2: np.ndarray, p3: np.ndarray) -> float:
     """
-    Calcul de la qualité d'un triangle selon le cours
+    Qualité d'un triangle selon formule du cours
 
-    Formule du cours (CHPS0706) :
-    Q_T = (√3/6) * (h_T / r_T)
+    Q_T = (sqrt(3)/6) * (h_T / r_T)
 
-    où :
-    - h_T = diamètre du triangle (longueur de la plus grande arête)
+    avec :
+    - h_T = diametre du triangle (longueur max des aretes)
     - r_T = rayon du cercle inscrit
 
-    Pour un triangle équilatéral : Q = 1
-    Pour un triangle dégénéré : Q → +∞
-
-    Note : Plus Q est petit, meilleure est la qualité. Q = 1 est optimal.
-
-    Args:
-        p1, p2, p3: Coordonnées des 3 sommets (tableaux [x, y])
-
-    Returns:
-        Qualité Q ≥ 1 (1 = optimal)
+    Triangle equilateral : Q = 1 (optimal)
+    Triangle degenere : Q -> +infini
     """
-    # Diamètre du triangle (h_T)
+    # Diametre
     h_T = triangle_diameter(p1, p2, p3)
 
-    # Rayon du cercle inscrit (r_T)
+    # Rayon inscrit
     r_T = triangle_inradius(p1, p2, p3)
 
-    # Qualité selon la formule du cours
+    # Qualité
     if r_T == 0:
         return float('inf')
 
     Q = (np.sqrt(3.0) / 6.0) * (h_T / r_T)
-
     return Q
 
 
 def triangle_diameter(p1: np.ndarray, p2: np.ndarray, p3: np.ndarray) -> float:
-    """
-    Calcul du diamètre d'un triangle (longueur de la plus grande arête)
-
-    Args:
-        p1, p2, p3: Coordonnées des 3 sommets
-
-    Returns:
-        Diamètre hT
-    """
+    """Diametre d'un triangle = longueur de la plus grande arete"""
     l1 = np.linalg.norm(p2 - p1)
     l2 = np.linalg.norm(p3 - p2)
     l3 = np.linalg.norm(p1 - p3)
@@ -201,25 +140,18 @@ def triangle_diameter(p1: np.ndarray, p2: np.ndarray, p3: np.ndarray) -> float:
 
 def triangle_inradius(p1: np.ndarray, p2: np.ndarray, p3: np.ndarray) -> float:
     """
-    Calcul du rayon du cercle inscrit dans un triangle
-
-    Formule : r_T = 2 * Aire / Périmètre
-
-    Args:
-        p1, p2, p3: Coordonnées des 3 sommets (tableaux [x, y])
-
-    Returns:
-        Rayon du cercle inscrit r_T
+    Rayon du cercle inscrit dans un triangle
+    r_T = 2 * Aire / Perimetre
     """
-    # Calcul des arêtes
+    # Aretes
     e1 = p2 - p1
     e2 = p3 - p2
     e3 = p1 - p3
 
-    # Aire du triangle (produit vectoriel)
+    # Aire (produit vectoriel)
     area = 0.5 * abs(e1[0] * e3[1] - e1[1] * e3[0])
 
-    # Périmètre
+    # Perimetre
     perimeter = np.linalg.norm(e1) + np.linalg.norm(e2) + np.linalg.norm(e3)
 
     # Rayon inscrit
@@ -231,19 +163,10 @@ def triangle_inradius(p1: np.ndarray, p2: np.ndarray, p3: np.ndarray) -> float:
 
 def compute_mesh_characteristics(mesh_data: Dict) -> Tuple[float, float]:
     """
-    Calcul de la qualité et du pas du maillage
+    Calcul de la qualite Q et du pas h du maillage
 
-    Selon le cours (CHPS0706) :
-    - Qualité du maillage : Q_Th = max_{T∈Th} Q_T (qualité du pire triangle)
-    - Pas du maillage : h = max_{T∈Th} h_T
-
-    Args:
-        mesh_data: Dictionnaire retourné par read_freefem_mesh
-
-    Returns:
-        (Q_max, h) où :
-        - Q_max = max(Q_T) pour tous les triangles T (qualité du maillage)
-        - h = max(h_T) pour tous les triangles T (pas du maillage)
+    Q_Th = max(Q_T) pour tous les triangles (qualite du pire triangle)
+    h = max(h_T) pour tous les triangles (pas du maillage)
     """
     vertices = mesh_data['vertices']
     triangles = mesh_data['triangles']
@@ -253,47 +176,38 @@ def compute_mesh_characteristics(mesh_data: Dict) -> Tuple[float, float]:
     diameters = []
 
     for tri in triangles:
-        # Indices des sommets (déjà en base 0)
+        # Indices sommets
         i1, i2, i3 = tri[0], tri[1], tri[2]
 
         # Coordonnées
-        p1 = vertices[i1, :2]  # x, y seulement
+        p1 = vertices[i1, :2]
         p2 = vertices[i2, :2]
         p3 = vertices[i3, :2]
 
-        # Qualité et diamètre
+        # Qualité et diametre
         Q = triangle_quality(p1, p2, p3)
         hT = triangle_diameter(p1, p2, p3)
 
         qualities.append(Q)
         diameters.append(hT)
 
-    # Qualité du maillage = MAX des qualités (pire triangle)
+    # Qualité du maillage = MAX des qualités
     Q_max = max(qualities)
 
-    # Pas du maillage = MAX des diamètres
+    # Pas du maillage = MAX des diametres
     h = max(diameters)
 
     return Q_max, h
 
 
-# ============================================================================
-# EXERCICE 4 : Calcul de l'Ordre de Convergence
-# ============================================================================
+# Exercice 4 : Calcul de l'ordre de convergence
 
 def compute_convergence_order(e1: float, e2: float) -> float:
     """
-    Calcul de l'ordre de convergence p
+    Ordre de convergence p
 
-    Si eh ≃ C·h^p, alors e(h) / e(h/2) ≃ 2^p
-    Donc : p ≃ ln(e(h)/e(h/2)) / ln(2)
-
-    Args:
-        e1: Erreur au pas h
-        e2: Erreur au pas h/2
-
-    Returns:
-        Ordre p
+    Si eh ~ C*h^p, alors e(h) / e(h/2) ~ 2^p
+    Donc : p ~ ln(e(h)/e(h/2)) / ln(2)
     """
     if e1 <= 0 or e2 <= 0:
         return np.nan
