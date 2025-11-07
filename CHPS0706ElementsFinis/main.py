@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Script Principal - Étude de Convergence Éléments Finis P1
+Script Principal - Étude de Convergence Élements Finis P1
 ==========================================================
-Orchestrateur complet pour réaliser l'étude de convergence sur les 4 maillages
+Orchestrateur complet pour realiser l'etude de convergence sur les 4 maillages
 
-Exercices réalisés :
+Exercices realises :
 1. Calculs analytiques de f et uE
-2. Génération et analyse des maillages
-3. Résolution avec FreeFem++ (standard et pénalisation)
-4. Analyse de convergence et génération des graphiques
+2. Generation et analyse des maillages
+3. Resolution avec FreeFem++ (standard et penalisation)
+4. Analyse de convergence et generation des graphiques
 """
 
 import os
@@ -25,31 +25,38 @@ from python.convergence_analysis import analyze_convergence
 
 
 def print_banner():
-    """Affiche la bannière du programme"""
+    """Affiche la banniere du programme"""
     banner = """
 ╔═══════════════════════════════════════════════════════════════════════╗
 ║                                                                       ║
 ║   ÉTUDE DE CONVERGENCE - ÉLÉMENTS FINIS P1 EN 2D                    ║
-║   Problème de Poisson avec conditions mixtes Dirichlet/Neumann       ║
+║   Probleme de Poisson avec conditions mixtes Dirichlet/Neumann       ║
 ║                                                                       ║
 ║   Domaine : Ω = ]0,4[ × ]0,2[                                        ║
 ║   Solution : u(x,y) = 1 + sin(πx/2) + x(x-4)cos(πy/2)               ║
 ║                                                                       ║
 ╚═══════════════════════════════════════════════════════════════════════╝
     """
-    print(banner)
+    try:
+        print(banner)
+    except UnicodeEncodeError:
+        # Fallback pour les consoles qui ne supportent pas UTF-8
+        print("\n" + "="*70)
+        print("ETUDE DE CONVERGENCE - ELEMENTS FINIS P1 EN 2D")
+        print("Probleme de Poisson avec conditions mixtes Dirichlet/Neumann")
+        print("="*70 + "\n")
 
 
 def check_freefem():
-    """Vérifie que FreeFem++ est installé et accessible"""
-    print("\n[1/7] Vérification de FreeFem++...")
+    """Verifie que FreeFem++ est installe et accessible"""
+    print("\n[1/7] Verification de FreeFem++...")
 
     # Essayer d'abord FreeFem++ (capitale - installation Ubuntu)
     try:
         result = subprocess.run(['FreeFem++', '-h'],
                                 capture_output=True,
                                 timeout=5)
-        print("✓ FreeFem++ détecté")
+        print("[OK] FreeFem++ detecte")
         return 'FreeFem++'
     except (subprocess.TimeoutExpired, FileNotFoundError):
         pass
@@ -59,10 +66,10 @@ def check_freefem():
         result = subprocess.run(['freefem++', '-h'],
                                 capture_output=True,
                                 timeout=5)
-        print("✓ FreeFem++ détecté")
+        print("[OK] FreeFem++ detecte")
         return 'freefem++'
     except (subprocess.TimeoutExpired, FileNotFoundError):
-        print("✗ FreeFem++ non trouvé dans le PATH")
+        print("[ERREUR] FreeFem++ non trouve dans le PATH")
         print("\n  Pour installer FreeFem++ :")
         print("    sudo apt-get update")
         print("    sudo apt-get install freefem++")
@@ -70,21 +77,21 @@ def check_freefem():
 
 
 def generate_meshes(freefem_cmd, graphics=False):
-    """Génère les 4 maillages avec FreeFem++"""
-    print("\n[2/7] Génération des maillages...")
+    """Genere les 4 maillages avec FreeFem++"""
+    print("\n[2/7] Generation des maillages...")
 
     script = 'generate_meshes.edp'
 
     if not os.path.exists(script):
-        print(f"✗ Script {script} non trouvé!")
+        print(f"[ERREUR] Script {script} non trouve!")
         return False
 
-    # Création du dossier meshes
+    # Creation du dossier meshes
     os.makedirs('meshes', exist_ok=True)
 
-    # Exécution de FreeFem++
+    # Execution de FreeFem++
     freefem_args = [freefem_cmd, script]
-    if not graphics:  # Par défaut, pas de graphiques (WSL)
+    if not graphics:  # Par defaut, pas de graphiques (WSL)
         freefem_args.append('-nw')
 
     try:
@@ -93,71 +100,71 @@ def generate_meshes(freefem_cmd, graphics=False):
                                 text=True,
                                 timeout=30)
 
-        # FreeFem++ peut retourner un code non-zéro même en cas de succès (warnings)
-        # On vérifie plutôt que les fichiers ont été créés
+        # FreeFem++ peut retourner un code non-zero meme en cas de succes (warnings)
+        # On verifie plutot que les fichiers ont ete crees
         meshes_created = all(os.path.exists(f'meshes/m{i}.msh') for i in range(1, 5))
 
         if not meshes_created:
-            print(f"✗ Erreur lors de la génération des maillages:")
+            print(f"[ERREUR] Erreur lors de la generation des maillages:")
             print(result.stderr)
             return False
 
         print(result.stdout)
-        print("✓ Maillages générés avec succès")
+        print("[OK] Maillages generes avec succes")
         return True
 
     except subprocess.TimeoutExpired:
-        print("✗ Timeout lors de la génération des maillages")
+        print("[X] Timeout lors de la generation des maillages")
         return False
     except Exception as e:
-        print(f"✗ Erreur : {e}")
+        print(f"[X] Erreur : {e}")
         return False
 
 
 def analyze_meshes():
-    """Analyse la qualité et le pas des maillages"""
+    """Analyse la qualite et le pas des maillages"""
     print("\n[3/7] Analyse des maillages (Exercice 2)...")
 
     try:
         mesh_results = analyze_all_meshes()
-        print("✓ Analyse des maillages terminée")
+        print("[OK] Analyse des maillages terminee")
         return mesh_results
     except Exception as e:
-        print(f"✗ Erreur lors de l'analyse : {e}")
+        print(f"[X] Erreur lors de l'analyse : {e}")
         return None
 
 
 def solve_with_freefem(freefem_cmd, method='standard', graphics=False):
-    """Résout le problème avec FreeFem++"""
+    """Resout le probleme avec FreeFem++"""
 
     if method == 'standard':
-        print("\n[4/7] Résolution avec FreeFem++ (méthode standard - Exercice 3.1)...")
+        print("\n[4/7] Resolution avec FreeFem++ (methode standard - Exercice 3.1)...")
         script = 'freefem/validation.edp'
     else:
-        print("\n[5/7] Résolution avec FreeFem++ (méthode pénalisation - Exercice 3.2)...")
+        print("\n[5/7] Resolution avec FreeFem++ (methode penalisation - Exercice 3.2)...")
         script = 'freefem/validation_pen.edp'
 
     if not os.path.exists(script):
-        print(f"✗ Script {script} non trouvé!")
+        print(f"[ERREUR] Script {script} non trouve!")
         return False
 
-    # Création du dossier results
+    # Creation du dossier results
     os.makedirs('results', exist_ok=True)
 
-    # Résolution pour chaque maillage
+    # Resolution pour chaque maillage
     mesh_files = ['meshes/m1.msh', 'meshes/m2.msh', 'meshes/m3.msh', 'meshes/m4.msh']
     mesh_names = ['m1', 'm2', 'm3', 'm4']
 
     for mesh_file, mesh_name in zip(mesh_files, mesh_names):
         if not os.path.exists(mesh_file):
-            print(f"⚠️  Maillage {mesh_file} non trouvé, ignoré")
+            print(f"[WARN]  Maillage {mesh_file} non trouve, ignore")
             continue
 
         print(f"\n  Traitement de {mesh_name}...")
 
         # Construction des arguments FreeFem++
         freefem_args = [freefem_cmd, script, mesh_file]
-        if not graphics:  # Par défaut, pas de graphiques (WSL)
+        if not graphics:  # Par defaut, pas de graphiques (WSL)
             freefem_args.append('-nw')
 
         try:
@@ -166,56 +173,56 @@ def solve_with_freefem(freefem_cmd, method='standard', graphics=False):
                                     text=True,
                                     timeout=60)
 
-            # FreeFem++ peut retourner un code non-zéro même avec succès (warnings)
-            # On affiche la sortie et on vérifie s'il y a des vraies erreurs
+            # FreeFem++ peut retourner un code non-zero meme avec succes (warnings)
+            # On affiche la sortie et on verifie s'il y a des vraies erreurs
             lines = result.stdout.split('\n')
             for line in lines:
-                if 'Erreur' in line or 'H¹' in line or '✓' in line or '===' in line:
+                if 'Erreur' in line or 'H¹' in line or '[OK]' in line or '===' in line:
                     print(f"    {line}")
 
-            # Vérifier s'il y a eu une vraie erreur fatale
+            # Verifier s'il y a eu une vraie erreur fatale
             if result.returncode != 0 and result.stderr and 'Error' in result.stderr:
-                print(f"  ⚠️  Avertissement pour {mesh_name} (code retour: {result.returncode})")
+                print(f"  [WARN]  Avertissement pour {mesh_name} (code retour: {result.returncode})")
                 if result.stderr.strip():
                     print(f"    {result.stderr}")
 
         except subprocess.TimeoutExpired:
-            print(f"  ✗ Timeout pour {mesh_name}")
+            print(f"  [X] Timeout pour {mesh_name}")
             continue
         except Exception as e:
-            print(f"  ✗ Erreur : {e}")
+            print(f"  [X] Erreur : {e}")
             continue
 
-    print(f"\n✓ Résolution terminée ({method})")
+    print(f"\n[OK] Resolution terminee ({method})")
     return True
 
 
 def analyze_convergence_results(mesh_results, method='standard'):
-    """Analyse la convergence et génère les graphiques"""
+    """Analyse la convergence et genere les graphiques"""
 
     if method == 'standard':
         print("\n[4b/7] Analyse de convergence standard (Exercice 4)...")
     else:
-        print("\n[5b/7] Analyse de convergence pénalisation (Exercice 4)...")
+        print("\n[5b/7] Analyse de convergence penalisation (Exercice 4)...")
 
     if mesh_results is None:
-        print("✗ Pas de résultats de maillage disponibles")
+        print("[X] Pas de resultats de maillage disponibles")
         return False
 
     try:
         analyze_convergence(mesh_results, method=method)
-        print(f"✓ Analyse de convergence terminée ({method})")
+        print(f"[OK] Analyse de convergence terminee ({method})")
         return True
     except Exception as e:
-        print(f"✗ Erreur lors de l'analyse : {e}")
+        print(f"[X] Erreur lors de l'analyse : {e}")
         import traceback
         traceback.print_exc()
         return False
 
 
 def generate_pdf_report():
-    """Génère le rapport PDF final"""
-    print("\n[6/7] Génération du rapport PDF...")
+    """Genere le rapport PDF final"""
+    print("\n[6/7] Generation du rapport PDF...")
 
     try:
         result = subprocess.run([sys.executable, 'generate_report.py'],
@@ -225,23 +232,23 @@ def generate_pdf_report():
 
         if result.returncode == 0:
             print(result.stdout)
-            print("✓ Rapport PDF généré avec succès")
+            print("[OK] Rapport PDF genere avec succes")
             return True
         else:
-            print("✗ Erreur lors de la génération du PDF:")
+            print("[X] Erreur lors de la generation du PDF:")
             print(result.stderr)
             return False
     except subprocess.TimeoutExpired:
-        print("✗ Timeout lors de la génération du PDF")
+        print("[X] Timeout lors de la generation du PDF")
         return False
     except Exception as e:
-        print(f"✗ Erreur : {e}")
+        print(f"[X] Erreur : {e}")
         return False
 
 
 def display_summary():
-    """Affiche un résumé des résultats"""
-    print("\n[7/7] Résumé des résultats...")
+    """Affiche un resume des resultats"""
+    print("\n[7/7] Resume des resultats...")
     print("\n" + "="*70)
     print("FICHIERS GÉNÉRÉS")
     print("="*70)
@@ -256,20 +263,20 @@ def display_summary():
         ('results/m2_error.txt', 'Erreur m2 (standard)'),
         ('results/m3_error.txt', 'Erreur m3 (standard)'),
         ('results/m4_error.txt', 'Erreur m4 (standard)'),
-        ('results/m1_error_pen.txt', 'Erreur m1 (pénalisation)'),
-        ('results/m2_error_pen.txt', 'Erreur m2 (pénalisation)'),
-        ('results/m3_error_pen.txt', 'Erreur m3 (pénalisation)'),
-        ('results/m4_error_pen.txt', 'Erreur m4 (pénalisation)'),
+        ('results/m1_error_pen.txt', 'Erreur m1 (penalisation)'),
+        ('results/m2_error_pen.txt', 'Erreur m2 (penalisation)'),
+        ('results/m3_error_pen.txt', 'Erreur m3 (penalisation)'),
+        ('results/m4_error_pen.txt', 'Erreur m4 (penalisation)'),
         ('results/convergence_table_standard.txt', 'Tableau convergence (standard)'),
         ('results/convergence_plot_standard.png', 'Graphique convergence (standard)'),
-        ('results/convergence_table_penalized.txt', 'Tableau convergence (pénalisation)'),
-        ('results/convergence_plot_penalized.png', 'Graphique convergence (pénalisation)'),
+        ('results/convergence_table_penalized.txt', 'Tableau convergence (penalisation)'),
+        ('results/convergence_plot_penalized.png', 'Graphique convergence (penalisation)'),
         ('results/RAPPORT_CONVERGENCE.pdf', 'Rapport PDF final'),
     ]
 
     for filepath, description in files_to_check:
         exists = os.path.exists(filepath)
-        status = "✓" if exists else "✗"
+        status = "[OK]" if exists else "[X]"
         print(f"  {status} {description:<40} {filepath}")
 
     print("="*70)
@@ -289,68 +296,68 @@ def main():
     """Fonction principale"""
 
     parser = argparse.ArgumentParser(
-        description='Étude de convergence éléments finis P1'
+        description='Étude de convergence elements finis P1'
     )
     parser.add_argument('--skip-meshgen', action='store_true',
-                        help='Ignorer la génération des maillages')
+                        help='Ignorer la generation des maillages')
     parser.add_argument('--skip-solve', action='store_true',
-                        help='Ignorer la résolution FreeFem++')
+                        help='Ignorer la resolution FreeFem++')
     parser.add_argument('--skip-report', action='store_true',
-                        help='Ne pas générer le rapport PDF')
+                        help='Ne pas generer le rapport PDF')
     parser.add_argument('--only-analysis', action='store_true',
-                        help='Uniquement analyser les résultats existants')
+                        help='Uniquement analyser les resultats existants')
     parser.add_argument('--graphics', action='store_true',
-                        help='Activer les fenêtres graphiques FreeFem++ (nécessite serveur X)')
+                        help='Activer les fenetres graphiques FreeFem++ (necessite serveur X)')
 
     args = parser.parse_args()
 
     print_banner()
 
-    # Vérification de FreeFem++
+    # Verification de FreeFem++
     if not args.only_analysis:
         freefem_cmd = check_freefem()
         if freefem_cmd is None and not args.skip_solve:
-            print("\n⚠️  FreeFem++ requis pour continuer")
+            print("\n[WARN]  FreeFem++ requis pour continuer")
             return 1
     else:
         freefem_cmd = None
 
-    # Génération des maillages
+    # Generation des maillages
     if not args.skip_meshgen and not args.only_analysis:
         if not generate_meshes(freefem_cmd, graphics=args.graphics):
-            print("\n✗ Échec de la génération des maillages")
+            print("\n[X] Échec de la generation des maillages")
             return 1
 
     # Analyse des maillages
     mesh_results = analyze_meshes()
     if mesh_results is None:
-        print("\n✗ Échec de l'analyse des maillages")
+        print("\n[X] Échec de l'analyse des maillages")
         return 1
 
     # ========================================================================
-    # RÉSOLUTION AVEC LES 2 MÉTHODES (standard + pénalisation)
+    # RÉSOLUTION AVEC LES 2 MÉTHODES (standard + penalisation)
     # ========================================================================
 
-    # Méthode 1 : Standard (Exercice 3.1)
+    # Methode 1 : Standard (Exercice 3.1)
     if not args.skip_solve and not args.only_analysis:
         if not solve_with_freefem(freefem_cmd, method='standard', graphics=args.graphics):
-            print("\n✗ Échec de la résolution standard")
+            print("\n[X] Échec de la resolution standard")
             return 1
 
     # Analyse de convergence - Standard
     if not analyze_convergence_results(mesh_results, method='standard'):
-        print("\n✗ Échec de l'analyse de convergence standard")
+        print("\n[X] Échec de l'analyse de convergence standard")
         return 1
 
-    # Méthode 2 : Pénalisation (Exercice 3.2) - TOUJOURS EXÉCUTÉE
+    # Methode 2 : Penalisation (Exercice 3.2) - TOUJOURS EXÉCUTÉE
     if not args.skip_solve and not args.only_analysis:
         if not solve_with_freefem(freefem_cmd, method='penalized', graphics=args.graphics):
-            print("\n⚠️  Méthode de pénalisation échouée")
-            # On continue quand même pour générer le PDF avec les résultats standard
+            print("\n[WARN]  Methode de penalisation echouee")
+            # On continue quand meme pour generer le PDF avec les resultats standard
         else:
-            # Analyse de convergence - Pénalisation
+            # Analyse de convergence - Penalisation
             if not analyze_convergence_results(mesh_results, method='penalized'):
-                print("\n⚠️  Analyse pénalisation échouée")
+                print("\n[WARN]  Analyse penalisation echouee")
 
     # ========================================================================
     # GÉNÉRATION DU RAPPORT PDF
@@ -358,13 +365,13 @@ def main():
 
     if not args.skip_report:
         if not generate_pdf_report():
-            print("\n⚠️  Génération du PDF échouée (résultats disponibles quand même)")
+            print("\n[WARN]  Generation du PDF echouee (resultats disponibles quand meme)")
 
-    # Résumé final
+    # Resume final
     display_summary()
 
     print("\n" + "="*70)
-    print("✓ ÉTUDE DE CONVERGENCE TERMINÉE AVEC SUCCÈS")
+    print("[OK] ÉTUDE DE CONVERGENCE TERMINÉE AVEC SUCCÈS")
     print("="*70)
     print()
 

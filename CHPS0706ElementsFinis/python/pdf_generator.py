@@ -163,20 +163,44 @@ class PDFReportGenerator:
         self.story.append(section)
         self.story.append(Spacer(1, 0.5*cm))
 
-    def add_code_section(self, title: str, code_file: str):
+    def add_code_section(self, title: str, code_file: str, extract_core: bool = True):
         """
         Ajoute une section avec code source FreeFem++
 
         Args:
             title: Titre de la section
             code_file: Chemin vers le fichier de code
+            extract_core: Si True, n'extrait que la formulation variationnelle
         """
         self.add_section_title(title)
 
         # Lecture du code
         try:
             with open(code_file, 'r', encoding='utf-8') as f:
-                code = f.read()
+                all_lines = f.readlines()
+
+            if extract_core:
+                # Extraire seulement la partie essentielle (formulation variationnelle)
+                code_lines = []
+                in_problem = False
+
+                for line in all_lines:
+                    # Commencer à capturer à "problem"
+                    if 'problem ' in line and ('Poisson' in line or 'PoissonPenalized' in line):
+                        in_problem = True
+                        code_lines.append(line)
+                        continue
+
+                    if in_problem:
+                        code_lines.append(line)
+                        # Arrêter après le point-virgule qui termine la définition
+                        if ';' in line:
+                            break
+
+                code = ''.join(code_lines)
+            else:
+                code = ''.join(all_lines)
+
         except Exception as e:
             code = f"// Erreur de lecture du fichier: {e}"
 

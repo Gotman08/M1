@@ -38,7 +38,7 @@ def read_mesh_analysis_results():
                         h_value = float(line.split('=')[1].strip())
                         results['h_values'].append(h_value)
         except Exception as e:
-            print(f"⚠️  Erreur lecture analyse maillages : {e}")
+            print(f"[WARN]  Erreur lecture analyse maillages : {e}")
 
     return results
 
@@ -69,7 +69,7 @@ def read_convergence_data(method='standard'):
                     error = float(f.readline().strip())
                     errors.append(error)
             except Exception as e:
-                print(f"⚠️  Erreur lecture {error_file} : {e}")
+                print(f"[WARN]  Erreur lecture {error_file} : {e}")
                 errors.append(None)
         else:
             errors.append(None)
@@ -102,7 +102,7 @@ def generate_pdf_report():
 
     # Vérification que les résultats existent
     if not os.path.exists('results'):
-        print("✗ Dossier results/ non trouvé !")
+        print("[X] Dossier results/ non trouvé !")
         print("  Veuillez d'abord exécuter l'étude de convergence avec main.py")
         return False
 
@@ -189,14 +189,14 @@ def generate_pdf_report():
     if os.path.exists(graph_std):
         pdf.add_graph("Graphique de Convergence - Méthode Standard", graph_std)
     else:
-        print(f"     ⚠️  Graphique standard non trouvé : {graph_std}")
+        print(f"     [WARN]  Graphique standard non trouvé : {graph_std}")
 
     # Graphique pénalisation
     graph_pen = 'results/convergence_plot_penalized.png'
     if os.path.exists(graph_pen):
         pdf.add_graph("Graphique de Convergence - Méthode Pénalisation", graph_pen)
     else:
-        print(f"     ⚠️  Graphique pénalisation non trouvé : {graph_pen}")
+        print(f"     [WARN]  Graphique pénalisation non trouvé : {graph_pen}")
 
     # 10. Section analyse et conclusions
     print("  [10/10] Ajout de l'analyse et des conclusions...")
@@ -208,7 +208,7 @@ def generate_pdf_report():
     if pdf.generate():
         print()
         print("="*70)
-        print(f"✓ RAPPORT PDF GÉNÉRÉ AVEC SUCCÈS")
+        print(f"[OK] RAPPORT PDF GÉNÉRÉ AVEC SUCCÈS")
         print("="*70)
         print()
         print(f"Fichier : {output_file}")
@@ -228,7 +228,7 @@ def generate_pdf_report():
     else:
         print()
         print("="*70)
-        print("✗ ERREUR LORS DE LA GÉNÉRATION DU PDF")
+        print("[X] ERREUR LORS DE LA GÉNÉRATION DU PDF")
         print("="*70)
         print()
         print("Vérifiez que reportlab est installé :")
