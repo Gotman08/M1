@@ -1,0 +1,37 @@
+// Test pour voir les labels par défaut de square()
+real Lx = 4.0;
+real Ly = 2.0;
+
+// Maillage sans change()
+mesh Th = square(2, 1, [Lx*x, Ly*y]);
+
+// Compter les arêtes par label
+int[int] count(10);
+count = 0;
+
+for(int i = 0; i < Th.nbe; i++) {
+    int lab = Th.be(i).label;
+    count[lab]++;
+}
+
+cout << "Labels par defaut de square():" << endl;
+for(int i = 1; i <= 4; i++) {
+    if(count[i] > 0) {
+        cout << "  Label " << i << ": " << count[i] << " aretes" << endl;
+    }
+}
+
+// Tester avec des intégrales
+cout << "\nIntegrales sur chaque label:" << endl;
+for(int lab = 1; lab <= 4; lab++) {
+    real ix = int1d(Th, lab)(x);
+    real iy = int1d(Th, lab)(y);
+    real len = int1d(Th, lab)(1.0);
+    cout << "  Label " << lab << ": longueur=" << len << ", int(x)=" << ix << ", int(y)=" << iy << endl;
+}
+
+cout << "\nIdentification:" << endl;
+cout << "  Label pour y=0 (bas) : chercher int(y)~0" << endl;
+cout << "  Label pour x=Lx (droite) : chercher int(x)~Lx*longueur" << endl;
+cout << "  Label pour y=Ly (haut) : chercher int(y)~Ly*longueur" << endl;
+cout << "  Label pour x=0 (gauche) : chercher int(x)~0" << endl;

@@ -1,0 +1,44 @@
+// Test des formules mathématiques
+real pi = 3.14159265358979;
+
+// Solution exacte
+func real uExact(real x, real y) {
+    return 1.0 + sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0);
+}
+
+// Dérivées
+func real duExactDx(real x, real y) {
+    return (pi/2.0)*cos(pi*x/2.0) + (2.0*x - 4.0)*cos(pi*y/2.0);
+}
+
+func real duExactDy(real x, real y) {
+    return -(pi/2.0)*x*(x-4.0)*sin(pi*y/2.0);
+}
+
+// Test calcul du laplacien manuellement
+// d²u/dx² = -(π²/4)sin(πx/2) + 2cos(πy/2)
+// d²u/dy² = -(π²/4)x(x-4)cos(πy/2)
+// -Δu = (π²/4)sin(πx/2) + (π²/4)x(x-4)cos(πy/2) - 2cos(πy/2)
+
+func real laplacianU(real x, real y) {
+    real pi24 = pi*pi / 4.0;
+    return pi24*sin(pi*x/2.0) + pi24*x*(x-4.0)*cos(pi*y/2.0) - 2.0*cos(pi*y/2.0);
+}
+
+// Second membre donné
+func real f(real x, real y) {
+    real pi24 = pi*pi / 4.0;
+    return pi24 * (sin(pi*x/2.0) + x*(x-4.0)*cos(pi*y/2.0)) - 2.0*cos(pi*y/2.0);
+}
+
+// Test en quelques points
+real x0 = 2.0, y0 = 1.0;
+cout << "Point (2,1):" << endl;
+cout << "u = " << uExact(x0,y0) << endl;
+cout << "du/dx = " << duExactDx(x0,y0) << endl;
+cout << "du/dy = " << duExactDy(x0,y0) << endl;
+cout << "-Laplacian(u) = " << laplacianU(x0,y0) << endl;
+cout << "f = " << f(x0,y0) << endl;
+real diff = laplacianU(x0,y0) - f(x0,y0);
+if (diff < 0) diff = -diff;
+cout << "Difference: " << diff << endl;

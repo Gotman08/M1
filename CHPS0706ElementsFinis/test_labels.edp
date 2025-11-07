@@ -1,0 +1,53 @@
+// Test pour vérifier l'ordre des labels dans square()
+real Lx = 4.0;
+real Ly = 2.0;
+
+// Test avec différents labels sur chaque bord pour identifier l'ordre
+int[int] lab = [10, 20, 30, 40];  // labels distincts
+
+mesh Th = square(2, 1, [Lx*x, Ly*y]);
+Th = change(Th, label=lab);
+
+// Afficher les coordonnées et labels des bords
+cout << "Verification des labels des bords:" << endl;
+cout << "Points de bord (x, y, label):" << endl;
+
+// Compter les arêtes par label
+int[int] count(50);
+count = 0;
+
+for(int i = 0; i < Th.nbe; i++) {
+    int lab = Th.be(i).label;
+    count[lab]++;
+}
+
+cout << "Nombre d'aretes par label:" << endl;
+cout << "  Label 10: " << count[10] << " aretes" << endl;
+cout << "  Label 20: " << count[20] << " aretes" << endl;
+cout << "  Label 30: " << count[30] << " aretes" << endl;
+cout << "  Label 40: " << count[40] << " aretes" << endl;
+
+// Tester quelle coordonnée varie sur chaque label
+cout << "\nTest des coordonnees sur chaque label (integrale de x et y):" << endl;
+
+real int10x = int1d(Th, 10)(x);
+real int10y = int1d(Th, 10)(y);
+cout << "  Label 10: int(x)=" << int10x << ", int(y)=" << int10y << endl;
+
+real int20x = int1d(Th, 20)(x);
+real int20y = int1d(Th, 20)(y);
+cout << "  Label 20: int(x)=" << int20x << ", int(y)=" << int20y << endl;
+
+real int30x = int1d(Th, 30)(x);
+real int30y = int1d(Th, 30)(y);
+cout << "  Label 30: int(x)=" << int30x << ", int(y)=" << int30y << endl;
+
+real int40x = int1d(Th, 40)(x);
+real int40y = int1d(Th, 40)(y);
+cout << "  Label 40: int(x)=" << int40x << ", int(y)=" << int40y << endl;
+
+cout << "\nInterpretation:" << endl;
+cout << "  Si int(y)=0 et int(x)>0  => bord y=0 (bas)" << endl;
+cout << "  Si int(x)=Lx*longueur => bord x=Lx (droite)" << endl;
+cout << "  Si int(y)=Ly*longueur => bord y=Ly (haut)" << endl;
+cout << "  Si int(x)=0 et int(y)>0  => bord x=0 (gauche)" << endl;
