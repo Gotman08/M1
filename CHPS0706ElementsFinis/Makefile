@@ -1,19 +1,13 @@
 # ============================================================================
 # Makefile - Étude de Convergence Éléments Finis P1
 # ============================================================================
-# Compatible WSL (Windows Subsystem for Linux)
+# Linux Makefile
 # ============================================================================
 
 # Compilateurs et commandes
 PYTHON := python3
 FREEFEM := FreeFem++
-
-# Vérifier si freefem++ (minuscule) est disponible
-ifeq ($(shell which freefem++ 2>/dev/null),)
-    FREEFEM := FreeFem++
-else
-    FREEFEM := freefem++
-endif
+FREEFEM_FLAGS := -nw
 
 # Répertoires
 MESH_DIR := meshes
@@ -109,7 +103,7 @@ meshes: check-freefem $(MESH_DIR)
 	@echo ""
 	@echo "[1/4] Génération des maillages..."
 	@echo "════════════════════════════════════════════════════════════"
-	$(FREEFEM) $(MESH_SCRIPT)
+	$(FREEFEM) $(MESH_SCRIPT) $(FREEFEM_FLAGS)
 	@echo "✓ Maillages générés"
 
 $(MESH_DIR):
@@ -134,7 +128,7 @@ solve: analyze check-freefem
 	@for mesh in $(MESHES); do \
 		if [ -f $$mesh ]; then \
 			echo "Traitement de $$mesh..."; \
-			$(FREEFEM) $(VALIDATION_SCRIPT) $$mesh; \
+			$(FREEFEM) $(VALIDATION_SCRIPT) $$mesh $(FREEFEM_FLAGS); \
 		fi; \
 	done
 	@echo "✓ Résolution terminée"
@@ -147,7 +141,7 @@ solve-pen: analyze check-freefem
 	@for mesh in $(MESHES); do \
 		if [ -f $$mesh ]; then \
 			echo "Traitement de $$mesh..."; \
-			$(FREEFEM) $(VALIDATION_PEN_SCRIPT) $$mesh; \
+			$(FREEFEM) $(VALIDATION_PEN_SCRIPT) $$mesh $(FREEFEM_FLAGS); \
 		fi; \
 	done
 	@echo "✓ Résolution avec pénalisation terminée"

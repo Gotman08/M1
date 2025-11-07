@@ -25,7 +25,7 @@ u(x,y) = 1 + sin(πx/2) + x(x-4)cos(πy/2)
 CHPS0706ElementsFinis/
 ├── generate_meshes.edp           # Génération des 4 maillages
 ├── main.py                       # Script principal orchestrateur
-├── Makefile                      # Automatisation (WSL/Linux)
+├── Makefile                      # Automatisation (Linux)
 ├── README.md                     # Cette documentation
 ├── meshes/                       # Maillages générés
 │   ├── m1.msh                   # 4×4 intervalles (25 nœuds)
@@ -54,7 +54,7 @@ Calcul sur feuille (documenté dans le code) :
 
 - **Second membre** : f(x,y) = (π²/4)[sin(πx/2) + x(x-4)cos(πy/2)] - 2cos(πy/2)
 - **Condition Dirichlet** : uE(0,y) = uE(4,y) = 1
-- **Vérification Neumann** : ∇u·n = 0 sur y=0 et y=2 ✓
+- **Vérification Neumann** : ∇u·n = 0 sur y=0 et y=2 
 
 ### Exercice 2 : Analyse des Maillages
 
@@ -98,7 +98,7 @@ p ≈ ln(e_h / e_{h/2}) / ln(2)
 
 ### Prérequis
 
-**Sous WSL/Linux** :
+**Installation** :
 ```bash
 # FreeFem++
 sudo apt-get update
@@ -281,12 +281,12 @@ Le graphique `results/convergence_plot_standard.png` montre :
 
 ### Principes de Conception
 
-✅ **Modularité** : Chaque exercice dans un fichier séparé
-✅ **Réutilisabilité** : Fonctions communes dans `utils.py`
-✅ **Documentation** : Commentaires détaillés en français
-✅ **Précision** : Formats avec 16 décimales (erreurs) et 4 (ordres)
-✅ **Automatisation** : Plusieurs niveaux d'exécution
-✅ **Compatibilité WSL** : Chemins et commandes adaptés
+ **Modularité** : Chaque exercice dans un fichier séparé
+ **Réutilisabilité** : Fonctions communes dans `utils.py`
+ **Documentation** : Commentaires détaillés en français
+ **Précision** : Formats avec 16 décimales (erreurs) et 4 (ordres)
+ **Automatisation** : Plusieurs niveaux d'exécution
+ **Linux compatible** : Chemins et commandes standards
 
 ### Conformité au Cours CHPS0706
 
@@ -374,7 +374,7 @@ chmod +x main.py
 chmod +x python/*.py
 ```
 
-### Erreurs de chemins sous WSL
+### Erreurs de chemins
 
 Les chemins sont automatiquement gérés. Si problèmes :
 - Vérifier que vous êtes bien dans le dossier du projet
@@ -384,7 +384,7 @@ Les chemins sont automatiquement gérés. Si problèmes :
 
 **Cours** : CHPS0706 - Éléments Finis
 **Niveau** : M1
-**Environnement** : WSL (Windows Subsystem for Linux)
+**Environnement** : Linux
 **Technologies** : FreeFem++, Python 3, NumPy, Matplotlib
 
 ## Références

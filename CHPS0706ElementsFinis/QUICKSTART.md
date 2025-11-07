@@ -86,7 +86,7 @@ Le tableau montrera :
 
 **Observation** : Ordre p ≈ 2 sur maillages structurés
 
-➜ **Phénomène de super-convergence numérique** ✓
+➜ **Phénomène de super-convergence numérique** 
 
 ---
 
@@ -123,7 +123,7 @@ python3 main.py --help  # Options du script principal
 
 ## Exercices du TD
 
-### Exercice 1 : Calculs Analytiques ✓
+### Exercice 1 : Calculs Analytiques 
 
 Documentés dans [`EXERCICE1_CALCULS.md`](EXERCICE1_CALCULS.md)
 
@@ -131,7 +131,7 @@ Documentés dans [`EXERCICE1_CALCULS.md`](EXERCICE1_CALCULS.md)
 - Conditions de Dirichlet uE
 - Vérification condition de Neumann
 
-### Exercice 2 : Analyse Maillages ✓
+### Exercice 2 : Analyse Maillages 
 
 ```bash
 python3 python/mesh_analysis.py
@@ -139,7 +139,7 @@ python3 python/mesh_analysis.py
 
 Calcule qualité Q et pas h pour les 4 maillages.
 
-### Exercice 3.1 : Solveur Standard ✓
+### Exercice 3.1 : Solveur Standard 
 
 ```bash
 FreeFem++ freefem/validation.edp meshes/m1.msh
@@ -147,7 +147,7 @@ FreeFem++ freefem/validation.edp meshes/m1.msh
 
 Résolution avec condition Dirichlet imposée fortement.
 
-### Exercice 3.2 : Solveur Pénalisation ✓
+### Exercice 3.2 : Solveur Pénalisation 
 
 ```bash
 FreeFem++ freefem/validation_pen.edp meshes/m1.msh
@@ -155,7 +155,7 @@ FreeFem++ freefem/validation_pen.edp meshes/m1.msh
 
 Résolution avec méthode de pénalisation (α = 10¹⁰).
 
-### Exercice 4 : Analyse Convergence ✓
+### Exercice 4 : Analyse Convergence 
 
 ```bash
 python3 python/convergence_analysis.py
@@ -221,4 +221,4 @@ FreeFem++ freefem/validation.edp meshes/m1.msh
 
 **Temps total d'exécution** : ~30 secondes à 2 minutes (selon la machine)
 
-**Bon travail !** 🎯
+**Bon travail !** �

@@ -37,12 +37,12 @@ Le projet a été mis à jour pour **générer automatiquement un rapport PDF ac
 
 ### 4. **main.py**
 **Changements majeurs** :
-- ✅ Les **2 méthodes** (standard + pénalisation) sont maintenant **exécutées automatiquement**
-- ✅ Retrait de l'option `--penalization` (toujours exécutée)
-- ✅ Ajout de l'option `--skip-report` pour désactiver le PDF
-- ✅ Appel automatique à `generate_report.py` après convergence
-- ✅ Mise à jour des numéros d'étapes [1/7] à [7/7]
-- ✅ Ajout de la fonction `generate_pdf_report()`
+-  Les **2 méthodes** (standard + pénalisation) sont maintenant **exécutées automatiquement**
+-  Retrait de l'option `--penalization` (toujours exécutée)
+-  Ajout de l'option `--skip-report` pour désactiver le PDF
+-  Appel automatique à `generate_report.py` après convergence
+-  Mise à jour des numéros d'étapes [1/7] à [7/7]
+-  Ajout de la fonction `generate_pdf_report()`
 
 **Nouveau comportement** :
 ```bash
@@ -57,9 +57,9 @@ python3 main.py
 
 ### 5. **python/convergence_analysis.py**
 **Changements** :
-- ✅ Ajout de `plt.close()` après sauvegarde des graphiques
-- ✅ Correction des tailles de maillages : [81, 289, 1089, 4225]
-- ✅ Graphiques sauvegardés avec noms distincts :
+-  Ajout de `plt.close()` après sauvegarde des graphiques
+-  Correction des tailles de maillages : [81, 289, 1089, 4225]
+-  Graphiques sauvegardés avec noms distincts :
   - `convergence_plot_standard.png`
   - `convergence_plot_penalized.png`
 
@@ -178,7 +178,7 @@ results/
 ├── convergence_table_penalized.txt     # Tableau (pénalisation)
 ├── convergence_plot_standard.png       # Graphique (standard)
 ├── convergence_plot_penalized.png      # Graphique (pénalisation)
-└── RAPPORT_CONVERGENCE.pdf             # 📄 RAPPORT FINAL
+└── RAPPORT_CONVERGENCE.pdf             # � RAPPORT FINAL
 ```
 
 ---
@@ -193,10 +193,9 @@ results/
 
 ## Compatibilité
 
-✅ **WSL** : Testé et fonctionnel
-✅ **Linux** : Compatible
-✅ **Python 3.6+** : Requis
-✅ **FreeFem++** : Version 4+ recommandée
+ **Linux** : Testé et fonctionnel
+ **Python 3.6+** : Requis
+ **FreeFem++** : Version 4+ recommandée
 
 ---
 
@@ -212,12 +211,12 @@ results/
 
 ## Avantages
 
-✅ **Automatisation complète** : Un seul script génère tout
-✅ **Format professionnel** : PDF académique prêt à rendre
-✅ **2 méthodes comparées** : Standard vs Pénalisation
-✅ **Graphiques de qualité** : 300 DPI, format PNG
-✅ **Code source inclus** : Les 2 solveurs dans le rapport
-✅ **Analyse détaillée** : Conclusions sur la super-convergence
+ **Automatisation complète** : Un seul script génère tout
+ **Format professionnel** : PDF académique prêt à rendre
+ **2 méthodes comparées** : Standard vs Pénalisation
+ **Graphiques de qualité** : 300 DPI, format PNG
+ **Code source inclus** : Les 2 solveurs dans le rapport
+ **Analyse détaillée** : Conclusions sur la super-convergence
 
 ---
 

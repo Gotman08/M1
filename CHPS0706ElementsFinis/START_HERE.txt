@@ -15,8 +15,8 @@ NOUVEAU ? COMMENCEZ ICI !
    📖 PROJET_COMPLET.txt      Résumé du projet
 
 2️⃣  INSTALLER LES DÉPENDANCES
-   Sous WSL/Linux :
-   
+   Installation :
+
    sudo apt-get update
    sudo apt-get install freefem++ python3-pip
    pip3 install numpy matplotlib scipy

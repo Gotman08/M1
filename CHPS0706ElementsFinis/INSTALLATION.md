@@ -1,15 +1,15 @@
-# Guide d'Installation - WSL
+# Guide d'Installation - Linux
 
 ## Installation Rapide
 
-### 1. Prérequis WSL
+### 1. Prérequis
 
-Assurez-vous que WSL est installé et configuré sur votre système Windows.
+Assurez-vous que vous êtes sur un système Linux.
 
 ```bash
-# Vérifier que vous êtes dans WSL
+# Vérifier votre système
 uname -a
-# Devrait afficher quelque chose comme "Linux ... Microsoft ..."
+# Devrait afficher "Linux"
 ```
 
 ### 2. Installation de FreeFem++
@@ -50,7 +50,7 @@ cd /chemin/vers/CHPS0706ElementsFinis
 bash test_installation.sh
 ```
 
-Si tout est vert (✓), vous êtes prêt !
+Si tout est vert (), vous êtes prêt !
 
 ## Installation Détaillée
 
@@ -180,23 +180,23 @@ chmod +x main.py
 chmod +x test_installation.sh
 ```
 
-### Erreurs de chemins WSL
+### Erreurs de chemins
 
-**Symptôme** : Fichiers non trouvés, chemins Windows vs Linux
+**Symptôme** : Fichiers non trouvés
 
 **Solutions** :
 
-1. Utiliser des chemins Linux absolus :
+1. Utiliser des chemins absolus :
    ```bash
    pwd  # Afficher le répertoire courant
-   cd /mnt/c/Users/votre-nom/Documents/...
+   cd /chemin/vers/CHPS0706ElementsFinis
    ```
 
-2. Ou travailler depuis le système de fichiers Linux :
+2. Vérifier le répertoire de travail :
    ```bash
    cd ~
-   cp -r /mnt/c/Users/.../CHPS0706ElementsFinis .
    cd CHPS0706ElementsFinis
+   pwd
    ```
 
 ### Makefile : commande non trouvée
@@ -273,7 +273,6 @@ pip3 install numpy --config-settings=setup-args="-Dblas=mkl"
 - **Documentation FreeFem++** : https://doc.freefem.org/
 - **NumPy** : https://numpy.org/
 - **Matplotlib** : https://matplotlib.org/
-- **WSL** : https://docs.microsoft.com/windows/wsl/
 
 ### Commandes d'Aide
 
@@ -293,7 +292,7 @@ cat README.md
 
 ## Installation Alternative (Docker)
 
-Si vous rencontrez des difficultés avec WSL, vous pouvez utiliser Docker :
+Si vous rencontrez des difficultés, vous pouvez utiliser Docker :
 
 ```dockerfile
 # Dockerfile
@@ -328,4 +327,4 @@ Une fois l'installation terminée :
 3. **Tester** : `bash test_installation.sh`
 4. **Exécuter** : `python3 main.py` ou `make all`
 
-Bon travail ! 🚀
+Bon travail ! �

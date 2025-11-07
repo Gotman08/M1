@@ -27,11 +27,11 @@ echo "Test 1 : FreeFem++"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 if command -v FreeFem++ &> /dev/null; then
-    echo -e "${GREEN}✓${NC} FreeFem++ trouvé (FreeFem++)"
-    FreeFem++ -h | head -n 1
+    echo -e "${GREEN}✓${NC} FreeFem++ trouvé"
+    FreeFem++ -h 2>&1 | head -n 1
     ((SUCCESS++))
 elif command -v freefem++ &> /dev/null; then
-    echo -e "${GREEN}✓${NC} FreeFem++ trouvé (freefem++)"
+    echo -e "${GREEN}✓${NC} FreeFem++ trouvé"
     freefem++ -h | head -n 1
     ((SUCCESS++))
 else

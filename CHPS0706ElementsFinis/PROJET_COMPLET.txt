@@ -15,7 +15,7 @@ FICHIERS CRÉÉS
   ├── INSTALLATION.md                Guide d'installation détaillé
   ├── EXERCICE1_CALCULS.md          Calculs analytiques (Exercice 1)
   ├── main.py                        Script principal orchestrateur
-  ├── Makefile                       Automatisation (Linux/WSL)
+  ├── Makefile                       Automatisation (Linux)
   ├── test_installation.sh           Script de test de l'installation
   ├── generate_meshes.edp            Génération des 4 maillages
   └── .gitignore                     Configuration Git
@@ -129,7 +129,7 @@ ORGANISATION DU CODE
 ✓ Documentation      Commentaires détaillés en français
 ✓ Précision          16 décimales (erreurs), 4 (ordres)
 ✓ Automatisation     3 niveaux : Python, Make, Manuel
-✓ WSL Compatible     Chemins et commandes adaptés
+✓ Linux Compatible   Chemins et commandes standards
 
 
 FORMULATION MATHÉMATIQUE
@@ -195,7 +195,7 @@ TECHNOLOGIES
   • Matplotlib           Visualisation
   • SciPy (optionnel)    Fonctions scientifiques
   • Make                 Automatisation
-  • WSL                  Environnement Linux
+  • Linux                Environnement
 
 
 DOCUMENTATION
@@ -232,7 +232,7 @@ AUTEUR
   Cours      : CHPS0706 - Éléments Finis
   Niveau     : M1
   Année      : 2024-2025
-  Plateforme : WSL (Windows Subsystem for Linux)
+  Plateforme : Linux
 
 
 ═══════════════════════════════════════════════════════════════════════
