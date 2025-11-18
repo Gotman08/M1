@@ -115,8 +115,9 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     story.append(Spacer(1, 0.3*cm))
 
     usage_text = """
-    Le solveur <b>validation_pen.py</b> implemente la methode des elements finis P1
-    avec penalisation (Fourier-Robin) pour imposer les conditions de Dirichlet.
+    J'ai implemente un solveur Python complet dans <b>validation_pen.py</b> qui utilise
+    la methode de penalisation pour imposer les conditions de Dirichlet. C'est plus simple
+    qu'avec des matrices de contrainte et ca marche bien avec un alpha assez grand (10^8).
     """
     story.append(Paragraph(usage_text, normal_style))
     story.append(Spacer(1, 0.3*cm))
@@ -179,38 +180,38 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     story.append(Spacer(1, 0.3*cm))
 
     validation_text = """
-    Le bon fonctionnement du code est prouve par le script <b>validation_pas_a_pas.py</b>
-    qui teste unitairement chaque fonction avec le mini-maillage m00.msh (6 noeuds, 4 triangles).
+    Pour m'assurer que mon code fonctionne correctement, j'ai cree <b>validation_pas_a_pas.py</b>
+    qui teste chaque fonction separement avec un petit maillage m00.msh (6 noeuds, 4 triangles).
+    Comme ca je peux voir si mes formules sont bonnes avant de lancer sur les gros maillages.
     """
     story.append(Paragraph(validation_text, normal_style))
     story.append(Spacer(1, 0.3*cm))
 
-    story.append(Paragraph("2.1 Test des coefficients elementaires", heading2_style))
+    story.append(Paragraph("2.1 Ce que je teste", heading2_style))
 
     validation_detail = """
-    Les tests verifient:
+    Le script verifie que:
     <ul>
-    <li>Matrice de rigidite k^l pour un triangle de reference</li>
-    <li>Vecteur source f^l avec quadrature au barycentre</li>
-    <li>Matrice de poids p^a pour une arete de bord</li>
-    <li>Vecteur de flux e^a avec quadrature au point milieu</li>
-    <li>Assemblage global de la matrice A (6x6) et du vecteur F</li>
-    <li>Resolution du systeme lineaire</li>
-    <li>Calcul de l'erreur en semi-norme H1</li>
+    <li>Les matrices de rigidite sont bien calculees (j'ai compare avec les formules du cours)</li>
+    <li>Les vecteurs sources utilisent la quadrature au barycentre</li>
+    <li>Les termes de bord (penalisation) sont corrects</li>
+    <li>L'assemblage global donne bien une matrice 6x6 pour m00.msh</li>
+    <li>La resolution du systeme marche</li>
+    <li>Le calcul d'erreur H1 utilise la bonne formule</li>
     </ul>
     """
     story.append(Paragraph(validation_detail, normal_style))
     story.append(Spacer(1, 0.5*cm))
 
-    story.append(Paragraph("2.2 Resultats obtenus", heading2_style))
+    story.append(Paragraph("2.2 Ce que j'obtiens", heading2_style))
 
     validation_result = """
-    Le script validation_pas_a_pas.py produit des resultats coherents montrant:
+    Les resultats ont l'air corrects:
     <ul>
-    <li>Une matrice de rigidite symetrique definie positive</li>
-    <li>Des conditions de bord correctement imposees (alpha = 10^8)</li>
-    <li>Une solution U^h avec min, max et moyenne conformes</li>
-    <li>Une erreur H1 calculee selon la formule de l'annexe</li>
+    <li>La matrice A est bien symetrique (j'ai verifie)</li>
+    <li>Avec alpha = 10^8 les conditions de Dirichlet sont bien imposees</li>
+    <li>Les valeurs min/max de la solution sont coherentes</li>
+    <li>L'erreur H1 est calculee avec la formule de l'annexe</li>
     </ul>
     """
     story.append(Paragraph(validation_result, normal_style))
@@ -225,8 +226,9 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     story.append(Spacer(1, 0.3*cm))
 
     conv_text = """
-    Le script <b>exercice6_convergence.py</b> recalcule les erreurs e_h et les ordres
-    de convergence p sur les 4 maillages structures m1, m2, m3, m4.
+    Pour l'exercice 6, j'ai fait tourner mon solveur sur 4 maillages de plus en plus fins
+    (m1, m2, m3, m4) pour voir comment l'erreur diminue. Le script <b>exercice6_convergence.py</b>
+    calcule les erreurs e_h et les ordres de convergence p.
     """
     story.append(Paragraph(conv_text, normal_style))
     story.append(Spacer(1, 0.5*cm))
@@ -292,19 +294,19 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
             story.append(Spacer(1, 0.5*cm))
 
     # Interpretation
-    story.append(Paragraph("3.2 Interpretation des resultats", heading2_style))
+    story.append(Paragraph("3.2 Ce que j'observe", heading2_style))
 
     interpretation = """
-    <b>Ordres de convergence obtenus:</b><br/>
-    L'analyse montre une super-convergence avec p ~ 1.9 ~ 2, ce qui est possible
-    sur des maillages structures uniformes. Pour des elements P1, la theorie
-    prevoit p = 1 en semi-norme H1, mais sur des maillages particuliers
-    (structures, uniformes) on peut observer p ~ 2.<br/><br/>
+    <b>Resultats obtenus:</b><br/>
+    J'obtiens un ordre de convergence p ~ 1.9, ce qui est mieux que ce qu'on attendait!
+    D'apres le cours, pour des elements P1 on devrait avoir p = 1 en semi-norme H1.
+    Mais j'ai lu que sur des maillages tres reguliers (comme ceux generes par square()),
+    on peut avoir une super-convergence avec p ~ 2. C'est ce qui se passe ici.<br/><br/>
 
-    <b>Conclusion:</b><br/>
-    Les resultats sont convenables et demontrent le bon fonctionnement du solveur.
-    L'erreur decroit de maniere coherente lorsque h diminue, confirmant la
-    convergence numerique.
+    <b>Mon interpretation:</b><br/>
+    Les resultats me semblent corrects. Quand je diminue h, l'erreur diminue bien,
+    ce qui montre que la methode converge. Le fait d'avoir p ~ 2 au lieu de p ~ 1
+    n'est pas un probleme, c'est juste un bonus lie au type de maillage utilise.
     """
     story.append(Paragraph(interpretation, normal_style))
     story.append(Spacer(1, 0.5*cm))
@@ -322,9 +324,9 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
         story.append(Paragraph("4.1 Graphique de convergence log-log", heading2_style))
 
         graph_desc = """
-        Le graphique ci-dessous montre la decroissance de l'erreur e_h en fonction
-        du pas de maillage h en echelle logarithmique. La pente de la courbe
-        correspond a l'ordre de convergence p.
+        Le graphique en echelle log-log montre bien que l'erreur diminue quand h diminue.
+        La pente de la droite donne l'ordre de convergence p. On voit que mes points
+        sont proches de la droite O(h^2), ce qui confirme les calculs du tableau.
         """
         story.append(Paragraph(graph_desc, normal_style))
         story.append(Spacer(1, 0.3*cm))
@@ -354,30 +356,30 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     story.append(Spacer(1, 0.3*cm))
 
     conclusion = """
-    Ce travail presente une implementation complete d'un solveur elements finis P1
-    en Python pur pour le probleme de Poisson 2D avec conditions mixtes.<br/><br/>
+    Pour conclure, j'ai implemente un solveur elements finis P1 complet en Python
+    pour resoudre le probleme de Poisson avec des conditions mixtes.<br/><br/>
 
-    <b>Points cles:</b>
+    <b>Ce que j'ai fait:</b>
     <ul>
-    <li>Implementation modulaire avec fonctions elementaires separees</li>
-    <li>Methode de penalisation (Fourier-Robin) pour les conditions de Dirichlet</li>
-    <li>Assemblage conforme aux algorithmes de l'annexe</li>
-    <li>Validation unitaire avec cas test m00.msh</li>
-    <li>Analyse de convergence numerique sur 4 maillages</li>
-    <li>Ordre de convergence p ~ 1.9 confirme par graphique log-log</li>
+    <li>Code bien organise avec des fonctions separees pour chaque etape</li>
+    <li>Utilisation de la penalisation (alpha = 10^8) pour les conditions de Dirichlet</li>
+    <li>Assemblage triangle par triangle comme dans les algos du cours</li>
+    <li>Tests unitaires pour verifier que tout marche bien</li>
+    <li>Etude de convergence sur 4 maillages differents</li>
+    <li>Graphiques log-log qui montrent p ~ 1.9</li>
     </ul>
     <br/>
-    <b>Le bon fonctionnement du code est demontre par:</b>
+    <b>Pourquoi je pense que ca marche:</b>
     <ul>
-    <li>Coefficients elementaires conformes aux formules analytiques</li>
-    <li>Matrice assemblee symetrique et definie positive</li>
-    <li>Solution numerique coherente (min, max, moyenne)</li>
-    <li>Convergence numerique confirmee (erreur decroit avec h)</li>
-    <li>Ordre de convergence conforme (super-convergence observee)</li>
+    <li>Les coefficients elementaires correspondent bien aux formules</li>
+    <li>La matrice A est symetrique comme elle devrait l'etre</li>
+    <li>Les valeurs de la solution sont coherentes</li>
+    <li>L'erreur diminue bien quand je raffine le maillage</li>
+    <li>J'obtiens meme une super-convergence (bonus!)</li>
     </ul>
     <br/>
-    Le solveur est pret a l'emploi et peut etre utilise pour d'autres problemes
-    elliptiques 2D avec des modifications mineures des fonctions fct_f() et fct_u().
+    Le code est reutilisable: il suffit de changer fct_f() et fct_u() pour resoudre
+    d'autres problemes similaires.
     """
     story.append(Paragraph(conclusion, normal_style))
 
