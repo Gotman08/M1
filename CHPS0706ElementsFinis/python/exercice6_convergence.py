@@ -108,7 +108,7 @@ def generate_convergence_table(results, orders, output_file=None):
     table.append("")
 
     # En-tete
-    header = f"{'Maillage':<15} {'N sommets':<12} {'Q':<20} {'h':<20} {'e_h (H1)':<20} {'Ordre p':<15}"
+    header = f"{'Maillage':<15} {'N sommets':<12} {'Q':<20} {'h':<20} {'e_h (energie)':<20} {'Ordre p':<15}"
     table.append(header)
     table.append("-"*100)
 
@@ -145,12 +145,17 @@ def generate_convergence_table(results, orders, output_file=None):
 
         # Commentaire
         table.append("")
+        table.append("NOTE IMPORTANTE :")
+        table.append("  L'erreur calculee est la NORME ENERGIE : e_h = sqrt((U - U^h)^T K (U - U^h))")
+        table.append("  Cette norme differe de la semi-norme H^1 classique.")
+        table.append("")
         if 0.9 <= p_mean <= 1.1:
-            table.append("Convergence conforme a la theorie (p ~ 1)")
-            table.append("  L'erreur en semi-norme H1 decroit comme O(h).")
+            table.append("Convergence : p ~ 1")
+            table.append("  L'erreur en norme energie decroit comme O(h).")
         elif 1.9 <= p_mean <= 2.1:
-            table.append("Super-convergence observee (p ~ 2)")
-            table.append("  Possible sur maillages structures uniformes.")
+            table.append("Super-convergence observee : p ~ 2")
+            table.append("  Phenomene connu pour la norme energie sur maillages structures uniformes.")
+            table.append("  Conforme a la theorie des elements finis P1.")
         else:
             table.append(f"Ordre de convergence inattendu : p ~ {p_mean:.2f}")
 
@@ -203,7 +208,7 @@ def plot_convergence(results, orders, output_file=None):
 
     # Labels et titre
     plt.xlabel('Pas de maillage h', fontsize=12)
-    plt.ylabel('Erreur $|u_h - r_h(u)|_{H^1}$', fontsize=12)
+    plt.ylabel('Erreur en norme energie $\\|u_h - r_h(u)\\|_K$', fontsize=12)
     plt.title('Convergence numerique - Exercice 6 (Python validation_pen.py)', fontsize=14, fontweight='bold')
     plt.grid(True, which='both', alpha=0.3)
     plt.legend(fontsize=11)

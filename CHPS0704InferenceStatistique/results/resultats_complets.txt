@@ -1,0 +1,135 @@
+================================================================================
+RÉSULTATS DE L'ANALYSE STATISTIQUE COMPLÈTE
+================================================================================
+
+Dataset : Données sur la santé cardiaque
+Nombre d'observations : 500
+
+{
+  "stats_descriptives": {
+    "age": {
+      "n": 500,
+      "moyenne": 54.566,
+      "variance": 133.38441282565128,
+      "ecart_type": 11.54921697889737,
+      "min": 25,
+      "max": 85,
+      "mediane": 55.0,
+      "Q1": 46.0,
+      "Q3": 62.0
+    },
+    "cholesterol": {
+      "n": 500,
+      "moyenne": 211.3734,
+      "variance": 1510.6389904208415,
+      "ecart_type": 38.866939555628015,
+      "min": 120.0,
+      "max": 315.3,
+      "mediane": 211.1,
+      "Q1": 186.175,
+      "Q3": 236.05
+    },
+    "heart_rate": {
+      "n": 500,
+      "moyenne": 75.874,
+      "variance": 141.84581563126252,
+      "ecart_type": 11.909904098323484,
+      "min": 50,
+      "max": 106,
+      "mediane": 76.0,
+      "Q1": 67.0,
+      "Q3": 84.0
+    },
+    "blood_pressure": {
+      "n": 500,
+      "moyenne": 133.482,
+      "variance": 193.1559879759519,
+      "ecart_type": 13.898056985634787,
+      "min": 90,
+      "max": 174,
+      "mediane": 134.0,
+      "Q1": 124.0,
+      "Q3": 143.0
+    }
+  },
+  "estimation": {
+    "variable": "cholesterol",
+    "mu_moments": 211.3734,
+    "sigma2_moments": 1510.6389904208415,
+    "mu_mle": 211.3734,
+    "sigma2_mle": 1507.61771244,
+    "biais_mm": -0.046943330385261106,
+    "biais_mle": -0.046943330385261106,
+    "mse_mm": 3.3748129425685356,
+    "mse_mle": 3.3748129425685356
+  },
+  "intervalles_confiance": {
+    "mean": {
+      "variable": "cholesterol",
+      "estimate": 211.3734,
+      "lower": 207.95834199411294,
+      "upper": 214.78845800588707,
+      "confidence": 0.95
+    },
+    "variance": {
+      "estimate": 1510.6389904208415,
+      "lower": 1339.4152904171735,
+      "upper": 1717.1121912118947
+    },
+    "proportion": {
+      "estimate": 0.398,
+      "lower": 0.3550954974949475,
+      "upper": 0.44090450250505253,
+      "n_success": 199,
+      "n_total": 500
+    }
+  },
+  "tests_hypotheses": {
+    "test_mean": {
+      "variable": "cholesterol",
+      "mu_0": 200,
+      "t_stat": 6.543271949389582,
+      "p_value": 1.4948620119525913e-10,
+      "reject_h0": true
+    },
+    "test_two_means": {
+      "groups": [
+        "sans maladie",
+        "avec maladie"
+      ],
+      "t_stat": -2.7431315975616615,
+      "p_value": 0.0063049891568260595,
+      "reject_h0": true
+    },
+    "test_variances": {
+      "f_stat": 1.0205796818267892,
+      "p_value": 0.8680714741371369,
+      "reject_h0": false
+    },
+    "anova": {
+      "f_stat": 3.356571047159177,
+      "p_value": 0.03564651185436181,
+      "ss_inter": 10046.245652278221,
+      "ss_intra": 743762.6105677219,
+      "ss_total": 753808.8562200001,
+      "reject_h0": true
+    }
+  },
+  "regression": {
+    "beta_0": 86.81429611239213,
+    "beta_1": 0.8552524261922786,
+    "r2": 0.5051094979120099,
+    "f_stat": 508.28320385800623,
+    "p_value_f": 1.1102230246251565e-16,
+    "t_beta_0": 41.032700711997165,
+    "p_beta_0": 0.0,
+    "t_beta_1": 22.545137033471462,
+    "p_beta_1": 0.0,
+    "prediction": {
+      "x_new": 50,
+      "y_pred": 129.57691742200606,
+      "lower": 110.32602606630086,
+      "upper": 148.82780877771125
+    }
+  }
+}

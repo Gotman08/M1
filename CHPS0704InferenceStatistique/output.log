@@ -1,0 +1,278 @@
+
+================================================================================
+DÉBUT DE L'ANALYSE STATISTIQUE COMPLÈTE
+================================================================================
+================================================================================
+A. ANALYSE DESCRIPTIVE ET ESTIMATION PONCTUELLE
+================================================================================
+
+AGE
+  n = 500
+  Moyenne (X_bar) = 54.57
+  Variance (S^2) = 133.38
+  Ecart-type (S) = 11.55
+  Mediane = 55.00
+  [Min, Max] = [25.00, 85.00]
+
+CHOLESTEROL
+  n = 500
+  Moyenne (X_bar) = 211.37
+  Variance (S^2) = 1510.64
+  Ecart-type (S) = 38.87
+  Mediane = 211.10
+  [Min, Max] = [120.00, 315.30]
+
+HEART_RATE
+  n = 500
+  Moyenne (X_bar) = 75.87
+  Variance (S^2) = 141.85
+  Ecart-type (S) = 11.91
+  Mediane = 76.00
+  [Min, Max] = [50.00, 106.00]
+
+BLOOD_PRESSURE
+  n = 500
+  Moyenne (X_bar) = 133.48
+  Variance (S^2) = 193.16
+  Ecart-type (S) = 13.90
+  Mediane = 134.00
+  [Min, Max] = [90.00, 174.00]
+
+✓ Histogrammes sauvegardés dans figures/histogrammes.png
+
+================================================================================
+ESTIMATION DES PARAMÈTRES - LOI NORMALE
+================================================================================
+
+Variable analysée : cholesterol
+Hypothèse : cholesterol ~ N(μ, σ²)
+
+1. MÉTHODE DES MOMENTS
+----------------------------------------
+Principe : E[X] = μ  et  Var(X) = σ²
+          X̄ₙ = μ̂  et  S² = σ̂²
+
+Estimateurs des moments :
+  μ̂_MM = 211.3734
+  σ̂²_MM = 1510.6390
+
+2. MÉTHODE DU MAXIMUM DE VRAISEMBLANCE (MLE)
+----------------------------------------
+Log-vraisemblance : ℓ(μ,σ²) = -n/2·log(2π) - n/2·log(σ²) - 1/(2σ²)·Σ(xᵢ-μ)²
+
+Estimateurs du MLE :
+  μ̂_MLE = 211.3734
+  σ̂²_MLE = 1507.6177
+
+3. COMPARAISON DES ESTIMATEURS
+----------------------------------------
+
+Pour l'estimateur de μ (sur 1000 simulations) :
+  Méthode des Moments :
+    Biais = -0.046943
+    MSE = 3.374813
+  Maximum de Vraisemblance :
+    Biais = -0.046943
+    MSE = 3.374813
+
+Test d'ajustement de Kolmogorov-Smirnov :
+  Statistique KS = 0.0237
+  p-value = 0.9348
+  Conclusion : Ajustement acceptable (α=0.05)
+
+✓ Graphique d'ajustement sauvegardé dans figures/ajustement_cholesterol.png
+
+================================================================================
+B. INTERVALLES DE CONFIANCE (niveau 95%)
+================================================================================
+
+1. INTERVALLE DE CONFIANCE POUR LA MOYENNE μ
+--------------------------------------------------
+Variable : cholesterol
+  n = 500
+  X̄ = 211.37
+  S = 38.87
+  Erreur standard = S/√n = 1.7382
+  Quantile t_{n-1;0.975} = 1.9647
+
+  IC_95%(μ) = [207.96, 214.79]
+
+  Interprétation : Avec 95% de confiance, la vraie moyenne
+  du cholesterol se situe entre 207.96 et 214.79.
+
+2. INTERVALLE DE CONFIANCE POUR LA VARIANCE σ²
+--------------------------------------------------
+  S² = 1510.64
+  χ²_{n-1;0.025} = 438.9980
+  χ²_{n-1;0.975} = 562.7895
+
+  IC_95%(σ²) = [1339.42, 1717.11]
+
+  IC_95%(σ) = [36.60, 41.44]
+
+3. INTERVALLE DE CONFIANCE POUR UNE PROPORTION p
+--------------------------------------------------
+Proportion de personnes avec maladie cardiaque :
+  n = 500
+  Succès = 199
+  p̂ = 0.3980 (39.80%)
+  Erreur standard = √[p̂(1-p̂)/n] = 0.0219
+  Quantile z_{1-alpha/2} = 1.9600
+
+  IC_95%(p) = [0.3551, 0.4409]
+               = [35.51%, 44.09%]
+
+✓ Graphique des IC sauvegardé dans figures/intervalles_confiance.png
+
+================================================================================
+C. TESTS D'HYPOTHÈSES (α = 0.05)
+================================================================================
+
+1. TEST DE STUDENT SUR UNE MOYENNE
+--------------------------------------------------
+H₀ : μ = μ₀  vs  H₁ : μ ≠ μ₀
+
+Variable : cholesterol
+  H₀ : μ = 200
+  X̄ = 211.37
+  S = 38.87
+  Statistique t = (X̄ - μ₀)/(S/√n) = 6.5433
+  Degrés de liberté = 499
+  p-value = 0.0000
+
+  Décision : Rejeter H₀ (α = 0.05)
+  Conclusion : La moyenne est significativement différente de 200
+
+2. COMPARAISON DE DEUX MOYENNES
+--------------------------------------------------
+H₀ : μ₁ = μ₂  vs  H₁ : μ₁ ≠ μ₂
+
+Comparaison : Cholestérol (sans maladie vs avec maladie)
+  Groupe 1 (sans maladie) : n₁ = 301, X̄₁ = 207.52
+  Groupe 2 (avec maladie) : n₂ = 199, X̄₂ = 217.20
+  Statistique t = -2.7431
+  p-value = 0.0063
+
+  Décision : Rejeter H₀
+  Conclusion : Les moyennes sont significativement différentes
+
+3. COMPARAISON DE DEUX VARIANCES (TEST DE FISHER)
+--------------------------------------------------
+H₀ : σ₁² = σ₂²  vs  H₁ : σ₁² ≠ σ₂²
+  S₁² = 1479.04
+  S₂² = 1509.48
+  Statistique F = 1.0206
+  Degrés de liberté = (198, 300)
+  p-value = 0.8681
+
+  Décision : Ne pas rejeter H₀
+  Conclusion : Les variances sont homogènes
+
+4. ANALYSE DE LA VARIANCE (ANOVA)
+--------------------------------------------------
+H₀ : μ₁ = μ₂ = ... = μₖ  vs  H₁ : Au moins une moyenne diffère
+
+Comparaison du cholestérol entre 3 groupes d'âge :
+  Groupe 1 (<40 ans) : n = 59, X̄ = 215.49
+  Groupe 2 (40-55 ans) : n = 208, X̄ = 215.58
+  Groupe 3 (>55 ans) : n = 233, X̄ = 206.58
+
+Table ANOVA :
+  Source          | SS       | df  | MS       | F        | p-value
+  ----------------|----------|-----|----------|----------|---------
+  Inter-groupes   | 10046.25 |   2 |  5023.12 |   3.3566 | 0.0356
+  Intra-groupes   | 743762.61 | 497 |  1496.50 |          |
+  Total           | 753808.86 | 499 |          |          |
+
+  Statistique F = MS_inter / MS_intra = 3.3566
+  p-value = 0.0356
+
+  Décision : Rejeter H₀
+  Conclusion : Au moins un groupe diffère significativement
+
+✓ Graphique des tests sauvegardé dans figures/tests_hypotheses.png
+
+================================================================================
+D. MODÉLISATION PAR RÉGRESSION LINÉAIRE
+================================================================================
+
+Modèle : blood_pressure = β₀ + β₁·age + ε
+
+1. VÉRIFICATION DE LA LINÉARITÉ
+--------------------------------------------------
+  ✓ Nuage de points tracé (voir figures/scatter_plot.png)
+
+2. ESTIMATION DU MODÈLE (Moindres Carrés)
+--------------------------------------------------
+  β̂₀ (Intercept) = 86.8143
+  β̂₁ (Slope) = 0.8553
+
+  Équation estimée : blood_pressure = 86.81 + 0.8553·age
+
+3. QUALITÉ DU MODÈLE
+--------------------------------------------------
+  Somme des carrés totale (SST) = 96384.84
+  Somme des carrés résiduelle (SSR) = 47699.94
+  Somme des carrés expliquée (SSE) = 48684.90
+
+  R² = 1 - (SSR/SST) = 0.5051
+  Interprétation : 50.51% de la variabilité de la pression artérielle
+                   est expliquée par l'âge.
+
+4. TEST DE FISHER GLOBAL
+--------------------------------------------------
+  H₀ : β₁ = 0  (pas de relation linéaire)
+  H₁ : β₁ ≠ 0  (relation linéaire significative)
+
+  Statistique F = (SSE/1) / (SSR/(n-2)) = 508.2832
+  Degrés de liberté = (1, 498)
+  p-value = 0.000000
+
+  Décision : Rejeter H₀
+  Conclusion : Le modèle est significatif
+
+5. TESTS DE STUDENT SUR LES COEFFICIENTS
+--------------------------------------------------
+
+  Coefficient β₀ (Intercept) :
+    Estimation = 86.8143
+    Erreur standard = 2.1157
+    Statistique t = 41.0327
+    p-value = 0.000000
+    Significatif : Oui
+
+  Coefficient β₁ (age) :
+    Estimation = 0.8553
+    Erreur standard = 0.0379
+    Statistique t = 22.5451
+    p-value = 0.000000
+    Significatif : Oui
+
+6. INTERVALLE DE PRÉVISION
+--------------------------------------------------
+  Pour un individu d'âge x = 50 ans :
+    Prédiction ŷ = 129.58
+    Erreur standard de prévision = 9.7982
+    IC_95% de prévision = [110.33, 148.83]
+
+  Interprétation : Pour un individu de 50 ans, on prédit avec 95%
+                   de confiance que sa pression artérielle sera entre
+                   110.33 et 148.83 mmHg.
+  ✓ Graphique de régression sauvegardé dans figures/regression_lineaire.png
+  ✓ Analyse des résidus sauvegardée dans figures/analyse_residus.png
+
+✓ Résultats complets sauvegardés dans results/resultats_complets.txt
+
+================================================================================
+ANALYSE TERMINÉE AVEC SUCCÈS
+================================================================================
+
+Fichiers générés :
+  - figures/histogrammes.png
+  - figures/ajustement_cholesterol.png
+  - figures/intervalles_confiance.png
+  - figures/tests_hypotheses.png
+  - figures/scatter_plot.png
+  - figures/regression_lineaire.png
+  - figures/analyse_residus.png
+  - results/resultats_complets.txt

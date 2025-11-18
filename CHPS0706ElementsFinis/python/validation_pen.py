@@ -451,8 +451,9 @@ def read_freefem_mesh(filename):
             i1, i2, label = int(line[0])-1, int(line[1])-1, int(line[2])
             edges.append((i1, i2, label))
 
-    # Labels de bord Dirichlet (x=0 et x=4) → labels 2 et 4
-    dirichlet_labels = {2, 4}
+    # Labels de bord Dirichlet (x=0 et x=4) → label 1
+    # Label 2 correspond aux bords Neumann (y=0 et y=2)
+    dirichlet_labels = {1}
 
     return {
         'vertices': vertices,
@@ -487,12 +488,20 @@ def solve_fem_system(A, F):
 
 def compute_H1_error(Uh, vertices, triangles, K, u_exact_func, grad_u_exact_func):
     """
-    Calcul de l'erreur en semi-norme H1 : e_h = |r_h(u) - u_h|_{H1(Ω)}
+    Calcul de l'erreur en NORME ENERGIE : e_h = ||r_h(u) - u_h||_K
+
+    IMPORTANT : Cette formule calcule la norme energie (energy norm), pas la
+    semi-norme H^1 classique. La norme energie peut montrer une super-convergence
+    d'ordre 2 sur des maillages structures uniformes (phenomene connu en EF).
 
     Formule (Annexe) :
         e_h = sqrt((U - U^h)^T K (U - U^h))
 
     ou U = [u(x_1), ..., u(x_N)]^T est l'interpolee de la solution exacte
+    et K est la matrice de rigidite.
+
+    Pour la vraie semi-norme H^1, il faudrait integrer les gradients :
+        ||e||_{H^1} = sqrt(int_Omega |grad(u - u_h)|^2 dx)
 
     Args:
         Uh: Solution EF-P1 (vecteur N)
@@ -503,7 +512,7 @@ def compute_H1_error(Uh, vertices, triangles, K, u_exact_func, grad_u_exact_func
         grad_u_exact_func: Gradient de la solution exacte
 
     Returns:
-        error_H1: Erreur en semi-norme H1
+        error_H1: Erreur en norme energie (notation conservee pour compatibilite)
     """
     # Interpolee de la solution exacte aux noeuds
     U = np.array([u_exact_func(x, y) for x, y in vertices])

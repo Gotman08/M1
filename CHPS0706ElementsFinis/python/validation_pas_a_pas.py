@@ -142,8 +142,17 @@ def test_mini_maillage(mesh_file="meshes/m00.msh"):
     print("A =")
     print(A.toarray())
 
+    # Verification de la symetrie
+    A_dense = A.toarray()
+    symmetry_error = np.linalg.norm(A_dense - A_dense.T, ord='fro')
+    print(f"\n[VALIDATION] Symetrie de A: ||A - A^T||_F = {symmetry_error:.2e}")
+    if symmetry_error < 1e-12:
+        print("  [OK] Matrice symetrique (precision machine)")
+    else:
+        print(f"  [WARN] Erreur de symetrie detectee: {symmetry_error}")
+
     # Affichage du vecteur F
-    print("F =")
+    print("\nF =")
     print(F)
 
     # Resolution
@@ -190,6 +199,25 @@ def test_mini_maillage(mesh_file="meshes/m00.msh"):
     U_exact = np.array([fct_u(x, y) for x, y in vertices])
     error_Linf = np.abs(Uh - U_exact).max()
     print(f"{{erreur |Uh-U|_inf : {error_Linf}")
+
+    # Erreur sur le bord de Dirichlet
+    boundary_nodes = set()
+    for edge, label in zip(edges, dirichlet_labels):
+        if label == 1:  # Label 1 = bords Dirichlet (x=0 et x=4)
+            boundary_nodes.add(edge[0])
+            boundary_nodes.add(edge[1])
+
+    if boundary_nodes:
+        boundary_nodes = sorted(list(boundary_nodes))
+        boundary_errors = [abs(Uh[i] - fct_u(*vertices[i])) for i in boundary_nodes]
+        max_boundary_error = max(boundary_errors)
+        print(f"{{erreur bord Dirichlet max: {max_boundary_error:.2e}")
+        print("\n[VALIDATION] Erreur sur bord Dirichlet:")
+        if max_boundary_error < 1e-5:
+            print(f"  [OK] Conditions de Dirichlet bien imposees (erreur < 1e-5)")
+        else:
+            print(f"  [WARN] Erreur sur le bord elevee: {max_boundary_error:.2e}")
+
     print("-"*40)
 
     return {
@@ -197,7 +225,9 @@ def test_mini_maillage(mesh_file="meshes/m00.msh"):
         'error_H1': error_H1,
         'error_Linf': error_Linf,
         'h': h_max,
-        'Q': Q_max
+        'Q': Q_max,
+        'symmetry_error': symmetry_error,
+        'boundary_error': max_boundary_error if boundary_nodes else 0.0
     }
 
 

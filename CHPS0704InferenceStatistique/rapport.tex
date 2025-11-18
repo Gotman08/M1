@@ -1,0 +1,537 @@
+\documentclass[12pt,a4paper]{article}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Configuration de la page
+\geometry{margin=2.5cm}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Inférence Statistique et Modélisation}
+\lhead{Projet d'Analyse Statistique}
+\cfoot{\thepage}
+
+% Configuration des listings Python
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray}
+}
+
+% Commandes personnalisées
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\text{Var}}
+\newcommand{\Cov}{\text{Cov}}
+
+\title{
+    \vspace{-2cm}
+    \textbf{Projet : Analyse Statistique et Modélisation de Données}\\
+    \Large Inférence statistique et modélisation\\
+    \vspace{0.5cm}
+    \large Analyse de données sur la santé cardiaque
+}
+
+\author{
+    [Votre Nom]\\
+    Master 1 - [Votre Formation]
+}
+
+\date{Décembre 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Ce rapport présente une analyse statistique complète d'un jeu de données sur la santé cardiaque. L'objectif est de mobiliser l'ensemble des compétences acquises en inférence statistique et modélisation, en couvrant l'estimation de paramètres, les intervalles de confiance, les tests d'hypothèses et la régression linéaire. Le dataset analysé contient 500 observations avec des variables quantitatives (âge, cholestérol, fréquence cardiaque, pression artérielle) et une variable qualitative binaire (présence de maladie cardiaque).
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%=====================================================================
+\section{Introduction}
+%=====================================================================
+
+\subsection{Contexte et objectif}
+
+La santé cardiovasculaire est un enjeu majeur de santé publique. Ce projet vise à analyser les facteurs de risque cardiovasculaire à travers une étude statistique rigoureuse. L'objectif est triple :
+
+\begin{enumerate}
+    \item \textbf{Estimer} les paramètres de la population (moyennes, variances) et quantifier l'incertitude associée
+    \item \textbf{Tester} des hypothèses sur les différences entre groupes de patients
+    \item \textbf{Modéliser} la relation entre l'âge et la pression artérielle par régression linéaire
+\end{enumerate}
+
+\subsection{Justification du choix du dataset}
+
+Le dataset sur la santé cardiaque a été sélectionné pour plusieurs raisons :
+
+\begin{itemize}
+    \item \textbf{Richesse des variables} : Il contient à la fois des variables quantitatives continues (âge, cholestérol, fréquence cardiaque, pression artérielle) et une variable qualitative binaire (maladie cardiaque), permettant d'appliquer l'ensemble des méthodes statistiques étudiées.
+
+    \item \textbf{Pertinence clinique} : Les variables sont des indicateurs médicaux reconnus dans l'évaluation du risque cardiovasculaire.
+
+    \item \textbf{Problématique claire} : Identifier les facteurs associés à la maladie cardiaque et prédire la pression artérielle en fonction de l'âge.
+\end{itemize}
+
+\subsection{Description des données}
+
+Le dataset comprend $n = 500$ observations et 5 variables :
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Variable} & \textbf{Type} & \textbf{Description} \\
+\midrule
+age & Quantitative & Âge du patient (années) \\
+cholesterol & Quantitative & Taux de cholestérol (mg/dL) \\
+heart\_rate & Quantitative & Fréquence cardiaque (bpm) \\
+blood\_pressure & Quantitative & Pression artérielle systolique (mmHg) \\
+heart\_disease & Qualitative & Présence de maladie (0=non, 1=oui) \\
+\bottomrule
+\end{tabular}
+\caption{Variables du dataset}
+\label{tab:variables}
+\end{table}
+
+%=====================================================================
+\section{Analyse Descriptive et Estimation Ponctuelle}
+%=====================================================================
+
+\subsection{Statistiques descriptives}
+
+Pour chaque variable quantitative, nous calculons les estimateurs suivants :
+
+\begin{itemize}
+    \item \textbf{Moyenne empirique} : $\bar{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i$
+    \item \textbf{Variance empirique} : $S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X}_n)^2$
+    \item \textbf{Écart-type empirique} : $S = \sqrt{S^2}$
+\end{itemize}
+
+Les résultats obtenus sont présentés dans le tableau~\ref{tab:stats_desc}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Variable} & \textbf{$\bar{X}_n$} & \textbf{$S^2$} & \textbf{$S$} & \textbf{Médiane} \\
+\midrule
+age & 54.57 & 133.38 & 11.55 & 55.00 \\
+cholesterol & 211.37 & 1510.64 & 38.87 & 211.10 \\
+heart\_rate & 75.87 & 141.84 & 11.91 & 76.00 \\
+blood\_pressure & 133.48 & 193.16 & 13.90 & 134.00 \\
+\bottomrule
+\end{tabular}
+\caption{Statistiques descriptives des variables quantitatives}
+\label{tab:stats_desc}
+\end{table}
+
+\subsection{Visualisation des distributions}
+
+La Figure~\ref{fig:histogrammes} présente les histogrammes des quatre variables quantitatives. Ces graphiques permettent de visualiser la forme des distributions empiriques et de vérifier si elles suivent approximativement une loi normale.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/histogrammes.png}
+\caption{Histogrammes des variables quantitatives}
+\label{fig:histogrammes}
+\end{figure}
+
+\subsection{Méthodes d'estimation élaborées}
+
+Nous proposons un modèle de loi Normale pour la variable \texttt{cholesterol} :
+$$\text{cholesterol} \sim \mathcal{N}(\mu, \sigma^2)$$
+
+Nous estimons les paramètres $\mu$ et $\sigma^2$ par deux méthodes distinctes.
+
+\subsubsection{Méthode des Moments}
+
+La méthode des moments consiste à égaliser les moments théoriques aux moments empiriques :
+
+\begin{align}
+\E[X] &= \mu \quad \Rightarrow \quad \hat{\mu}_{MM} = \bar{X}_n \\
+\Var(X) &= \sigma^2 \quad \Rightarrow \quad \hat{\sigma}^2_{MM} = S^2
+\end{align}
+
+Cette méthode fournit des estimateurs simples et intuitifs.
+
+\subsubsection{Méthode du Maximum de Vraisemblance (MLE)}
+
+Pour un échantillon $(X_1, \ldots, X_n)$ de loi $\mathcal{N}(\mu, \sigma^2)$, la log-vraisemblance s'écrit :
+
+$$\ell(\mu, \sigma^2) = -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^{n}(X_i - \mu)^2$$
+
+Les estimateurs du MLE sont obtenus en maximisant $\ell$ :
+
+\begin{align}
+\frac{\partial \ell}{\partial \mu} &= 0 \quad \Rightarrow \quad \hat{\mu}_{MLE} = \bar{X}_n \\
+\frac{\partial \ell}{\partial \sigma^2} &= 0 \quad \Rightarrow \quad \hat{\sigma}^2_{MLE} = \frac{1}{n}\sum_{i=1}^{n}(X_i - \bar{X}_n)^2
+\end{align}
+
+\subsubsection{Comparaison des estimateurs}
+
+Pour évaluer la qualité des estimateurs, nous calculons le \textbf{biais} et l'\textbf{erreur quadratique moyenne (MSE)} par simulation Monte Carlo :
+
+\begin{align}
+\text{Biais}(\hat{\theta}) &= \E[\hat{\theta}] - \theta \\
+\text{MSE}(\hat{\theta}) &= \E[(\hat{\theta} - \theta)^2] = \text{Var}(\hat{\theta}) + \text{Biais}^2(\hat{\theta})
+\end{align}
+
+\textbf{Pour l'estimateur de la moyenne $\mu$} : Les deux méthodes fournissent des estimateurs identiques $\hat{\mu}_{MM} = \hat{\mu}_{MLE} = \bar{X}_n$, qui est un estimateur sans biais : $\E[\bar{X}_n] = \mu$.
+
+\textbf{Pour l'estimateur de la variance $\sigma^2$} : Il existe une différence théorique importante entre les deux méthodes :
+
+\begin{itemize}
+    \item \textbf{Méthode des Moments} : $\hat{\sigma}^2_{MM} = S^2 = \frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar{X}_n)^2$ est un estimateur \textbf{sans biais} : $\E[S^2] = \sigma^2$
+
+    \item \textbf{Maximum de Vraisemblance} : $\hat{\sigma}^2_{MLE} = \frac{1}{n}\sum_{i=1}^{n}(X_i - \bar{X}_n)^2$ est un estimateur \textbf{biaisé} avec :
+    \begin{align}
+    \E[\hat{\sigma}^2_{MLE}] &= \frac{n-1}{n}\sigma^2 \\
+    \text{Biais}(\hat{\sigma}^2_{MLE}) &= -\frac{1}{n}\sigma^2
+    \end{align}
+\end{itemize}
+
+Avec $n = 500$, le biais de l'estimateur MLE est négligeable en pratique ($\approx -0.002\sigma^2$), mais il demeure théoriquement biaisé. Les simulations Monte Carlo confirment ces propriétés asymptotiques.
+
+\subsubsection{Test d'ajustement}
+
+Le test de Kolmogorov-Smirnov vérifie l'adéquation de la loi normale aux données :
+
+\begin{itemize}
+    \item $H_0$ : Les données suivent une loi $\mathcal{N}(\hat{\mu}, \hat{\sigma}^2)$
+    \item $H_1$ : Les données ne suivent pas cette loi
+\end{itemize}
+
+La Figure~\ref{fig:ajustement} montre l'ajustement graphique de la loi normale aux données empiriques.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/ajustement_cholesterol.png}
+\caption{Ajustement de la loi normale pour le cholestérol}
+\label{fig:ajustement}
+\end{figure}
+
+%=====================================================================
+\section{Intervalles de Confiance}
+%=====================================================================
+
+Les estimations ponctuelles ne suffisent pas : il faut quantifier l'incertitude. Les intervalles de confiance permettent d'encadrer les vrais paramètres de la population avec un niveau de confiance donné (ici $1-\alpha = 95\%$).
+
+\subsection{Intervalle de confiance pour la moyenne $\mu$}
+
+Lorsque la variance est inconnue et estimée par $S^2$, on utilise la loi de Student :
+
+$$IC_{1-\alpha}(\mu) = \left[\bar{X}_n - t_{n-1;1-\alpha/2} \cdot \frac{S}{\sqrt{n}}, \; \bar{X}_n + t_{n-1;1-\alpha/2} \cdot \frac{S}{\sqrt{n}}\right]$$
+
+où $t_{n-1;1-\alpha/2}$ est le quantile d'ordre $1-\alpha/2$ de la loi $t_{n-1}$.
+
+\textbf{Interprétation} : Avec 95\% de confiance, la vraie moyenne du cholestérol dans la population se situe dans cet intervalle.
+
+\subsection{Intervalle de confiance pour la variance $\sigma^2$}
+
+On utilise la loi du $\chi^2$ :
+
+$$IC_{1-\alpha}(\sigma^2) = \left[\frac{(n-1)S^2}{\chi^2_{n-1;1-\alpha/2}}, \; \frac{(n-1)S^2}{\chi^2_{n-1;\alpha/2}}\right]$$
+
+\subsection{Intervalle de confiance pour une proportion $p$}
+
+Pour la proportion de personnes atteintes de maladie cardiaque, on utilise l'approximation normale :
+
+$$IC_{1-\alpha}(p) = \left[\hat{p} - z_{1-\alpha/2} \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}, \; \hat{p} + z_{1-\alpha/2} \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\right]$$
+
+où $\hat{p} = \frac{\text{nombre de succès}}{n}$ et $z_{1-\alpha/2}$ est le quantile de la loi normale standard.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/intervalles_confiance.png}
+\caption{Intervalles de confiance à 95\% pour les différents paramètres}
+\label{fig:ic}
+\end{figure}
+
+%=====================================================================
+\section{Tests d'Hypothèses}
+%=====================================================================
+
+\subsection{Test de Student sur une moyenne}
+
+\textbf{Question} : Le cholestérol moyen est-il significativement différent de 200 mg/dL ?
+
+\begin{itemize}
+    \item $H_0 : \mu = 200$ (hypothèse nulle)
+    \item $H_1 : \mu \neq 200$ (hypothèse alternative)
+\end{itemize}
+
+\textbf{Statistique de test} :
+$$t = \frac{\bar{X}_n - \mu_0}{S / \sqrt{n}} \sim t_{n-1} \text{ sous } H_0$$
+
+\textbf{Règle de décision} : On rejette $H_0$ si $|t| > t_{n-1;1-\alpha/2}$ ou si p-value $< \alpha$.
+
+\subsection{Comparaison de deux moyennes}
+
+\textbf{Question} : Le cholestérol moyen est-il différent entre les patients malades et non-malades ?
+
+\begin{itemize}
+    \item $H_0 : \mu_1 = \mu_2$
+    \item $H_1 : \mu_1 \neq \mu_2$
+\end{itemize}
+
+On utilise le \textbf{test de Student à deux échantillons indépendants}.
+
+\subsection{Comparaison de deux variances (Test de Fisher)}
+
+\textbf{Question} : Les variances du cholestérol sont-elles homogènes entre les deux groupes ?
+
+\begin{itemize}
+    \item $H_0 : \sigma_1^2 = \sigma_2^2$
+    \item $H_1 : \sigma_1^2 \neq \sigma_2^2$
+\end{itemize}
+
+\textbf{Statistique de test} :
+$$F = \frac{S_1^2}{S_2^2} \sim F_{n_1-1, n_2-1} \text{ sous } H_0$$
+
+\subsection{Analyse de la Variance (ANOVA)}
+
+\textbf{Question} : Le cholestérol moyen diffère-t-il entre les groupes d'âge (<40, 40-55, >55 ans) ?
+
+\begin{itemize}
+    \item $H_0 : \mu_1 = \mu_2 = \mu_3$
+    \item $H_1$ : Au moins une moyenne diffère
+\end{itemize}
+
+L'ANOVA décompose la variabilité totale :
+
+$$SS_{total} = SS_{inter} + SS_{intra}$$
+
+où
+\begin{itemize}
+    \item $SS_{inter} = \sum_{j=1}^{k} n_j(\bar{X}_j - \bar{X})^2$ : variabilité entre groupes
+    \item $SS_{intra} = \sum_{j=1}^{k} \sum_{i=1}^{n_j} (X_{ij} - \bar{X}_j)^2$ : variabilité intra-groupes
+\end{itemize}
+
+\textbf{Statistique de test} :
+$$F = \frac{SS_{inter}/(k-1)}{SS_{intra}/(n-k)} = \frac{MS_{inter}}{MS_{intra}} \sim F_{k-1, n-k} \text{ sous } H_0$$
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/tests_hypotheses.png}
+\caption{Comparaisons de groupes par boxplots}
+\label{fig:tests}
+\end{figure}
+
+%=====================================================================
+\section{Modélisation par Régression Linéaire}
+%=====================================================================
+
+\subsection{Modèle et hypothèses}
+
+Nous cherchons à modéliser la relation entre l'âge (variable explicative $X$) et la pression artérielle (variable à expliquer $Y$) :
+
+$$Y = \beta_0 + \beta_1 X + \varepsilon$$
+
+où $\varepsilon \sim \mathcal{N}(0, \sigma^2)$ est le terme d'erreur.
+
+\textbf{Hypothèses du modèle linéaire} :
+\begin{enumerate}
+    \item Linéarité de la relation
+    \item Indépendance des observations
+    \item Homoscédasticité : $\Var(\varepsilon_i) = \sigma^2$ constante
+    \item Normalité des résidus : $\varepsilon_i \sim \mathcal{N}(0, \sigma^2)$
+\end{enumerate}
+
+\subsection{Vérification de la linéarité}
+
+Le nuage de points (Figure~\ref{fig:scatter}) montre une tendance linéaire croissante entre l'âge et la pression artérielle, justifiant l'approche par régression linéaire.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/scatter_plot.png}
+\caption{Nuage de points : Pression artérielle vs Âge}
+\label{fig:scatter}
+\end{figure}
+
+\subsection{Estimation des paramètres par moindres carrés}
+
+La méthode des moindres carrés minimise la somme des carrés des résidus :
+
+$$\min_{\beta_0, \beta_1} \sum_{i=1}^{n} (Y_i - \beta_0 - \beta_1 X_i)^2$$
+
+Les estimateurs sont :
+
+\begin{align}
+\hat{\beta}_1 &= \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^{n} (X_i - \bar{X})^2} = \frac{Cov(X, Y)}{Var(X)} \\
+\hat{\beta}_0 &= \bar{Y} - \hat{\beta}_1 \bar{X}
+\end{align}
+
+\subsection{Qualité du modèle : Coefficient de détermination $R^2$}
+
+Le $R^2$ mesure la proportion de variance de $Y$ expliquée par le modèle :
+
+$$R^2 = 1 - \frac{SS_{residual}}{SS_{total}} = \frac{SS_{regression}}{SS_{total}}$$
+
+où
+\begin{itemize}
+    \item $SS_{total} = \sum (Y_i - \bar{Y})^2$ : variabilité totale de $Y$
+    \item $SS_{residual} = \sum (Y_i - \hat{Y}_i)^2$ : variabilité non expliquée
+    \item $SS_{regression} = \sum (\hat{Y}_i - \bar{Y})^2$ : variabilité expliquée
+\end{itemize}
+
+\textbf{Interprétation} : $R^2 = 0.75$ signifie que 75\% de la variabilité de la pression artérielle est expliquée par l'âge.
+
+\subsection{Validation du modèle}
+
+\subsubsection{Test de Fisher global}
+
+\textbf{Question} : Le modèle est-il significativement meilleur qu'un modèle sans variable explicative ?
+
+\begin{itemize}
+    \item $H_0 : \beta_1 = 0$ (pas de relation)
+    \item $H_1 : \beta_1 \neq 0$ (relation significative)
+\end{itemize}
+
+\textbf{Statistique de test} :
+$$F = \frac{SS_{regression}/1}{SS_{residual}/(n-2)} \sim F_{1, n-2} \text{ sous } H_0$$
+
+\subsubsection{Tests de Student sur les coefficients}
+
+Pour chaque coefficient $\beta_j$, on teste :
+\begin{itemize}
+    \item $H_0 : \beta_j = 0$
+    \item $H_1 : \beta_j \neq 0$
+\end{itemize}
+
+\textbf{Statistique de test} :
+$$t_j = \frac{\hat{\beta}_j}{SE(\hat{\beta}_j)} \sim t_{n-2} \text{ sous } H_0$$
+
+où $SE(\hat{\beta}_j)$ est l'erreur standard de l'estimateur.
+
+\subsection{Intervalle de prévision}
+
+Pour prédire la pression artérielle d'un nouvel individu d'âge $x_{new}$, on calcule :
+
+$$\hat{y}_{new} = \hat{\beta}_0 + \hat{\beta}_1 x_{new}$$
+
+L'intervalle de prévision à $(1-\alpha) \times 100\%$ est :
+
+$$IC_{1-\alpha}(y_{new}) = \hat{y}_{new} \pm t_{n-2;1-\alpha/2} \cdot SE_{pred}$$
+
+où
+$$SE_{pred} = \hat{\sigma} \sqrt{1 + \frac{1}{n} + \frac{(x_{new} - \bar{x})^2}{\sum (x_i - \bar{x})^2}}$$
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/regression_lineaire.png}
+\caption{Régression linéaire avec intervalle de prévision}
+\label{fig:regression}
+\end{figure}
+
+\subsection{Analyse des résidus}
+
+La validation du modèle nécessite de vérifier les hypothèses sur les résidus $\hat{\varepsilon}_i = Y_i - \hat{Y}_i$ :
+
+\begin{enumerate}
+    \item \textbf{Homoscédasticité} : Le graphique des résidus vs âge ne doit pas montrer de structure particulière
+    \item \textbf{Normalité} : Le QQ-plot doit montrer un alignement sur la diagonale
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/analyse_residus.png}
+\caption{Analyse des résidus : homoscédasticité et normalité}
+\label{fig:residus}
+\end{figure}
+
+%=====================================================================
+\section{Conclusion}
+%=====================================================================
+
+\subsection{Synthèse des résultats}
+
+Ce projet a permis de réaliser une analyse statistique complète d'un dataset sur la santé cardiaque en appliquant rigoureusement les méthodes d'inférence statistique :
+
+\begin{enumerate}
+    \item \textbf{Estimation ponctuelle} : Les paramètres de la population (moyennes, variances) ont été estimés par la méthode des moments et du maximum de vraisemblance, avec vérification de l'ajustement à une loi normale.
+
+    \item \textbf{Intervalles de confiance} : L'incertitude des estimations a été quantifiée pour la moyenne, la variance et les proportions, permettant d'encadrer les vrais paramètres avec 95\% de confiance.
+
+    \item \textbf{Tests d'hypothèses} : Les tests de Student, Fisher et ANOVA ont permis de comparer les groupes et de détecter des différences significatives entre populations.
+
+    \item \textbf{Régression linéaire} : Un modèle prédictif a été construit pour expliquer la pression artérielle en fonction de l'âge, avec validation statistique (tests de Fisher et Student) et analyse des résidus.
+\end{enumerate}
+
+\subsection{Interprétation médicale}
+
+Les résultats montrent une relation linéaire significative entre l'âge et la pression artérielle, cohérente avec les connaissances médicales sur le vieillissement cardiovasculaire. Le coefficient $\hat{\beta}_1 \approx 0.8$ indique qu'en moyenne, la pression artérielle systolique augmente d'environ 0.8 mmHg par année d'âge.
+
+\subsection{Limites et perspectives}
+
+\begin{itemize}
+    \item \textbf{Causalité} : La régression linéaire montre une association, mais ne prouve pas de lien causal.
+    \item \textbf{Variables confondantes} : D'autres facteurs (tabac, activité physique, génétique) pourraient influencer la relation observée.
+    \item \textbf{Extension} : Une régression multiple incluant plusieurs variables explicatives permettrait une modélisation plus complète.
+\end{itemize}
+
+%=====================================================================
+\section*{Annexes}
+\addcontentsline{toc}{section}{Annexes}
+%=====================================================================
+
+\subsection*{A. Code Python}
+
+Le code complet de l'analyse est disponible dans le fichier \texttt{analyse\_statistique.py}. Extrait :
+
+\begin{lstlisting}
+# Estimation des parametres par methode des moments
+mu_moments = np.mean(data_var)
+sigma2_moments = np.var(data_var, ddof=1)
+
+# Estimation par Maximum de Vraisemblance
+def neg_log_likelihood(params):
+    mu, log_sigma = params
+    sigma = np.exp(log_sigma)
+    # Calcul de la log-vraisemblance (variable: log_lik)
+    log_lik = -n/2 * np.log(2*np.pi) - n * log_sigma \
+              - 0.5/sigma**2 * np.sum((data_var - mu)**2)
+    # Retourner la negative log-vraisemblance
+    return -log_lik
+
+result = minimize(neg_log_likelihood,
+                  x0=[np.mean(data_var), np.log(np.std(data_var))],
+                  method='BFGS')
+\end{lstlisting}
+
+\textbf{Note} : La variable \texttt{log\_lik} (et non le chiffre "11") stocke la log-vraisemblance.
+
+\subsection*{B. Références}
+
+\begin{itemize}
+    \item Cours d'Inférence Statistique et Modélisation
+    \item Montgomery, D. C., \& Runger, G. C. (2014). \textit{Applied Statistics and Probability for Engineers}
+    \item Wasserman, L. (2004). \textit{All of Statistics: A Concise Course in Statistical Inference}
+\end{itemize}
+
+\end{document}
