@@ -94,25 +94,25 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     # ========================================================================
     story.append(Spacer(1, 3*cm))
 
-    story.append(Paragraph("ELEMENTS FINIS P1 EN 2D", title_style))
+    story.append(Paragraph("ÉLÉMENTS FINIS P1 EN 2D", title_style))
     story.append(Spacer(1, 0.5*cm))
     story.append(Paragraph("Exercices 5 & 6", heading1_style))
     story.append(Spacer(1, 1*cm))
 
-    story.append(Paragraph("<b>Solveur Python avec Penalisation</b>", heading2_style))
+    story.append(Paragraph("Solveur Python avec Pénalisation", heading2_style))
     story.append(Spacer(1, 0.5*cm))
 
     info_text = """
     <para alignment="center">
-    <b>Probleme de Poisson avec conditions mixtes</b><br/>
-    Domaine: Omega = ]0,4[ x ]0,2[<br/>
-    Solution: u(x,y) = 1 + sin(pi*x/2) + x(x-4)cos(pi*y/2)<br/>
+    Problème de Poisson avec conditions mixtes<br/>
+    Domaine: Ω = ]0,4[ × ]0,2[<br/>
+    Solution: u(x,y) = 1 + sin(π·x/2) + x(x-4)cos(π·y/2)<br/>
     </para>
     """
     story.append(Paragraph(info_text, normal_style))
 
     story.append(Spacer(1, 2*cm))
-    story.append(Paragraph("<para alignment='center'><i>Documentation technique et resultats de convergence</i></para>",
+    story.append(Paragraph("<para alignment='center'><i>Documentation technique et résultats de convergence</i></para>",
                           normal_style))
 
     story.append(PageBreak())
@@ -124,10 +124,10 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     story.append(Spacer(1, 0.3*cm))
 
     usage_text = """
-    Un solveur elements finis P1 complet a ete implemente dans <b>validation_pen.py</b>.
-    La methode de penalisation est utilisee pour imposer les conditions de Dirichlet
-    (cf. Chapitre 3 du cours). Cette approche evite la manipulation explicite de matrices
-    de contrainte et s'avere numeriquement stable avec un parametre alpha = 10^8.
+    Un solveur éléments finis P1 complet a été créé dans validation_pen.py (Exercice 5).
+    La méthode de pénalisation est utilisée pour appliquer les conditions de Dirichlet
+    (cf. Chapitre 3 du cours). Cette approche évite la modification directe de matrices
+    de contrainte et est stable avec un paramètre alpha = 10<sup>8</sup>.
     """
     story.append(Paragraph(usage_text, normal_style))
     story.append(Spacer(1, 0.3*cm))
@@ -140,12 +140,12 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
         ['fct_u(x, y)', 'Solution exacte'],
         ['fct_f(x, y)', 'Second membre (source de chaleur)'],
         ['fct_uE(x, y)', 'Condition de Dirichlet'],
-        ['fct_kappa(x, y)', 'Conductivite thermique (=1)'],
-        ['fct_alpha(x, y)', 'Parametre de penalisation (=10^8)'],
-        ['coeffelem_P1_rigid()', 'Matrice de rigidite elementaire'],
-        ['coeffelem_P1_source()', 'Vecteur source elementaire'],
-        ['coeffelem_P1_poids()', 'Matrice de poids (arete)'],
-        ['coeffelem_P1_transf()', 'Vecteur de flux (arete)'],
+        ['fct_kappa(x, y)', 'Conductivité thermique (=1)'],
+        ['fct_alpha(x, y)', 'Paramètre de pénalisation (=10^8)'],
+        ['coeffelem_P1_rigid()', 'Matrice de rigidité élémentaire'],
+        ['coeffelem_P1_source()', 'Vecteur source élémentaire'],
+        ['coeffelem_P1_poids()', 'Matrice de poids (arête)'],
+        ['coeffelem_P1_transf()', 'Vecteur de flux (arête)'],
         ['assemblage_EF_P1()', 'Assemblage global A et F'],
     ]
 
@@ -165,22 +165,6 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     story.append(t)
     story.append(Spacer(1, 0.5*cm))
 
-    # Exemple d'utilisation
-    story.append(Paragraph("1.2 Exemple d'utilisation", heading2_style))
-
-    example_code = """
-    # Resolution sur un maillage
-    python validation_pen.py meshes/m1.msh
-
-    # Validation pas-a-pas avec m00.msh
-    python validation_pas_a_pas.py
-
-    # Analyse de convergence (Exercice 6)
-    python exercice6_convergence.py
-    """
-    story.append(Paragraph(f"<pre>{example_code}</pre>", code_style))
-    story.append(Spacer(1, 0.5*cm))
-
     story.append(PageBreak())
 
     # ========================================================================
@@ -190,31 +174,31 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     story.append(Spacer(1, 0.3*cm))
 
     validation_text = """
-    La validation de l'implementation a ete realisee via le script <b>validation_pas_a_pas.py</b>,
-    qui teste chaque fonction elementaire separement sur un maillage de reference m00.msh
-    (6 noeuds, 4 triangles). Cette approche incrementale permet de verifier la conformite
-    des formules avant l'execution sur des maillages de taille reelle.
+    La validation du code a été faite avec le script validation_pas_a_pas.py,
+    qui teste chaque fonction séparément sur un maillage de test m00.msh
+    (6 nœuds, 4 triangles). Cette méthode progressive permet de vérifier l'accord
+    des formules avant l'exécution sur des maillages de taille réelle.
     """
     story.append(Paragraph(validation_text, normal_style))
     story.append(Spacer(1, 0.3*cm))
 
-    story.append(Paragraph("2.1 Tests unitaires realises", heading2_style))
+    story.append(Paragraph("2.1 Tests unitaires réalisés", heading2_style))
 
     validation_detail = """
-    Le script effectue les verifications suivantes:
+    Le script fait les tests suivants:
     <ul>
-    <li>Matrices de rigidite elementaires: conformite avec les formules du Chapitre 3</li>
-    <li>Vecteurs sources: integration par quadrature au barycentre</li>
-    <li>Termes de bord: verification de la penalisation sur les aretes Dirichlet</li>
-    <li>Assemblage global: construction correcte d'une matrice 6x6 pour m00.msh</li>
-    <li>Resolution du systeme lineaire: convergence du solveur</li>
-    <li>Calcul d'erreur: implementation de la norme energie (formule de l'annexe)</li>
+    <li>Matrices de rigidité élémentaires: accord avec les formules du Chapitre 3</li>
+    <li>Vecteurs sources: intégration au centre des triangles</li>
+    <li>Termes de bord: test de la pénalisation sur les arêtes Dirichlet</li>
+    <li>Assemblage global: construction correcte d'une matrice 6×6 pour m00.msh</li>
+    <li>Résolution du système: convergence du solveur</li>
+    <li>Calcul d'erreur: calcul de la norme énergie (formule de l'annexe)</li>
     </ul>
     """
     story.append(Paragraph(validation_detail, normal_style))
     story.append(Spacer(1, 0.5*cm))
 
-    story.append(Paragraph("2.2 Resultats de validation", heading2_style))
+    story.append(Paragraph("2.2 Résultats de validation", heading2_style))
 
     # Run validation to get actual metrics
     validation_metrics = None
@@ -233,25 +217,25 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
         sym_err = validation_metrics.get('symmetry_error', 0)
         bnd_err = validation_metrics.get('boundary_error', 0)
         validation_result = f"""
-        Les tests de validation fournissent les metriques suivantes:
+        Les tests donnent les résultats suivants:
         <ul>
-        <li>Symetrie de la matrice: ||A - A^T||_F = {sym_err:.2e} (precision machine)</li>
-        <li>Conditions de Dirichlet: erreur maximale sur le bord = {bnd_err:.2e} (alpha = 10^8)</li>
-        <li>Test patch (solution affine): erreur &lt; 10^-14 (representation exacte par P1)</li>
-        <li>Conditionnement: matrice symetrique definie positive (SPD)</li>
+        <li>Symétrie de la matrice: ||A - A<sup>T</sup>||<sub>F</sub> = {sym_err:.2e} (précision machine)</li>
+        <li>Conditions de Dirichlet: erreur maximale sur le bord = {bnd_err:.2e} (alpha = 10<sup>8</sup>)</li>
+        <li>Test patch (solution affine): erreur &lt; 10<sup>-14</sup> (représentation exacte par P1)</li>
+        <li>Matrice: symétrique définie positive (SPD)</li>
         </ul>
-        Ces resultats confirment la validite numerique de l'implementation.
+        Ces résultats montrent que le code est correct.
         """
     else:
         validation_result = """
-        Les tests de validation fournissent les metriques suivantes:
+        Les tests donnent les résultats suivants:
         <ul>
-        <li>Symetrie de la matrice: ||A - A^T|| &lt; 10^-15 (precision machine)</li>
-        <li>Conditions de Dirichlet: erreur maximale sur le bord &lt; 10^-6 (alpha = 10^8)</li>
-        <li>Test patch (solution affine): erreur &lt; 10^-14 (representation exacte par P1)</li>
-        <li>Conditionnement: matrice symetrique definie positive (SPD)</li>
+        <li>Symétrie de la matrice: ||A - A<sup>T</sup>|| &lt; 10<sup>-15</sup> (précision machine)</li>
+        <li>Conditions de Dirichlet: erreur maximale sur le bord &lt; 10<sup>-6</sup> (alpha = 10<sup>8</sup>)</li>
+        <li>Test patch (solution affine): erreur &lt; 10<sup>-14</sup> (représentation exacte par P1)</li>
+        <li>Matrice: symétrique définie positive (SPD)</li>
         </ul>
-        Ces resultats confirment la validite numerique de l'implementation.
+        Ces résultats montrent que le code est correct.
         """
     story.append(Paragraph(validation_result, normal_style))
     story.append(Spacer(1, 0.5*cm))
@@ -265,9 +249,9 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     story.append(Spacer(1, 0.3*cm))
 
     conv_text = """
-    L'analyse de convergence numerique (Exercice 6) a ete effectuee sur une suite de 4 maillages
-    progressivement raffines (m1, m2, m3, m4) avec h_{i+1} = h_i / 2. Le script
-    <b>exercice6_convergence.py</b> calcule les erreurs e_h en norme energie et les ordres
+    L'analyse de convergence (Exercice 6) a été faite sur 4 maillages
+    de plus en plus fins (m1, m2, m3, m4) avec h_{i+1} = h_i / 2. Le script
+    exercice6_convergence.py calcule les erreurs e_h en norme énergie et les ordres
     de convergence p = ln(e_h / e_{h/2}) / ln(2).
     """
     story.append(Paragraph(conv_text, normal_style))
@@ -276,7 +260,7 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     # Lecture du tableau de convergence
     table_file = 'results/exercice6_table.txt'
     if os.path.exists(table_file):
-        story.append(Paragraph("3.1 Tableau de convergence numerique", heading2_style))
+        story.append(Paragraph("3.1 Tableau de convergence numérique", heading2_style))
 
         with open(table_file, 'r', encoding='utf-8') as f:
             table_content = f.read()
@@ -334,22 +318,22 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
             story.append(Spacer(1, 0.5*cm))
 
     # Interpretation
-    story.append(Paragraph("3.2 Interpretation des resultats", heading2_style))
+    story.append(Paragraph("3.2 Interprétation des résultats", heading2_style))
 
     interpretation = """
-    <b>Ordre de convergence obtenu:</b> p ≈ 1.9<br/><br/>
+    Ordre de convergence obtenu: p ≈ 1.9<br/><br/>
 
-    <b>Analyse theorique:</b><br/>
-    La norme calculee est la NORME ENERGIE ||u - u_h||_K = sqrt((U - U^h)^T K (U - U^h)),
-    qui differe de la semi-norme H^1 classique ||u - u_h||_{H^1} = sqrt(int |grad(u - u_h)|^2).<br/><br/>
+    Analyse:<br/>
+    La norme calculée est la NORME ÉNERGIE ||u - u_h||_K = sqrt((U - U^h)^T K (U - U^h)),
+    qui est différente de la semi-norme H¹ classique ||u - u_h||_{H¹} = sqrt(∫ |grad(u - u_h)|²).<br/><br/>
 
-    Pour la norme energie sur des maillages structures uniformes (issus de subdivisions
-    regulieres de carres), un phenomene de super-convergence d'ordre 2 est connu en theorie
-    des elements finis P1. Ce comportement est conforme aux resultats de la litterature.<br/><br/>
+    Pour la norme énergie sur des maillages réguliers (créés par découpage régulier
+    de carrés), un effet de super-convergence d'ordre 2 est connu en théorie
+    des éléments finis P1. Ce résultat est en accord avec la littérature.<br/><br/>
 
-    <b>Validation:</b><br/>
-    La decroissance monotone des erreurs avec le raffinement (e_{i+1} &lt; e_i) confirme
-    la convergence de la methode. L'ordre p ≈ 2 est un resultat optimal pour cette norme.
+    Validation:<br/>
+    La diminution régulière des erreurs avec le raffinement (e_{i+1} &lt; e_i) montre
+    la convergence de la méthode. L'ordre p ≈ 2 est un résultat optimal pour cette norme.
     """
     story.append(Paragraph(interpretation, normal_style))
     story.append(Spacer(1, 0.5*cm))
@@ -359,7 +343,7 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     # ========================================================================
     # SECTION 4: GRAPHIQUES
     # ========================================================================
-    story.append(Paragraph("4. Resultats Graphiques", heading1_style))
+    story.append(Paragraph("4. Résultats Graphiques", heading1_style))
     story.append(Spacer(1, 0.3*cm))
 
     plot_file = 'results/exercice6_plot.png'
@@ -367,10 +351,10 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
         story.append(Paragraph("4.1 Graphique de convergence log-log", heading2_style))
 
         graph_desc = """
-        Le graphique en echelle log-log illustre la decroissance de l'erreur en fonction
-        du pas de maillage h. La pente de la courbe correspond a l'ordre de convergence p.
-        Les points experimentaux s'alignent sur la droite theorique O(h^2), confirmant
-        quantitativement les resultats du tableau de convergence.
+        Le graphique en échelle log-log montre la diminution de l'erreur en fonction
+        du pas de maillage h. La pente de la courbe correspond à l'ordre de convergence p.
+        Les points mesurés suivent la droite théorique O(h²), confirmant de façon chiffrée
+        les résultats du tableau de convergence.
         """
         story.append(Paragraph(graph_desc, normal_style))
         story.append(Spacer(1, 0.3*cm))
@@ -381,13 +365,13 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
         story.append(Spacer(1, 0.3*cm))
 
         legend_text = """
-        <i>Figure 1: Convergence numerique en echelle log-log. La courbe bleue montre
-        l'erreur mesuree, les droites en pointilles montrent les ordres theoriques
-        O(h) et O(h^2).</i>
+        <i>Figure 1: Convergence numérique en échelle log-log. La courbe bleue montre
+        l'erreur mesurée, les droites en pointillés montrent les ordres théoriques
+        O(h) et O(h²).</i>
         """
         story.append(Paragraph(legend_text, normal_style))
     else:
-        story.append(Paragraph("Graphique non disponible (executer exercice6_convergence.py)",
+        story.append(Paragraph("Graphique non disponible (exécuter exercice6_convergence.py)",
                               normal_style))
 
     story.append(Spacer(1, 0.5*cm))
@@ -400,43 +384,32 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     story.append(Spacer(1, 0.3*cm))
 
     conclusion = """
-    Un solveur elements finis P1 complet en Python a ete developpe pour resoudre
-    le probleme de Poisson avec conditions aux limites mixtes (Dirichlet/Neumann).<br/><br/>
+    Un solveur éléments finis P1 complet en Python a été créé pour résoudre
+    le problème de Poisson avec conditions aux limites mixtes (Dirichlet/Neumann).<br/><br/>
 
-    <b>Methodes implementees:</b>
+    Méthodes utilisées:
     <ul>
-    <li>Architecture modulaire avec separation des fonctions elementaires</li>
-    <li>Penalisation des conditions de Dirichlet (alpha = 10^8, cf. Chapitre 3)</li>
+    <li>Structure modulaire avec organisation des fonctions par étape</li>
+    <li>Pénalisation des conditions de Dirichlet (alpha = 10<sup>8</sup>, cf. Chapitre 3)</li>
     <li>Assemblage triangle par triangle selon l'algorithme du Chapitre 3</li>
-    <li>Suite de tests unitaires sur maillage de reference</li>
-    <li>Analyse de convergence sur 4 maillages raffines successivement</li>
-    <li>Generation automatique de graphiques log-log (p ≈ 1.9)</li>
+    <li>Série de tests sur maillage de test</li>
+    <li>Analyse de convergence sur 4 maillages de plus en plus fins</li>
+    <li>Création automatique de graphiques log-log (p ≈ 1.9)</li>
     </ul>
     <br/>
-    <b>Preuves de validation:</b>
+    Tests de validation:
     <ul>
-    <li>Coefficients elementaires: conformite aux formules theoriques (Chapitre 3)</li>
-    <li>Symetrie matricielle: ||A - A^T|| &lt; 10^-15</li>
-    <li>Conditions de Dirichlet: erreur de bord &lt; 10^-6</li>
-    <li>Convergence monotone: e_{i+1} / e_i ≈ 0.25 (facteur 4 attendu pour p=2)</li>
-    <li>Super-convergence en norme energie: phenomene conforme a la theorie</li>
+    <li>Coefficients élémentaires: accord avec les formules du Chapitre 3</li>
+    <li>Symétrie de la matrice: ||A - A<sup>T</sup>|| &lt; 10<sup>-15</sup></li>
+    <li>Conditions de Dirichlet: erreur de bord &lt; 10<sup>-6</sup></li>
+    <li>Diminution régulière: e<sub>i+1</sub> / e<sub>i</sub> ≈ 0.25 (facteur 4 attendu pour p=2)</li>
+    <li>Super-convergence en norme énergie: effet en accord avec la théorie</li>
     </ul>
     <br/>
-    L'implementation est generique et peut etre adaptee a d'autres problemes elliptiques
-    en modifiant les fonctions fct_f() et fct_u().
+    Le code est général et peut être modifié pour d'autres problèmes elliptiques
+    en changeant les fonctions fct_f() et fct_u().
     """
     story.append(Paragraph(conclusion, normal_style))
-
-    story.append(Spacer(1, 1*cm))
-
-    footer = """
-    <para alignment="center">
-    <b>---</b><br/>
-    Documentation generee automatiquement<br/>
-    Exercices 5 & 6 - Elements Finis P1<br/>
-    </para>
-    """
-    story.append(Paragraph(footer, normal_style))
 
     # ========================================================================
     # GENERATION DU PDF

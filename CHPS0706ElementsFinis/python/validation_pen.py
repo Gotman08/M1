@@ -1,18 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-EXERCICE 5 : Solveur Elements Finis P1 en Python
-================================================
-Resolution du probleme de Poisson avec methode de penalisation (Fourier-Robin)
+═══════════════════════════════════════════════════════════════════════════
+EXERCICE 5 : Solveur Éléments Finis P1 en Python avec Pénalisation
+═══════════════════════════════════════════════════════════════════════════
 
-Probleme :
+FICHIER PRINCIPAL DU LIVRABLE EXERCICE 5
+
+Ce fichier implémente un solveur complet pour le problème de Poisson avec
+conditions aux limites mixtes (Dirichlet via pénalisation + Neumann).
+
+Problème résolu :
     -Δu = f dans Ω = ]0,4[ × ]0,2[
-    u = uE sur ΓD (x=0, x=4)  [Dirichlet via penalisation]
-    ∂u/∂n = 0 sur ΓN (y=0, y=2)  [Neumann homogene]
+    u = uE sur ΓD (bords gauche/droite)  [Dirichlet via pénalisation α=10⁸]
+    ∂u/∂n = 0 sur ΓN (bords haut/bas)    [Neumann homogène]
 
 Solution exacte : u(x,y) = 1 + sin(πx/2) + x(x-4)cos(πy/2)
 
-Auteur: Exercice 5 & 6 - Elements Finis P1
+Méthode : Pénalisation (Chapitre 3 du cours)
+    La condition de Dirichlet est imposée via une condition de Fourier-Robin
+    avec un grand paramètre α = 10⁸, ce qui évite la manipulation explicite
+    de matrices de contrainte.
+
+Usage :
+    python validation_pen.py meshes/m1.msh
+
+Auteur: CHPS0706 Éléments Finis - M1
 """
 
 import numpy as np
@@ -49,7 +62,7 @@ def fct_uE(x, y):
     Returns:
         Valeur de la condition de Dirichlet
     """
-    # Pour la validation, on utilise la solution exacte sur le bord
+
     return fct_u(x, y)
 
 
@@ -175,21 +188,20 @@ def coeffelem_P1_rigid(vertices_T, kappa_val):
     x2, y2 = vertices_T[1]
     x3, y3 = vertices_T[2]
 
-    # Aire du triangle
+
     area = triangle_area(x1, y1, x2, y2, x3, y3)
 
-    # Coefficient commun
+
     coef = kappa_val / (4.0 * area)
 
-    # Matrice de rigidite (formules de l'annexe)
+
     k_l = np.zeros((3, 3))
 
-    # Diagonale
     k_l[0, 0] = coef * ((x2 - x3)**2 + (y2 - y3)**2)
     k_l[1, 1] = coef * ((x3 - x1)**2 + (y3 - y1)**2)
     k_l[2, 2] = coef * ((x1 - x2)**2 + (y1 - y2)**2)
 
-    # Extra-diagonale (symetrique)
+
     k_l[0, 1] = k_l[1, 0] = coef * (-(x1 - x3) * (x2 - x3) - (y1 - y3) * (y2 - y3))
     k_l[0, 2] = k_l[2, 0] = coef * (-(x3 - x2) * (x1 - x2) - (y3 - y2) * (y1 - y2))
     k_l[1, 2] = k_l[2, 1] = coef * (-(x2 - x1) * (x3 - x1) - (y2 - y1) * (y3 - y1))
@@ -215,17 +227,13 @@ def coeffelem_P1_source(vertices_T, f_func):
     x2, y2 = vertices_T[1]
     x3, y3 = vertices_T[2]
 
-    # Aire du triangle
     area = triangle_area(x1, y1, x2, y2, x3, y3)
 
-    # Barycentre du triangle
     xG = (x1 + x2 + x3) / 3.0
     yG = (y1 + y2 + y3) / 3.0
 
-    # Evaluation de f au barycentre
     f_val = f_func(xG, yG)
 
-    # Formule de quadrature
     f_l = (area / 3.0) * f_val * np.ones(3)
 
     return f_l
@@ -253,10 +261,8 @@ def coeffelem_P1_poids(vertices_A, alpha_val):
     x1, y1 = vertices_A[0]
     x2, y2 = vertices_A[1]
 
-    # Longueur de l'arete
     length = edge_length(x1, y1, x2, y2)
 
-    # Matrice de poids
     coef = length * alpha_val / 6.0
     p_a = coef * np.array([[2.0, 1.0],
                            [1.0, 2.0]])
@@ -282,17 +288,13 @@ def coeffelem_P1_transf(vertices_A, alpha_val, uE_func):
     x1, y1 = vertices_A[0]
     x2, y2 = vertices_A[1]
 
-    # Longueur de l'arete
     length = edge_length(x1, y1, x2, y2)
 
-    # Point milieu
     xM = (x1 + x2) / 2.0
     yM = (y1 + y2) / 2.0
 
-    # Evaluation de uE au point milieu
     uE_val = uE_func(xM, yM)
 
-    # Formule de quadrature
     e_a = (length / 2.0) * alpha_val * uE_val * np.ones(2)
 
     return e_a
@@ -332,7 +334,7 @@ def assemblage_EF_P1(vertices, triangles, edges, boundary_edges, kappa_func, f_f
     # ========================================================================
     # ETAPE 1 : MISE A ZEROS (Algorithme 1)
     # ========================================================================
-    A_lil = sp.lil_matrix((nv, nv))  # Format LIL pour assemblage
+    A_lil = sp.lil_matrix((nv, nv))
     F = np.zeros(nv)
 
     # ========================================================================
@@ -341,22 +343,20 @@ def assemblage_EF_P1(vertices, triangles, edges, boundary_edges, kappa_func, f_f
     print(f"  Assemblage volumique ({nt} triangles)...")
 
     for l in range(nt):
-        # Indices globaux des 3 sommets du triangle T_l
+
         I1, I2, I3 = triangles[l]
 
-        # Coordonnees des 3 sommets
+
         vertices_T = vertices[[I1, I2, I3]]
 
-        # Barycentre pour evaluation de κ
+
         xG = np.mean(vertices_T[:, 0])
         yG = np.mean(vertices_T[:, 1])
         kappa_val = kappa_func(xG, yG)
 
-        # Calcul des coefficients elementaires
         k_l = coeffelem_P1_rigid(vertices_T, kappa_val)
         f_l = coeffelem_P1_source(vertices_T, f_func)
 
-        # Assemblage (addition dans la matrice globale)
         for i in range(3):
             for j in range(3):
                 I_global = [I1, I2, I3][i]
@@ -366,30 +366,28 @@ def assemblage_EF_P1(vertices, triangles, edges, boundary_edges, kappa_func, f_f
             I_global = [I1, I2, I3][i]
             F[I_global] += f_l[i]
 
-    # Conservation de la matrice de rigidite K (pour calcul erreur)
+
     K = A_lil.tocsr()
 
     # ========================================================================
-    # ETAPE 3 : ADDITION DES TERMES DE BORD FOURIER/ROBIN (Algorithme 3)
+    # ETAPE 3 : ADDITION DES TERMES DE BORD FOURIER/ROBIN
     # ========================================================================
     n_dirichlet_edges = sum(1 for _, _, label in edges if label in boundary_edges)
     print(f"  Assemblage bord ({n_dirichlet_edges} aretes Dirichlet)...")
 
     for i1, i2, label in edges:
         if label in boundary_edges:
-            # Coordonnees des 2 sommets de l'arete
+
             vertices_A = vertices[[i1, i2]]
 
-            # Point milieu pour evaluation de α
+
             xM = np.mean(vertices_A[:, 0])
             yM = np.mean(vertices_A[:, 1])
             alpha_val = alpha_func(xM, yM)
 
-            # Calcul des coefficients d'arete
             p_a = coeffelem_P1_poids(vertices_A, alpha_val)
             e_a = coeffelem_P1_transf(vertices_A, alpha_val, uE_func)
 
-            # Assemblage
             for i in range(2):
                 for j in range(2):
                     I_global = [i1, i2][i]
@@ -399,7 +397,6 @@ def assemblage_EF_P1(vertices, triangles, edges, boundary_edges, kappa_func, f_f
                 I_global = [i1, i2][i]
                 F[I_global] += e_a[i]
 
-    # Conversion en format CSR (efficace pour resolution)
     A = A_lil.tocsr()
 
     return A, F, K
@@ -426,33 +423,29 @@ def read_freefem_mesh(filename):
         dict avec 'vertices', 'triangles', 'edges', 'dirichlet_labels'
     """
     with open(filename, 'r') as f:
-        # Ligne 1 : nv nt nbe
         first_line = f.readline().strip().split()
         nv = int(first_line[0])
         nt = int(first_line[1])
         nbe = int(first_line[2])
 
-        # Lecture des sommets
         vertices = np.zeros((nv, 2))
         for i in range(nv):
             line = f.readline().strip().split()
             vertices[i] = [float(line[0]), float(line[1])]
 
-        # Lecture des triangles (indices 1-based → 0-based)
+
         triangles = np.zeros((nt, 3), dtype=int)
         for i in range(nt):
             line = f.readline().strip().split()
             triangles[i] = [int(line[0])-1, int(line[1])-1, int(line[2])-1]
 
-        # Lecture des aretes de bord
+
         edges = []
         for i in range(nbe):
             line = f.readline().strip().split()
             i1, i2, label = int(line[0])-1, int(line[1])-1, int(line[2])
             edges.append((i1, i2, label))
 
-    # Labels de bord Dirichlet (x=0 et x=4) → label 1
-    # Label 2 correspond aux bords Neumann (y=0 et y=2)
     dirichlet_labels = {1}
 
     return {
@@ -608,7 +601,6 @@ def main(mesh_file, verbose=True):
     if verbose:
         print("\n[5/5] Caracteristiques du maillage...")
 
-    # Calcul de h (pas max) et Q (qualite max)
     h_max = 0.0
     Q_max = 0.0
 
@@ -617,14 +609,12 @@ def main(mesh_file, verbose=True):
         x2, y2 = vertices[tri[1]]
         x3, y3 = vertices[tri[2]]
 
-        # Pas h_T = max longueur aretes
         d12 = edge_length(x1, y1, x2, y2)
         d23 = edge_length(x2, y2, x3, y3)
         d31 = edge_length(x3, y3, x1, y1)
         h_T = max(d12, d23, d31)
         h_max = max(h_max, h_T)
 
-        # Qualite Q_T = (sqrt(3)/6) * h_T / r_T
         area = triangle_area(x1, y1, x2, y2, x3, y3)
         perim = d12 + d23 + d31
         r_T = 2.0 * area / perim

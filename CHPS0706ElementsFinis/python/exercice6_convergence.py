@@ -1,15 +1,33 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-EXERCICE 6 : Analyse de convergence numerique
-==============================================
-Calcul des erreurs e_h et des ordres de convergence p sur les 4 maillages
+═══════════════════════════════════════════════════════════════════════════
+EXERCICE 6 : Analyse de Convergence Numérique
+═══════════════════════════════════════════════════════════════════════════
 
-Recalcule les colonnes "e_h" et "ordre p" dans un nouveau tableau issu
-du programme validation_pen.py ecrit en Python.
+FICHIER PRINCIPAL DU LIVRABLE EXERCICE 6
 
-Usage:
+Ce script analyse la convergence du solveur EF-P1 (validation_pen.py) en
+calculant les erreurs e_h et les ordres de convergence p sur 4 maillages
+progressivement raffinés.
+
+Méthode :
+    - Résolution sur m1.msh, m2.msh, m3.msh, m4.msh (h_{i+1} = h_i / 2)
+    - Calcul de l'erreur en norme énergie : e_h = sqrt((U - U^h)^T K (U - U^h))
+    - Calcul de l'ordre : p = ln(e_i / e_{i+1}) / ln(h_i / h_{i+1})
+    - Génération du tableau de convergence et graphique log-log
+
+Résultat attendu : p ≈ 2 (super-convergence en norme énergie sur maillages
+structurés, phénomène connu pour les éléments finis P1)
+
+Usage :
     python exercice6_convergence.py
+
+Sorties :
+    - results/exercice6_table.txt : Tableau de convergence avec ordre p
+    - results/exercice6_plot.png  : Graphique log-log de convergence
+
+Auteur: CHPS0706 Éléments Finis - M1
 """
 
 import numpy as np
@@ -17,7 +35,6 @@ import matplotlib.pyplot as plt
 import sys
 import os
 
-# Ajout du chemin pour importer validation_pen
 sys.path.insert(0, os.path.dirname(__file__))
 
 from validation_pen import main as solve_fem
@@ -47,7 +64,6 @@ def analyze_convergence(mesh_files):
             print(f"   ERREUR: Maillage {mesh_file} non trouve!")
             continue
 
-        # Resolution EF-P1
         result = solve_fem(mesh_file, verbose=False)
 
         results.append({
@@ -82,7 +98,6 @@ def compute_convergence_orders(results):
         h1 = results[i]['h']
         h2 = results[i+1]['h']
 
-        # Ordre de convergence
         p = np.log(e_h / e_h2) / np.log(h1 / h2)
         orders.append(p)
 
@@ -107,12 +122,10 @@ def generate_convergence_table(results, orders, output_file=None):
     table.append("="*100)
     table.append("")
 
-    # En-tete
     header = f"{'Maillage':<15} {'N sommets':<12} {'Q':<20} {'h':<20} {'e_h (energie)':<20} {'Ordre p':<15}"
     table.append(header)
     table.append("-"*100)
 
-    # Lignes de donnees
     for i, res in enumerate(results):
         mesh_name = os.path.basename(res['mesh'])
         nv = res['nv']
@@ -131,19 +144,16 @@ def generate_convergence_table(results, orders, output_file=None):
     table.append("-"*100)
     table.append("")
 
-    # Ordres de convergence
     table.append("Ordres de convergence (10 decimales) :")
     table.append("-"*50)
     for i, p in enumerate(orders):
         table.append(f"ln(e{i+1}/e{i+2})/ln(h{i+1}/h{i+2}) = {p:.10f}")
 
-    # Ordre moyen
     if orders:
         p_mean = np.mean(orders)
         table.append("")
         table.append(f"Ordre moyen : p ~ {p_mean:.4f}")
 
-        # Commentaire
         table.append("")
         table.append("NOTE IMPORTANTE :")
         table.append("  L'erreur calculee est la NORME ENERGIE : e_h = sqrt((U - U^h)^T K (U - U^h))")
@@ -163,7 +173,6 @@ def generate_convergence_table(results, orders, output_file=None):
 
     table_str = "\n".join(table)
 
-    # Sauvegarde dans fichier
     if output_file:
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
         with open(output_file, 'w', encoding='utf-8') as f:
@@ -182,18 +191,15 @@ def plot_convergence(results, orders, output_file=None):
         orders: Liste des ordres de convergence
         output_file: Fichier de sortie (optionnel)
     """
-    # Extraction des donnees
+
     h_values = np.array([res['h'] for res in results])
     error_values = np.array([res['error_H1'] for res in results])
 
-    # Creation du graphique
     plt.figure(figsize=(10, 7))
 
-    # Points de convergence
     plt.loglog(h_values, error_values, 'o-', linewidth=2, markersize=10,
                label='Erreur mesuree $e_h$', color='blue')
 
-    # Droite theorique O(h)
     h_ref = h_values[0]
     e_ref = error_values[0]
     h_theory = np.array([h_ref, h_values[-1]])
@@ -201,19 +207,16 @@ def plot_convergence(results, orders, output_file=None):
     plt.loglog(h_theory, e_theory_h1, '--', linewidth=2,
                label='Theorie O(h) - P1', color='red', alpha=0.7)
 
-    # Droite theorique O(h²)
     e_theory_h2 = e_ref * (h_theory / h_ref)**2.0
     plt.loglog(h_theory, e_theory_h2, ':', linewidth=2,
                label='Super-convergence O(h²)', color='green', alpha=0.7)
 
-    # Labels et titre
     plt.xlabel('Pas de maillage h', fontsize=12)
     plt.ylabel('Erreur en norme energie $\\|u_h - r_h(u)\\|_K$', fontsize=12)
     plt.title('Convergence numerique - Exercice 6 (Python validation_pen.py)', fontsize=14, fontweight='bold')
     plt.grid(True, which='both', alpha=0.3)
     plt.legend(fontsize=11)
 
-    # Annotation de l'ordre moyen
     if orders:
         p_mean = np.mean(orders)
         plt.text(0.05, 0.95, f'Ordre moyen: p $\\approx$ {p_mean:.2f}',
@@ -223,7 +226,6 @@ def plot_convergence(results, orders, output_file=None):
 
     plt.tight_layout()
 
-    # Sauvegarde
     if output_file:
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
         plt.savefig(output_file, dpi=150, bbox_inches='tight')
@@ -235,7 +237,6 @@ def plot_convergence(results, orders, output_file=None):
 def main():
     """Fonction principale"""
 
-    # Liste des maillages
     mesh_files = [
         'meshes/m1.msh',
         'meshes/m2.msh',
@@ -243,14 +244,14 @@ def main():
         'meshes/m4.msh'
     ]
 
-    # Analyse de convergence
+
     results = analyze_convergence(mesh_files)
 
     if not results:
         print("\nERREUR: Aucun resultat obtenu!")
         return 1
 
-    # Calcul des ordres de convergence
+
     print("\n" + "="*80)
     print("CALCUL DES ORDRES DE CONVERGENCE")
     print("="*80)
@@ -264,7 +265,7 @@ def main():
         p_mean = np.mean(orders)
         print(f"\n  Ordre moyen : p ~ {p_mean:.4f}")
 
-    # Generation du tableau
+
     print("\n" + "="*80)
     print("GENERATION DU TABLEAU")
     print("="*80)
@@ -273,7 +274,6 @@ def main():
     table_str = generate_convergence_table(results, orders, output_table)
     print("\n" + table_str)
 
-    # Generation du graphique
     print("\n" + "="*80)
     print("GENERATION DU GRAPHIQUE")
     print("="*80)
@@ -281,7 +281,7 @@ def main():
     output_plot = 'results/exercice6_plot.png'
     plot_convergence(results, orders, output_plot)
 
-    # Resume final
+
     print("\n" + "="*80)
     print("EXERCICE 6 TERMINE")
     print("="*80)
