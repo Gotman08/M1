@@ -45,17 +45,20 @@ def test_element_triangle():
 
     print(f"* element triangle: xl = {list(xl)} (abscisses), yl = {list(yl)} (ordonnees)")
 
+
     kappa_val = fct_kappa(0.5, 0.5)
     k_l = coeffelem_P1_rigid(vertices_T, kappa_val)
 
     print("kl =")
     print(k_l)
 
+
     area = triangle_area(xl[0], yl[0], xl[1], yl[1], xl[2], yl[2])
     m_l = (area / 3.0) * np.eye(3)
 
     print("ml =")
     print(m_l)
+
 
     f_l = coeffelem_P1_source(vertices_T, fct_f)
 
@@ -81,11 +84,13 @@ def test_element_arete():
 
     print(f"* element arete: xa = {list(xa)} (abscisses), ya = {list(ya)} (ordonnees)")
 
+
     alpha_val = fct_alpha(0.0, 0.5)
     p_a = coeffelem_P1_poids(vertices_A, alpha_val)
 
     print("pa =")
     print(p_a)
+
 
     e_a = coeffelem_P1_transf(vertices_A, alpha_val, fct_uE)
 
@@ -108,6 +113,7 @@ def test_mini_maillage(mesh_file="meshes/m00.msh"):
         print("Veuillez creer le maillage m00.msh avec FreeFem++")
         return None
 
+
     mesh = read_freefem_mesh(mesh_file)
     vertices = mesh['vertices']
     triangles = mesh['triangles']
@@ -123,13 +129,16 @@ def test_mini_maillage(mesh_file="meshes/m00.msh"):
     print(f"nbe = {nbe}")
     print(f"nba = {nba}")
 
+
     A, F, K = assemblage_EF_P1(
         vertices, triangles, edges, dirichlet_labels,
         fct_kappa, fct_f, fct_alpha, fct_uE
     )
 
+
     print("A =")
     print(A.toarray())
+
 
     A_dense = A.toarray()
     symmetry_error = np.linalg.norm(A_dense - A_dense.T, ord='fro')
@@ -139,20 +148,24 @@ def test_mini_maillage(mesh_file="meshes/m00.msh"):
     else:
         print(f"  [WARN] Erreur de symetrie detectee: {symmetry_error}")
 
+
     print("\nF =")
     print(F)
+
 
     Uh = solve_fem_system(A, F)
 
     print("Uh=")
     print(Uh)
 
+    # Resultats
     print("\n___---===*** RESULTATS: ***===---___")
     print("-"*40)
     print(f"{{ min(Uh) : {Uh.min():.2f}")
     print(f"{{ max(Uh) : {Uh.max():.2f}")
     print(f"{{ mean(Uh) : {Uh.mean():.2f}")
 
+    # Calcul de h et Q
     h_max = 0.0
     Q_max = 0.0
     for tri in triangles:
@@ -175,12 +188,15 @@ def test_mini_maillage(mesh_file="meshes/m00.msh"):
     print(f"{{ h : {h_max:.3f}")
     print(f"{{ Q : {Q_max:.3f}")
 
+
     error_H1 = compute_H1_error(Uh, vertices, triangles, K, fct_u, grad_u_exact)
     print(f"{{erreur |uh-rh(u)|_H1: {error_H1}")
+
 
     U_exact = np.array([fct_u(x, y) for x, y in vertices])
     error_Linf = np.abs(Uh - U_exact).max()
     print(f"{{erreur |Uh-U|_inf : {error_Linf}")
+
 
     boundary_nodes = set()
     for edge, label in zip(edges, dirichlet_labels):
@@ -221,7 +237,9 @@ def main():
 
     test_element_triangle()
 
+
     test_element_arete()
+
 
     results = test_mini_maillage()
 

@@ -92,28 +92,11 @@ def create_pdf_doc(output_file='results/DOCUMENTATION_EXERCICES_5_6.pdf'):
     # ========================================================================
     # PAGE DE GARDE
     # ========================================================================
-    story.append(Spacer(1, 3*cm))
+    story.append(Spacer(1, 6*cm))
 
-    story.append(Paragraph("ÉLÉMENTS FINIS P1 EN 2D", title_style))
-    story.append(Spacer(1, 0.5*cm))
-    story.append(Paragraph("Exercices 5 & 6", heading1_style))
-    story.append(Spacer(1, 1*cm))
-
-    story.append(Paragraph("Solveur Python avec Pénalisation", heading2_style))
-    story.append(Spacer(1, 0.5*cm))
-
-    info_text = """
-    <para alignment="center">
-    Problème de Poisson avec conditions mixtes<br/>
-    Domaine: Ω = ]0,4[ × ]0,2[<br/>
-    Solution: u(x,y) = 1 + sin(π·x/2) + x(x-4)cos(π·y/2)<br/>
-    </para>
-    """
-    story.append(Paragraph(info_text, normal_style))
-
+    story.append(Paragraph("TP2", title_style))
     story.append(Spacer(1, 2*cm))
-    story.append(Paragraph("<para alignment='center'><i>Documentation technique et résultats de convergence</i></para>",
-                          normal_style))
+    story.append(Paragraph("Nicolas MARANO", heading1_style))
 
     story.append(PageBreak())
 
